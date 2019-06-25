@@ -21,3 +21,7 @@ class ImageUtil:
     @staticmethod
     def cv2_to_pil(img):
         return Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+
+    @staticmethod
+    def np_array_to_pil(np_array):
+        return Image.fromarray(np_array)

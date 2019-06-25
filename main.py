@@ -8,7 +8,6 @@ from Training.image_classifier import ImageClassifier
 def run_win_manager():
     winManager = WindowManager()
     winManager.main()
-    #DataProcessor.extract_all_money_digit()
 
 
 def run_training_money_classifier():
@@ -17,5 +16,5 @@ def run_training_money_classifier():
 
 
 if __name__ == '__main__':
-    run_training_money_classifier()
+    run_win_manager()
 

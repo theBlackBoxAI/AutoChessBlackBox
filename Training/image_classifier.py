@@ -7,9 +7,11 @@ from Util.imge_util import ImageUtil
 
 from keras.preprocessing.image import load_img
 from keras.utils import to_categorical
+from keras.models import load_model
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
+
 
 class ImageClassifier:
     def __init__(self):
@@ -43,10 +45,16 @@ class ImageClassifier:
         self.shuffle_training_data()
         self.data_reshape()
         self.define_model()
-        self.train()
-        self.evaluate()
+        #self.train()
+        #self.evaluate()
+        # self.model.save(model_name)
+        self.load_model(model_name)
 
-        self.model.save(model_name)
+        print(self.model.predict_classes(np.array([self.x_train[0]])))
+        ImageUtil.np_array_to_pil(self.x_train[0]).show()
+
+    def load_model(self, model_name):
+        self.model = load_model(model_name)
 
     def load_subdir_as_label(self, folder):
         """
@@ -89,10 +97,10 @@ class ImageClassifier:
 
         :return:
         """
-        images_and_labels = list(zip(self.images, self.images_label))
+        images_and_labels = list(zip(self.np_images, self.images_label))
         random.shuffle(images_and_labels)
 
-        training_size = math.floor(len(self.images) * 0.9)
+        training_size = math.floor(len(self.np_images) * 0.9)
         self.x_train, self.y_train = zip(*images_and_labels)
         self.x_test, self.y_test = zip(*images_and_labels[training_size:])
 
@@ -112,22 +120,12 @@ class ImageClassifier:
 
         :return:
         """
-        image = self.images[0]
-        print(image.size)
-        np_image = np.array(image)
-        print(np_image.shape)
         np_images = []
         for image in self.images:
             np_image = np.array(image)
             np_images.append(np_image)
 
-        self.images = np_images
-
-        new_labels = []
-        for label in self.images_label:
-            new_labels.append(str(label))
-
-        self.images_label = new_labels
+        self.np_images = np_images
 
     def data_reshape(self):
         """

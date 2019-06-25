@@ -3,14 +3,20 @@ import time
 import pytesseract
 import cv2
 import imutils
+import numpy as np
 from Util.imge_util import ImageUtil
 from Training.data_processor import DataProcessor
+from keras.models import load_model
 
 from PIL import Image
 from desktopmagic.screengrab_win32 import getRectAsImage
 
 
 class WindowManager:
+    def __init__(self):
+        pytesseract.pytesseract.tesseract_cmd = r"D:\Program Files\Tesseract-OCR\tesseract.exe"
+        self.money_model = load_model('./Model/money_digit_v1.h5')
+
     @staticmethod
     def grab_screenshot(windows_name):
         """
@@ -45,14 +51,17 @@ class WindowManager:
                 pytesseract.image_to_string(screenshot.crop((1440, 670, 1730, 725)), lang='chi_sim'),
                 pytesseract.image_to_string(screenshot.crop((1740, 670, 2050, 725)), lang='chi_sim')]
 
-    @staticmethod
-    def grab_money(screenshot):
+    def grab_money(self, screenshot):
         images = DataProcessor.extract_money_digit(screenshot)
+        money = 0
+        # v1 model has shape (22, 41)
         for image in images:
-            image.show()
+            image = image.resize((22, 41))
+            np_image = np.array(image)
+            prediction = self.money_model.predict_classes(np.array([np_image]))[0]
+            money = money * 10 + int(prediction)
 
-
-
+        print("Current money: " + str(money))
 
     @staticmethod
     def grab_turn(screenshot):
@@ -75,14 +84,14 @@ class WindowManager:
             print(file_name)
             time.sleep(10)
 
-    @staticmethod
-    def main():
-        pytesseract.pytesseract.tesseract_cmd = r"D:\Program Files\Tesseract-OCR\tesseract.exe"
-        src_image = Image.open('D:/AutoChess/Data/Screenshots/Sample181.jpg')
+    def main(self):
+        src_image = Image.open('D:/AutoChess/Data/Screenshots/Sample132.jpg')
         #src_image = Image.open('D:/AutoChess/Sample1.jpg')
         #src_image = WindowManager.grab_screenshot("BlueStacks")
         #WindowManager.save_img(src_image, 'D:/AutoChess/Sample3.jpg')
         #print(WindowManager.grab_heroes_pool(src_image))
         #src_image.show()
         #src_image.crop((204, 50, 249, 86)).show()
-        WindowManager.grab_money(src_image)
+        window_manager = WindowManager()
+        src_image.show()
+        window_manager.grab_money(src_image)
