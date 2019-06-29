@@ -1,37 +1,172 @@
-Name, Level, Quality, Price, HP, ATK, Armor, ATK Speed, Magic Resistant, ATK Range,
-赤斧酋长, 1, Common, 1, 700, 52, 5, 1.5, 0, 1
-赤斧酋长, 2, Common, 3, 1400,105, 5, 1.5, 0, 1
-赤斧酋长, 3, Common, 5, 2800,210, 5, 1.5, 0, 1
-海象拳王, 1, Common, 1, 650, 52, 5, 1.2, 0, 1
-海象拳王, 2, Common, 3, 1300, 105, 5, 1.2, 0, 1
-海象拳王, 3, Common, 5, 2600, 210, 5, 1.2, 0, 1
-独角兽, 1, Common, 1, 400, 55, 5, 1.5, 0, 3
-独角兽, 2, Common, 1, 800, 110, 5, 1.5, 0, 3
-独角兽, 3, Common, 1, 1500, 220, 5, 1.5, 0, 3
-冰霜骑士, 1, Common, 1, 500, 47, 5, 1.3, 0, 3
-冰霜骑士, 2, Common, 2, 1000, 95, 5, 1.3, 0, 3
-冰霜骑士, 3, Common, 3, 2000, 190, 5, 1.3, 0, 3
-背叛者, 1, Common, 1, 550, 45, 5, 1.5, 0, 3
-背叛者, 2, Common, 3, 1100, 90, 5, 1.5, 0, 3
-背叛者, 3, Common, 5, 2200, 180, 5, 1.5, 0, 3
-不眠游侠, 1, Common, 1, 400, 47, 5, 1.3, 0, 4
-不眠游侠, 2, Common, 3, 800, 95, 5, 1.3, 0, 4
-不眠游侠, 3, Common, 5, 1600, 190, 5, 1.3, 0, 4
-刺魂者, 1, Common, 1, 550, 60, 5, 1.0, 0, 1
-刺魂者, 2, Common, 3, 1100, 120, 5, 1.0, 0, 1
-刺魂者, 3, Common, 5, 2200, 240, 5, 1.0, 0, 1
-霸天者, 1, Common, 1, 700, 50, 5, 1.4, 0, 1
-霸天者, 2, Common, 3, 1400, 100, 7, 1.4, 0, 1
-霸天者, 3, Common, 5, 2800, 200, 9, 1.4, 0, 1
-轰天者, 1, Common, 1, 500, 45, 5, 1.5, 0, 4
-轰天者, 2, Common, 3, 1000, 90, 5, 1.5, 0, 4
-轰天者, 3, Common, 5, 2000, 180, 5, 1.5, 0, 4
-禁忌猎魔人, 1, Common, 1, 500, 50, 5, 1.2, 0.1, 1
-禁忌猎魔人, 2, Common, 3, 1000, 100, 5, 1.2, 0.2, 1
-禁忌猎魔人, 3, Common, 5, 2000, 200, 5, 1.2, 0.3, 1
-食人魔法师, 1, Common, 1, 700, 60, 5, 1.4, 0, 1
-食人魔法师, 2, Common, 3, 1400, 120, 5, 1.4, 0, 1
-食人魔法师, 3, Common, 5, 2800, 240, 5, 1.4, 0, 1
-岩之灵, 1, Common, 1, 650, 80, 5, 1.9, 0, 1
-岩之灵, 2, Common, 3, 1300, 160, 5, 1.9, 0, 1
-岩之灵, 3, Common, 5, 2600, 320, 5, 1.9, 0, 1
+Name, Level, Quality, HP, ATK, Armor, ATK Speed, Magic Resistant, ATK Range, Race, Second Race, Class
+赤斧酋长, 1, Common, 700, 52, 5, 1.5, 0, 1, Cave Clan, ,Warrior
+赤斧酋长, 2, Common, 1400,105, 5, 1.5, 0, 1, Cave Clan, ,Warrior
+赤斧酋长, 3, Common, 2800,210, 5, 1.5, 0, 1, Cave Clan, ,Warrior
+海象拳王, 1, Common, 650, 52, 5, 1.2, 0, 1, Beast, ,Warrior
+海象拳王, 2, Common, 1300, 105, 5, 1.2, 0, 1, Beast, ,Warrior
+海象拳王, 3, Common, 2600, 210, 5, 1.2, 0, 1, Beast, ,Warrior
+独角兽, 1, Common, 400, 55, 5, 1.5, 0, 3, Beast, ,Druid
+独角兽, 2, Common, 800, 110, 5, 1.5, 0, 3, Beast, ,Druid
+独角兽, 3, Common, 1500, 220, 5, 1.5, 0, 3, Beast, ,Druid
+冰霜骑士, 1, Common, 500, 47, 5, 1.3, 0, 3, Glacier, , Knight
+冰霜骑士, 2, Common, 1000, 95, 5, 1.3, 0, 3, Glacier, , Knight
+冰霜骑士, 3, Common, 2000, 190, 5, 1.3, 0, 3, Glacier, , Knight
+背叛者, 1, Common, 550, 45, 5, 1.5, 0, 3, Glacier, , Shaman
+背叛者, 2, Common, 1100, 90, 5, 1.5, 0, 3, Glacier, , Shaman
+背叛者, 3, Common, 2200, 180, 5, 1.5, 0, 3, Glacier, , Shaman
+不眠游侠, 1, Common, 400, 47, 5, 1.3, 0, 4, Egersis, , Hunter
+不眠游侠, 2, Common, 800, 95, 5, 1.3, 0, 4, Egersis, , Hunter
+不眠游侠, 3, Common, 1600, 190, 5, 1.3, 0, 4, Egersis, , Hunter
+刺魂者, 1, Common, 550, 60, 5, 1.0, 0, 1, Goblin, , Assassin
+刺魂者, 2, Common, 1100, 120, 5, 1.0, 0, 1, Goblin, , Assassin
+刺魂者, 3, Common, 2200, 240, 5, 1.0, 0, 1, Goblin, , Assassin
+霸天者, 1, Common, 700, 50, 5, 1.4, 0, 1, Goblin, , Mech
+霸天者, 2, Common, 1400, 100, 7, 1.4, 0, 1, Goblin, , Mech
+霸天者, 3, Common, 2800, 200, 9, 1.4, 0, 1, Goblin, , Mech
+轰天者, 1, Common, 500, 45, 5, 1.5, 0, 4, Goblin, , Mech
+轰天者, 2, Common, 1000, 90, 5, 1.5, 0, 4, Goblin, , Mech
+轰天者, 3, Common, 2000, 180, 5, 1.5, 0, 4, Goblin, , Mech
+禁忌猎魔人, 1, Common, 500, 50, 5, 1.2, 0.1, 1, Feathered, , Witcher
+禁忌猎魔人, 2, Common, 1000, 100, 5, 1.2, 0.2, 1, Feathered, , Witcher
+禁忌猎魔人, 3, Common, 2000, 200, 5, 1.2, 0.3, 1, Feathered, , Witcher
+食人魔法师, 1, Common, 700, 60, 5, 1.4, 0, 1, Kira, , Mage
+食人魔法师, 2, Common, 1400, 120, 5, 1.4, 0, 1, Kira, , Mage
+食人魔法师, 3, Common, 2800, 240, 5, 1.4, 0, 1, Kira, , Mage
+岩之灵, 1, Common, 650, 80, 5, 1.9, 0, 1, Spirits, , Warrior
+岩之灵, 2, Common, 1300, 160, 5, 1.9, 0, 1, Spirits, , Warrior
+岩之灵, 3, Common, 2600, 320, 5, 1.9, 0, 1, Spirits, , Warrior
+战神, 1, Common, 650, 0, 5, 1.4, 0, 1, Divinity, , Warrior
+战神, 2, Common, 1300, 0, 7, 1.4, 0, 1, Divinity, , Warrior
+战神, 3, Common, 2600, 0, 9, 1.4, 0, 1, Divinity, , Warrior
+剑客, 1, Uncommon, 600, 67, 5, 1.1, 0, 1, Cave Clan, , Warrior
+剑客, 2, Uncommon, 1200, 135, 5, 1.1, 0, 1, Cave Clan, , Warrior
+剑客, 3, Uncommon, 2400, 270, 5, 1.1, 0, 1, Cave Clan, , Warrior
+独眼猎手, 1, Uncommon, 650, 65, 5, 1.3, 0, 1, Cava Clan, , Hunter
+独眼猎手, 2, Uncommon, 1300, 130, 5, 1.3, 0, 1, Cava Clan, , Hunter
+独眼猎手, 3, Uncommon, 2600, 260, 5, 1.3, 0, 1, Cava Clan, , Hunter
+绝命巫医, 1, Uncommon, 550, 45, 5, 1.4, 0, 3, Glacier, , Warlock
+绝命巫医, 2, Uncommon, 1100, 90, 5, 1.4, 0, 3, Glacier, , Warlock
+绝命巫医, 3, Uncommon, 2200, 180, 5, 1.4, 0, 3, Glacier, , Warlock
+海渊守卫, 1, Uncommon, 650, 85, 5, 1.2, 0, 1, Marine, , Warrior
+海渊守卫, 2, Uncommon, 1300, 170, 5, 1.2, 0, 1, Marine, , Warrior
+海渊守卫, 3, Uncommon, 2600, 340, 5, 1.2, 0, 1, Marine, , Warrior
+海渊夜行者, 1, Uncommon, 500, 55, 5, 1.0, 0, 1, Marine, , Assassin
+海渊夜行者, 2, Uncommon, 1000, 110, 5, 1.0, 0, 1, Marine, , Assassin
+海渊夜行者, 3, Uncommon, 2000, 220, 5, 1.0, 0, 1, Marine, , Assassin
+魔力之源, 1, Uncommon, 450, 42, 5, 1.7, 0, 4, Human, , Mage
+魔力之源, 2, Uncommon, 900, 85, 5, 1.7, 0, 4, Human, , Mage
+魔力之源, 3, Uncommon, 1800, 170, 5, 1.7, 0, 4, Human, , Mage
+光麟龙, 1, Uncommon, 450, 45, 5, 1.7, 0, 3, Dragon, Feathered, Mage
+光麟龙, 2, Uncommon, 900, 90, 5, 1.7, 0, 3, Dragon, Feathered, Mage
+光麟龙, 3, Uncommon, 1800, 180, 5, 1.7, 0, 3, Dragon, Feathered, Mage
+撕裂者, 1, Uncommon, 800, 57, 5, 1.4, 0, 1, Goblin, , Mech
+撕裂者, 2, Uncommon, 1600, 115, 7, 1.4, 0, 1, Goblin, , Mech
+撕裂者, 3, Uncommon, 3200, 230, 9, 1.4, 0, 1, Goblin, , Mech
+炼狱骑士, 1, Uncommon, 700, 75, 5, 1.2, 0, 1, Demon, , Knight
+炼狱骑士, 2, Uncommon, 1400, 150, 5, 1.2, 0, 1, Demon, , Knight
+炼狱骑士, 3, Uncommon, 2800, 300, 5, 1.2, 0, 1, Demon, , Knight
+魅影女王, 1, Uncommon, 550, 57, 0, 1.2, 0, 3, Demon, , Assassin
+魅影女王, 2, Uncommon, 1100, 115, 0, 1.2, 0, 3, Demon, , Assassin
+魅影女王, 3, Uncommon, 2200, 230, 0, 1.2, 0, 3, Demon, , Assassin
+灵刃骑士, 1, Uncommon, 500, 55, 5, 1.3, 0, 3, Feathered, , Knight
+灵刃骑士, 2, Uncommon, 1000, 110, 5, 1.3, 0, 3, Feathered, , Knight
+灵刃骑士, 3, Uncommon, 2000, 220, 5, 1.3, 0, 3, Feathered, , Knight
+慧语先知, 1, Uncommon, 500, 47, 0, 1.4, 0, 3, Feathered, , Druid
+慧语先知, 2, Uncommon, 1000, 95, 0, 1.4, 0, 3, Feathered, , Druid
+慧语先知, 3, Uncommon, 1900, 190, 0, 1.4, 0, 3, Feathered, , Druid
+水之灵, 1, Uncommon, 550, 57, 5, 1.3, 0, 3, Spirits, , Assassin
+水之灵, 2, Uncommon, 1100, 115, 5, 1.3, 0, 3, Spirits, , Assassin
+水之灵, 3, Uncommon, 2200, 230, 5, 1.3, 0, 3, Spirits, , Assassin
+沙地之王, 1, Rare, 600, 52, 10, 1.4, 0, 1, Beast, , Assassin
+沙地之王, 2, Rare, 1200, 105, 10, 1.4, 0, 1, Beast, , Assassin
+沙地之王, 3, Rare, 2400, 210, 10, 1.4, 0, 1, Beast, , Assassin
+魔化毒虫, 1, Rare, 600, 55, 0, 1.2, 0.2, 3, Beast, , Warlock
+魔化毒虫, 2, Rare, 1200, 110, 0, 1.2, 0.2, 3, Beast, , Warlock
+魔化毒虫, 3, Rare, 2400, 220, 0, 1.2, 0.2, 3, Beast, , Warlock
+邪灵骑士, 1, Rare, 750, 50, 10, 1.3, 0, 1, Egersis, , Knight
+邪灵骑士, 2, Rare, 1500, 100, 10, 1.3, 0, 1, Egersis, , Knight
+邪灵骑士, 3, Rare, 3000, 200, 10, 1.3, 0, 1, Egersis, , Knight
+狼人, 1, Rare, 750, 55, 5, 1.1, 0, 1, Human, Beast, Warrior
+狼人, 2, Rare, 1500, 110, 5, 1.1, 0, 1, Human, Beast, Warrior
+狼人, 3, Rare, 3000, 220, 5, 1.1, 0, 1, Human, Beast, Warrior
+盘羊骑士, 1, Rare, 700, 55, 10, 1.4, 0, 1, Human, , Knight
+盘羊骑士, 2, Rare, 1400, 110, 10, 1.4, 0, 1, Human, , Knight
+盘羊骑士, 3, Rare, 2800, 220, 10, 1.4, 0, 1, Human, , Knight
+焰灵法师, 1, Rare, 600, 52, 5, 1.3, 0, 4, Human, , Mage
+焰灵法师, 2, Rare, 1200, 105, 5, 1.3, 0, 4, Human, , Mage
+焰灵法师, 3, Rare, 2400, 210, 5, 1.3, 0, 4, Human, , Mage
+毒液, 1, Rare, 550, 55, 5, 1.0, 0.2, 3, Dragon, , Assassin
+毒液, 2, Rare, 1100, 110, 5, 1.0, 0.2, 3, Dragon, , Assassin
+毒液, 3, Rare, 2200, 220, 5, 1.0, 0.2, 3, Dragon, , Assassin
+矮人火枪手, 1, Rare, 450, 75, 5, 1.1, 0, 4, Dwarf, , Hunter
+矮人火枪手, 2, Rare, 900, 150, 5, 1.1, 0, 4, Dwarf, , Hunter
+矮人火枪手, 3, Rare, 1800, 300, 5, 1.1, 0, 4, Dwarf, , Hunter
+暗影魔王, 1, Rare, 450, 80, 5, 1.1, 0, 4, Demon, , Warlock
+暗影魔王, 2, Rare, 900, 160, 5, 1.1, 0, 4, Demon, , Warlock
+暗影魔王, 3, Rare, 1800, 320, 5, 1.1, 0, 4, Demon, , Warlock
+堕落猎魔人, 1, Rare, 700, 60, 5, 1.4, 0.1, 1, Demon, , Witcher
+堕落猎魔人, 2, Rare, 1400, 120, 5, 1.4, 0.2, 1, Demon, , Witcher
+堕落猎魔人, 3, Rare, 2800, 240, 5, 1.4, 0.3, 1, Demon, , Witcher
+逐风游侠, 1, Rare, 550, 60, 5, 0.9, 0, 4, Feathered, , Hunter
+逐风游侠, 2, Rare, 1100, 120, 5, 0.9, 0, 4, Feathered, , Hunter
+逐风游侠, 3, Rare, 2200, 240, 5, 0.9, 0, 4, Feathered, , Hunter
+幽影夜行者, 1, Rare, 550, 90, 5, 1.2, 0, 1, Feathered, , Assassin
+幽影夜行者, 2, Rare, 1100, 180, 5, 1.2, 0, 1, Feathered, , Assassin
+幽影夜行者, 3, Rare, 2200, 360, 5, 1.2, 0, 1, Feathered, , Assassin
+扭木贤者, 1, Rare, 650, 75, 5, 2.0, 0, 1, Feathered, , Druid
+扭木贤者, 2, Rare, 1300, 150, 5, 2.0, 0, 1, Feathered, , Druid
+扭木贤者, 3, Rare, 2300, 300, 5, 2.0, 0, 1, Feathered, , Druid
+雷之灵, 1, Rare, 750, 55, 5, 1.1, 0, 3, Spirits, , Mage
+雷之灵, 2, Rare, 1500, 110, 5, 1.1, 0, 3, Spirits, , Mage
+雷之灵, 3, Rare, 3000, 220, 5, 1.1, 0, 3, Spirits, , Mage
+风暴萨满, 1, Mythical, 750, 47, 5, 1.5, 0, 4, Cave Clan, , Shaman
+风暴萨满, 2, Mythical, 1500, 95, 5, 1.5, 0, 4, Cave Clan, , Shaman
+风暴萨满, 3, Mythical, 3000, 190, 5, 1.5, 0, 4, Cave Clan, , Shaman
+利爪, 1, Mythical, 800, 55, 0, 1.3, 0.2, 3, Beast, , Druid
+利爪, 2, Mythical, 1600, 110, 0, 1.3, 0.2, 3, Beast, , Druid
+利爪, 3, Mythical, 3000, 220, 0, 1.3, 0.2, 3, Beast, , Druid
+狂战士, 1, Mythical, 900, 100, 5, 1.1, 0, 3, Glacier, , Warrior
+狂战士, 2, Mythical, 1800, 200, 5, 1.1, 0, 3, Glacier, , Warrior
+狂战士, 3, Mythical, 3600, 400, 5, 1.1, 0, 3, Glacier, , Warrior
+灵魂收割者, 1, Mythical, 850, 55, 5, 1.2, 3, Egersis, , Warlock
+灵魂收割者, 2, Mythical, 1700, 110, 5, 1.2, 3, Egersis, , Warlock
+灵魂收割者, 3, Mythical, 3400, 220, 5, 1.2, 3, Egersis, , Warlock
+海妖, 1, Mythical, 750, 60, 5, 1.2, 0.1, 4, Marine, , Hunter
+海妖, 2, Mythical, 1500, 120, 5, 1.2, 0.1, 4, Marine, , Hunter
+海妖, 3, Mythical, 3000, 240, 5, 1.2, 0.1, 4, Marine, , Hunter
+海盗船长, 1, Mythical, 950, 82, 10, 1.3, 0, 1, Human, , Warrior
+海盗船长, 2, Mythical, 1900, 165, 10, 1.3, 0, 1, Human, , Warrior
+海盗船长, 3, Mythical, 3800, 330, 10, 1.3, 0, 1, Human, , Warrior
+龙骑士, 1, Mythical, 800, 55, 10, 1.2, 0, 1, Human, Dragon, Knight
+龙骑士, 2, Mythical, 1600, 110, 10, 1.2, 0, 1, Human, Dragon, Knight
+龙骑士, 3, Mythical, 3200, 220, 10, 1.2, 0, 1, Human, Dragon, Knight
+龟甲长老, 1, Mythical, 650, 42, 5, 1.7, 0, 4, Human, , Mage
+龟甲长老, 2, Mythical, 1300, 85, 5, 1.7, 0, 4, Human, , Mage
+龟甲长老, 3, Mythical, 2600, 170, 5, 1.7, 0, 4, Human, , Mage
+萃毒者, 1, Mythical, 1000, 65, 0, 1.3, 0, 1, Goblin, , Warlock
+萃毒者, 2, Mythical, 2000, 130, 0, 1.3, 0, 1, Goblin, , Warlock
+萃毒者, 3, Mythical, 4000, 260, 0, 1.3, 0, 1, Goblin, , Warlock
+末日审判官, 1, Mythical, 950, 115, 5, 1.3, 0, 1, Demon, , Warrior
+末日审判官, 2, Mythical, 1900, 230, 5, 1.3, 0, 1, Demon, , Warrior
+末日审判官, 3, Mythical, 3800, 460, 5, 1.3, 0, 1, Demon, , Warrior
+光羽刺客, 1, Mythical, 750, 100, 5, 1.2, 0, 3, Feathered, , Assassin
+光羽刺客, 2, Mythical, 1500, 200, 5, 1.2, 0, 3, Feathered, , Assassin
+光羽刺客, 3, Mythical, 3000, 400, 5, 1.2, 0, 3, Feathered, , Assassin
+凋零法师, 1, Legendary, 850, 42, 5, 1.5, 0.2, 3, Egersis, , Mage
+凋零法师, 2, Legendary, 1700, 85, 5, 1.5, 0.2, 3, Egersis, , Mage
+凋零法师, 3, Legendary, 3400, 170, 5, 2.0, 0.2, 3, Egersis, , Mage
+海啸追猎者, 1, Legendary, 950, 50, 5, 2.0, 0, 1, Marine, , Hunter
+海啸追猎者, 2, Legendary, 1900, 100, 5, 2.0, 0, 1, Marine, , Hunter
+海啸追猎者, 3, Legendary, 3800, 200, 5, 2.0, 0, 1, Marine, , Hunter
+矮人直升机, 1, Legendary, 900, 77, 10, 0.9, 0, 3, Dwarf, , Mech
+矮人直升机, 2, Legendary, 1800, 155, 10, 0.9, 0, 3, Dwarf, , Mech
+矮人直升机, 3, Legendary, 3600, 310, 10, 0.9, 0, 3, Dwarf, , Mech
+毁灭者, 1, Legendary, 1000, 50, 10, 1.5, 0, 4, Goblin, , Mech
+毁灭者, 2, Legendary, 2000, 100, 10, 1.5, 0, 4, Goblin, , Mech
+毁灭者, 3, Legendary, 4000, 200, 10, 1.5, 0, 4, Goblin, , Mech
+暗之灵, 1, Legendary, 1000, 50, 5, 1.5, 0.4, 3, Spirits, , Warlock
+暗之灵, 2, Legendary, 2000, 100, 5, 1.5, 0.4, 3, Spirits, , Warlock
+暗之灵, 3, Legendary, 4000, 200, 5, 1.5, 0.4, 3, Spirits, , Warlock
+雷神, 1, Legendary, 950, 60, 0, 1.4, 0.4, 3, Divinity, , Mage
+雷神, 2, Legendary, 1900, 120, 0, 1.4, 0.4, 3, Divinity, , Mage
+雷神, 3, Legendary, 3800, 240, 0, 1.4, 0.4, 3, Divinity, , Mage
