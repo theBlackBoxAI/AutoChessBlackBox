@@ -44,7 +44,6 @@ class WindowManager:
         """
 
         screenshot = WindowManager.preprocess_image(screenshot)
-        screenshot.show()
         return [pytesseract.image_to_string(screenshot.crop((490, 670, 810, 725)), lang='chi_sim'),
                 pytesseract.image_to_string(screenshot.crop((810, 670, 1130, 725)), lang='chi_sim'),
                 pytesseract.image_to_string(screenshot.crop((1100, 670, 1430, 725)), lang='chi_sim'),
@@ -95,3 +94,4 @@ class WindowManager:
         window_manager = WindowManager()
         src_image.show()
         window_manager.grab_money(src_image)
+        print(window_manager.grab_heroes_pool(src_image))

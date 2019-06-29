@@ -1,6 +1,6 @@
 from Game.hero_factory import HeroFactory
-from Environment.SimulatorEnv.Operator.operator import Operator
-from Environment.SimulatorEnv.ScreenReader.window_manager import WindowManager
+from Environment.BlueStackEnv.Operator.operator import Operator
+from Environment.BlueStackEnv.ScreenReader.window_manager import WindowManager
 from Training.data_processor import DataProcessor
 from Training.image_classifier import ImageClassifier
 

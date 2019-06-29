@@ -21,7 +21,7 @@ class HeroFactory:
                     line_count += 1
             print(f'Heroes loaded.')
 
-    def get_hero(self, name, level):
+    def get_hero_by_name(self, name, level):
         for hero in self.heroes:
             if (hero.name == name) and (hero.level == level):
                 return hero
