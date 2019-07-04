@@ -54,6 +54,12 @@ class ImageClassifier:
         ImageUtil.np_array_to_pil(self.x_train[0]).show()
 
     def load_model(self, model_name):
+        """
+        Load an existing model
+
+        :param model_name:
+        :return:
+        """
         self.model = load_model(model_name)
 
     def load_subdir_as_label(self, folder):

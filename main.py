@@ -1,8 +1,8 @@
-from Game.hero_factory import HeroFactory
-from Environment.BlueStackEnv.Operator.operator import Operator
 from Environment.BlueStackEnv.ScreenReader.window_manager import WindowManager
-from Training.data_processor import DataProcessor
 from Training.image_classifier import ImageClassifier
+from Game.game import Game
+from Environment.BlueStackEnv.env import BlueStackEnv
+from Training.data_collector import DataCollector
 
 
 def run_win_manager():
@@ -15,6 +15,16 @@ def run_training_money_classifier():
     classifier.load_and_train('D:/AutoChess/Data/MoneyDigit/Raw', 'D:/Python/AutoChessBlackBox/Model/money_digit.h5')
 
 
+def run_game_with_bluestack():
+    game = Game(BlueStackEnv())
+    game.start_observation_only_game()
+
+
+def run_data_collector():
+    data_collector = DataCollector()
+    data_collector.annotate_hero_in_store()
+
+
 if __name__ == '__main__':
-    run_win_manager()
+    run_data_collector()
 

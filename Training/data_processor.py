@@ -21,7 +21,8 @@ class DataProcessor:
         # find all the digits
         cnts = cv2.findContours(img.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         cnts = imutils.grab_contours(cnts)
-        cnts = contours.sort_contours(cnts, method="left-to-right")[0]
+        if len(cnts) > 0:
+            cnts = contours.sort_contours(cnts, method="left-to-right")[0]
 
         images = []
         # loop over the digit area candidates
@@ -30,7 +31,7 @@ class DataProcessor:
             (x, y, w, h) = cv2.boundingRect(c)
             if w < 15 or w > 35 or h < 35 or h > 45:
                 continue
-            print(x, y, w, h)
+            #print(x, y, w, h)
             digit_img = img[y:y+h, x:x+w]
             digit_img = ImageUtil.cv2_to_pil(digit_img)
             images.append(digit_img)

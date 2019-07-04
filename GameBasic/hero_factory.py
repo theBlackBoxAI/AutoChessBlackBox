@@ -20,6 +20,7 @@ class HeroFactory:
                     heroes.append(new_hero)
                     line_count += 1
             print(f'Heroes loaded.')
+            return heroes
 
     def get_hero_by_name(self, name, level):
         for hero in self.heroes:

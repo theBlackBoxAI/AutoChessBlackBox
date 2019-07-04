@@ -17,6 +17,9 @@ class WindowManager:
         pytesseract.pytesseract.tesseract_cmd = r"D:\Program Files\Tesseract-OCR\tesseract.exe"
         self.money_model = load_model('./Model/money_digit_v1.h5')
 
+    def grab_current_screenshot(self):
+        return WindowManager.grab_screenshot("BlueStacks")
+
     @staticmethod
     def grab_screenshot(windows_name):
         """
@@ -31,7 +34,7 @@ class WindowManager:
             print('window not found!')
 
         window_rect = win32gui.GetWindowRect(hwnd_main)
-        print(window_rect)
+        #print(window_rect)
         src_image: Image = getRectAsImage(window_rect)
         return src_image
 
@@ -50,6 +53,21 @@ class WindowManager:
                 pytesseract.image_to_string(screenshot.crop((1440, 670, 1730, 725)), lang='chi_sim'),
                 pytesseract.image_to_string(screenshot.crop((1740, 670, 2050, 725)), lang='chi_sim')]
 
+    @staticmethod
+    def grab_heroes_pool_images(screenshot):
+        """
+        Grabs the 5 image of the heroes in the pool.
+        :param PIL.Image screenshot: The screenshot to grab from
+        :rtype: Array the images
+        """
+
+        #screenshot = WindowManager.preprocess_image(screenshot)
+        return [screenshot.crop((509, 280, 820, 790)),
+                screenshot.crop((820, 280, 1131, 790)),
+                screenshot.crop((1131, 280, 1442, 790)),
+                screenshot.crop((1442, 280, 1753, 790)),
+                screenshot.crop((1753, 280, 2064, 790))]
+
     def grab_money(self, screenshot):
         images = DataProcessor.extract_money_digit(screenshot)
         money = 0
@@ -60,7 +78,8 @@ class WindowManager:
             prediction = self.money_model.predict_classes(np.array([np_image]))[0]
             money = money * 10 + int(prediction)
 
-        print("Current money: " + str(money))
+        #print("Current money: " + str(money))
+        return money
 
     @staticmethod
     def grab_turn(screenshot):
@@ -84,14 +103,14 @@ class WindowManager:
             time.sleep(10)
 
     def main(self):
-        src_image = Image.open('D:/AutoChess/Data/Screenshots/Sample132.jpg')
+        #src_image = Image.open('D:/AutoChess/Data/Screenshots/Sample132.jpg')
         #src_image = Image.open('D:/AutoChess/Sample1.jpg')
-        #src_image = WindowManager.grab_screenshot("BlueStacks")
+        src_image = WindowManager.grab_screenshot("BlueStacks")
+
         #WindowManager.save_img(src_image, 'D:/AutoChess/Sample3.jpg')
         #print(WindowManager.grab_heroes_pool(src_image))
         #src_image.show()
-        #src_image.crop((204, 50, 249, 86)).show()
-        window_manager = WindowManager()
-        src_image.show()
-        window_manager.grab_money(src_image)
-        print(window_manager.grab_heroes_pool(src_image))
+        #window_manager = WindowManager()
+        #src_image.show()
+        #window_manager.grab_money(src_image)
+        #print(window_manager.grab_heroes_pool(src_image))

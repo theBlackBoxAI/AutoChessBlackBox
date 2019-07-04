@@ -128,9 +128,9 @@ Name, Level, Quality, HP, ATK, Armor, ATK Speed, Magic Resistant, ATK Range, Rac
 狂战士, 1, Mythical, 900, 100, 5, 1.1, 0, 3, Glacier, , Warrior
 狂战士, 2, Mythical, 1800, 200, 5, 1.1, 0, 3, Glacier, , Warrior
 狂战士, 3, Mythical, 3600, 400, 5, 1.1, 0, 3, Glacier, , Warrior
-灵魂收割者, 1, Mythical, 850, 55, 5, 1.2, 3, Egersis, , Warlock
-灵魂收割者, 2, Mythical, 1700, 110, 5, 1.2, 3, Egersis, , Warlock
-灵魂收割者, 3, Mythical, 3400, 220, 5, 1.2, 3, Egersis, , Warlock
+灵魂收割者, 1, Mythical, 850, 55, 5, 1.2, 0, 3, Egersis, , Warlock
+灵魂收割者, 2, Mythical, 1700, 110, 5, 1.2, 0, 3, Egersis, , Warlock
+灵魂收割者, 3, Mythical, 3400, 220, 5, 1.2, 0, 3, Egersis, , Warlock
 海妖, 1, Mythical, 750, 60, 5, 1.2, 0.1, 4, Marine, , Hunter
 海妖, 2, Mythical, 1500, 120, 5, 1.2, 0.1, 4, Marine, , Hunter
 海妖, 3, Mythical, 3000, 240, 5, 1.2, 0.1, 4, Marine, , Hunter
