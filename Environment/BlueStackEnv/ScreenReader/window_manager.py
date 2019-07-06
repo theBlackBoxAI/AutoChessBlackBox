@@ -121,7 +121,7 @@ class WindowManager:
         return ImageUtil.to_grey_and_smooth(image)
 
     @staticmethod
-    def main1():
+    def grab_screenshot_and_save():
         for i in range(1000):
             src_image = WindowManager.grab_screenshot("BlueStacks")
             file_name = 'D:/AutoChess/Screenshots/Sample' + str(i) +  '.jpg'

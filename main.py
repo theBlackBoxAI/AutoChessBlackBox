@@ -38,9 +38,11 @@ def run_observation_game_with_bluestack():
 def run_data_collector():
     data_collector = DataCollector()
     #data_collector.annotate_hero_in_store()
-    data_collector.screenshot_hero_in_store()
+    #data_collector.screenshot_hero_in_store()
+
+    data_collector.full_screen_screenshot()
 
 
 if __name__ == '__main__':
-    run_observation_game_with_bluestack()
+    run_data_collector()
 
