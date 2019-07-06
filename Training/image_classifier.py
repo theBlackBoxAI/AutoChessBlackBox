@@ -1,5 +1,6 @@
 import cv2
 import math
+import json
 import numpy as np
 import os
 import random
@@ -8,9 +9,11 @@ from Util.imge_util import ImageUtil
 from keras.preprocessing.image import load_img
 from keras.utils import to_categorical
 from keras.models import load_model
+from keras.models import save_model
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
+from keras.layers.normalization import BatchNormalization
 
 
 class ImageClassifier:
@@ -29,38 +32,88 @@ class ImageClassifier:
         self.image_width = 0
         self.image_height = 0
         self.labels = set()
+        self.labels_dictionary = None
+        self.reverse_labels_dictionary = None
         self.num_of_class = 0
 
         self.model = None
 
-    def load_and_train(self, folder, model_name):
+    def load_and_train(self, folder, model_file_name, model_name = 'vgg'):
         """
         Load the data, train the model, and validate it
+
+        :param folder: The folder that contains the data, each sub-folder is a class, with examples inside
+        :param model_file_name: the file name to save the model as
+        :param model_name: the model to use to train. right now 'vgg' and 'simple' is supported
+        :return:
+        """
+        self.load_subdir_as_label(folder)
+        #self.to_grey_scale()
+        self.prepare_data()
+        self.shuffle_training_data()
+        self.data_reshape()
+
+        if model_name == 'simple':
+            self.define_model()
+        if model_name == 'vgg':
+            self.define_smaller_vgg_model()
+
+        self.train(32, 8)
+        self.save_model(model_file_name)
+        #self.load_model(model_file_name)
+        self.evaluate()
+        # self.load_model(model_file_name)
+
+        print(self.model.predict_classes(np.array([self.x_train[0]])))
+        print(self.reverse_labels_dictionary)
+        print(self.reverse_labels_dictionary[self.model.predict_classes(np.array([self.x_train[0]]))[0]])
+        # Show an image and its label to verify the classifier is working as intended
+        ImageUtil.np_array_to_pil(self.x_train[0]).show()
+
+    def load_and_continue_train(self, folder, model_name):
+        """
+        Load the data, and the model, train the model, and validate it
 
         :return:
         """
         self.load_subdir_as_label(folder)
-        self.to_grey_scale()
+        #self.to_grey_scale()
         self.prepare_data()
         self.shuffle_training_data()
         self.data_reshape()
-        self.define_model()
-        self.train()
+        self.load_model(model_name)
+        for i in range(100):
+            self.train(100, 10)
+            self.save_model(model_name)
         self.evaluate()
-        self.model.save(model_name)
-        # self.load_model(model_name)
 
-        print(self.model.predict_classes(np.array([self.x_train[0]])))
+        print(self.reverse_labels_dictionary(self.model.predict_classes(np.array([self.x_train[0]]))))
         ImageUtil.np_array_to_pil(self.x_train[0]).show()
 
     def load_model(self, model_name):
         """
-        Load an existing model
+        Load an existing model, with the associate multi-class labels, from json file
 
         :param model_name:
         :return:
         """
         self.model = load_model(model_name)
+        dic_name = model_name.replace('.h5', '.json')
+        with open(dic_name) as json_file:
+            self.labels_dictionary = json.load(json_file)
+            self.reverse_labels_dictionary = {v: k for k, v in self.labels_dictionary.items()}
+
+    def save_model(self, model_name, overwrite=True):
+        """
+        Save the label with the multi-class labels as json with the same name
+        :param model_name:
+        :param overwrite: Whether to overwrite the file
+        :return:
+        """
+        save_model(self.model, model_name, overwrite)
+        dic_name = model_name.replace('.h5', '.json')
+        with open(dic_name, 'w') as json_file:
+            json.dump(self.labels_dictionary, json_file, cls=NpJSONEncoder)
 
     def load_subdir_as_label(self, folder):
         """
@@ -81,6 +134,13 @@ class ImageClassifier:
                 self.images_label.append(f.name)
 
             self.labels.add(f.name)
+
+        sorted_labels = sorted(self.labels)
+        self.labels_dictionary = dict(zip(sorted_labels, np.arange(len(sorted_labels))))
+        self.reverse_labels_dictionary = {v: k for k, v in self.labels_dictionary.items()}
+
+        # Change the text label to int based on dictionary
+        self.images_label = [self.labels_dictionary.get(label) for label in self.images_label]
 
         new_images = []
         for image in self.images:
@@ -166,7 +226,7 @@ class ImageClassifier:
         model.add(MaxPooling2D(pool_size=(2, 2)))
 
         model.add(Flatten())
-        model.add(Dense(64))
+        model.add(Dense(128))
         model.add(Activation('relu'))
         model.add(Dropout(0.5))
 
@@ -174,16 +234,67 @@ class ImageClassifier:
 
         self.model = model
 
-    def train(self):
+    def define_smaller_vgg_model(self):
+        model = Sequential()
+
+        model.add(Conv2D(32, (3, 3), padding='same', input_shape=(self.image_height, self.image_width, 3)))
+        model.add(Activation('relu'))
+        model.add(BatchNormalization())
+        model.add(MaxPooling2D(pool_size=(3, 3)))
+        model.add(Dropout(0.25))
+
+        model.add(Conv2D(64, (3,3), padding='same'))
+        model.add(Activation('relu'))
+        model.add(BatchNormalization())
+        model.add(Conv2D(64, (3,3), padding='same'))
+        model.add(Activation('relu'))
+        model.add(BatchNormalization())
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Dropout(0.25))
+
+        model.add(Conv2D(128, (3,3), padding='same'))
+        model.add(Activation('relu'))
+        model.add(BatchNormalization())
+        model.add(Conv2D(128, (3,3), padding='same'))
+        model.add(Activation('relu'))
+        model.add(BatchNormalization())
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Dropout(0.25))
+
+        model.add(Flatten())
+        model.add(Dense(1024))
+        model.add(Activation('relu'))
+        model.add(BatchNormalization())
+        model.add(Dropout(0.5))
+
+        model.add(Dense(len(self.labels), activation='softmax'))
+
+        self.model = model
+
+
+    def train(self, batch_size = 50, epochs = 50):
 
         self.model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
-        self.model.fit(self.x_train, self.y_train, batch_size = 50, epochs = 50, verbose = 1)
+        self.model.fit(self.x_train, self.y_train, batch_size = batch_size, epochs = epochs, verbose = 1)
 
     def evaluate(self):
         loss, acc = self.model.evaluate(self.x_test, self.y_test, verbose=1)
         print(acc * 100)
 
 
+class NpJSONEncoder(json.JSONEncoder):
+    """
+    A JSONEncoder that can save np objects
+    """
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        else:
+            return super(NpJSONEncoder, self).default(obj)
 
 
 

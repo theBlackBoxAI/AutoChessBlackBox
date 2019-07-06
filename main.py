@@ -6,25 +6,41 @@ from Training.data_collector import DataCollector
 
 
 def run_win_manager():
-    winManager = WindowManager()
-    winManager.main()
+    win_manager = WindowManager()
+    win_manager.main()
 
 
 def run_training_money_classifier():
     classifier = ImageClassifier()
-    classifier.load_and_train('D:/AutoChess/Data/MoneyDigit/Raw', 'D:/Python/AutoChessBlackBox/Model/money_digit.h5')
+    classifier.load_and_train('D:/AutoChess/Data/MoneyDigit/Raw',
+                              'D:/Python/AutoChessBlackBox/Model/money_digit.h5',
+                              model_name='vgg')
 
 
-def run_game_with_bluestack():
+def run_training_hero_in_store():
+    classifier = ImageClassifier()
+    classifier.load_and_train('D:/AutoChess/Data/HeroInStore',
+                              'D:/Python/AutoChessBlackBox/Model/hero_in_store.h5',
+                              model_name='vgg')
+
+
+def continue_training_hero_in_store():
+    classifier = ImageClassifier()
+    classifier.load_and_continue_train('D:/AutoChess/Data/HeroInStore',
+                                       'D:/Python/AutoChessBlackBox/Model/hero_in_store.h5')
+
+
+def run_observation_game_with_bluestack():
     game = Game(BlueStackEnv())
     game.start_observation_only_game()
 
 
 def run_data_collector():
     data_collector = DataCollector()
-    data_collector.annotate_hero_in_store()
+    #data_collector.annotate_hero_in_store()
+    data_collector.screenshot_hero_in_store()
 
 
 if __name__ == '__main__':
-    run_data_collector()
+    run_observation_game_with_bluestack()
 

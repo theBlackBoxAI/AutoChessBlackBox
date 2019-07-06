@@ -1,8 +1,7 @@
 import win32gui
 import time
 import pytesseract
-import cv2
-import imutils
+import json
 import numpy as np
 from Util.imge_util import ImageUtil
 from Training.data_processor import DataProcessor
@@ -15,7 +14,15 @@ from desktopmagic.screengrab_win32 import getRectAsImage
 class WindowManager:
     def __init__(self):
         pytesseract.pytesseract.tesseract_cmd = r"D:\Program Files\Tesseract-OCR\tesseract.exe"
-        self.money_model = load_model('./Model/money_digit_v1.h5')
+        # Model consumes image with shape (22, 41)
+        self.money_model = load_model('./Model/money_digit_v2.h5')
+        # Model consumes image with shape (311, 510)
+        self.hero_in_store_model = load_model('./Model/hero_in_store_v1.h5')
+        # Reverse mapping from number to string, used to parse the model's prediction result
+        self.hero_in_store_class_map = None
+        with open('./Model/hero_in_store_v1.json') as json_file:
+            hero_in_store_reverse_class_map = json.load(json_file)
+            self.hero_in_store_class_map = {v: k for k, v in hero_in_store_reverse_class_map.items()}
 
     def grab_current_screenshot(self):
         return WindowManager.grab_screenshot("BlueStacks")
@@ -38,10 +45,30 @@ class WindowManager:
         src_image: Image = getRectAsImage(window_rect)
         return src_image
 
-    @staticmethod
-    def grab_heroes_pool(screenshot):
+    def grab_heroes_pool(self, screenshot):
         """
-        Grabs the 5 names of the heroes in the pool. Empty if already empty
+        Grabs the 5 names of the heroes in the pool. 'Empty' if already empty
+        :param PIL.Image screenshot: The screenshot to grab from
+        :rtype: Array the names
+        """
+        # Model has shape (311, 510)
+        images = WindowManager.grab_heroes_pool_images(screenshot)
+        hero1 = self.hero_in_store_class_map[
+            self.hero_in_store_model.predict_classes(np.array([np.array(images[0])]))[0]]
+        hero2 = self.hero_in_store_class_map[
+            self.hero_in_store_model.predict_classes(np.array([np.array(images[1])]))[0]]
+        hero3 = self.hero_in_store_class_map[
+            self.hero_in_store_model.predict_classes(np.array([np.array(images[2])]))[0]]
+        hero4 = self.hero_in_store_class_map[
+            self.hero_in_store_model.predict_classes(np.array([np.array(images[3])]))[0]]
+        hero5 = self.hero_in_store_class_map[
+            self.hero_in_store_model.predict_classes(np.array([np.array(images[4])]))[0]]
+        return [hero1, hero2, hero3, hero4, hero5]
+
+    @staticmethod
+    def grab_heroes_pool_text(screenshot):
+        """
+        Grabs the 5 names of the heroes in the pool using OCR. Empty if already empty
         :param PIL.Image screenshot: The screenshot to grab from
         :rtype: Array the names
         """
@@ -71,7 +98,7 @@ class WindowManager:
     def grab_money(self, screenshot):
         images = DataProcessor.extract_money_digit(screenshot)
         money = 0
-        # v1 model has shape (22, 41)
+        # Model has shape (22, 41)
         for image in images:
             image = image.resize((22, 41))
             np_image = np.array(image)

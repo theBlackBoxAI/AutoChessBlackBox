@@ -32,6 +32,7 @@ class BlueStackEnv(Environment):
         """
         heroes_name = self.window_manager.grab_heroes_pool(self.current_screenshot)
         heroes = []
+        print("Heroes name with classifier: ")
         print(heroes_name)
         for name in heroes_name:
             heroes.append(self.hero_factory.get_hero_by_name(name, 1))

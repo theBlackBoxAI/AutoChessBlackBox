@@ -19,7 +19,7 @@ class HeroFactory:
                     new_hero = Hero(row)
                     heroes.append(new_hero)
                     line_count += 1
-            print(f'Heroes loaded.')
+            print(str(len(heroes)) + ' heroes loaded.')
             return heroes
 
     def get_hero_by_name(self, name, level):
