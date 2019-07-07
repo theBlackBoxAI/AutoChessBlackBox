@@ -38,16 +38,17 @@ class ImageClassifier:
 
         self.model = None
 
-    def load_and_train(self, folder, model_file_name, model_name = 'vgg'):
+    def load_and_train(self, folder, model_file_name, model_name = 'vgg', resize_ratio = 1):
         """
         Load the data, train the model, and validate it
 
         :param folder: The folder that contains the data, each sub-folder is a class, with examples inside
-        :param model_file_name: the file name to save the model as
-        :param model_name: the model to use to train. right now 'vgg' and 'simple' is supported
+        :param model_file_name: The file name to save the model as
+        :param model_name: The model to use to train. right now 'vgg' and 'simple' is supported
+        :param resize_ratio Whether to resize the image with a given ratio, ratio should be bigger or equal to 1
         :return:
         """
-        self.load_subdir_as_label(folder)
+        self.load_subdir_as_label(folder, resize_ratio)
         #self.to_grey_scale()
         self.prepare_data()
         self.shuffle_training_data()
@@ -115,7 +116,7 @@ class ImageClassifier:
         with open(dic_name, 'w') as json_file:
             json.dump(self.labels_dictionary, json_file, cls=NpJSONEncoder)
 
-    def load_subdir_as_label(self, folder):
+    def load_subdir_as_label(self, folder, resize_ratio = 1):
         """
         Load all the image in a folder, sub-folder name will be the label for the images
 
@@ -143,10 +144,8 @@ class ImageClassifier:
         self.images_label = [self.labels_dictionary.get(label) for label in self.images_label]
 
         new_images = []
-        # If the image is too big, reduce its size
-        if minw > 1000:
-            minw = minw // 5
-            minh = minh // 5
+        minw = minw // resize_ratio
+        minh = minh // resize_ratio
         for image in self.images:
             if (image.size[0] != minw) or (image.size[1] != minh):
                 new_image = image.resize((minw, minh))

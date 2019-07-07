@@ -24,7 +24,7 @@ class BlueStackEnv(Environment):
         # Model consumes image with shape (22, 41)
         self.money_model = load_model('./Model/money_digit_v2.h5')
 
-        # Model consumes image with shape (311, 510)
+        # Model consumes image with shape (77, 127)
         self.hero_in_store_model = load_model('./Model/hero_in_store_v1.h5')
         # Reverse mapping from number to string, used to parse the model's prediction result
         self.hero_in_store_class_map = None
@@ -32,11 +32,11 @@ class BlueStackEnv(Environment):
             hero_in_store_class_reverse_map = json.load(json_file)
             self.hero_in_store_class_map = {v: k for k, v in hero_in_store_class_reverse_map.items()}
 
-        # Model consumes image with shape (512, 280)
-        self.env_state_model = load_model('./Model/simulator_state_v1.h5')
+        # Model consumes image with shape (160, 87)
+        self.env_state_model = load_model('./Model/simulator_state_v2.h5')
         # Reverse mapping from number to string, used to parse the model's prediction result
         self.env_state_map = None
-        with open('./Model/simulator_state_v1.json') as json_file:
+        with open('./Model/simulator_state_v2.json') as json_file:
             env_state_reverse_map = json.load(json_file)
             self.env_state_map = {v: k for k, v in env_state_reverse_map.items()}
 
@@ -55,15 +55,15 @@ class BlueStackEnv(Environment):
         """
         images = WindowManager.grab_heroes_pool_images(self.current_screenshot)
         hero1 = self.hero_in_store_class_map[
-            self.hero_in_store_model.predict_classes(np.array([np.array(images[0])]))[0]]
+            self.hero_in_store_model.predict_classes(np.array([np.array(images[0].resize((77, 127)))]))[0]]
         hero2 = self.hero_in_store_class_map[
-            self.hero_in_store_model.predict_classes(np.array([np.array(images[1])]))[0]]
+            self.hero_in_store_model.predict_classes(np.array([np.array(images[1].resize((77, 127)))]))[0]]
         hero3 = self.hero_in_store_class_map[
-            self.hero_in_store_model.predict_classes(np.array([np.array(images[2])]))[0]]
+            self.hero_in_store_model.predict_classes(np.array([np.array(images[2].resize((77, 127)))]))[0]]
         hero4 = self.hero_in_store_class_map[
-            self.hero_in_store_model.predict_classes(np.array([np.array(images[3])]))[0]]
+            self.hero_in_store_model.predict_classes(np.array([np.array(images[3].resize((77, 127)))]))[0]]
         hero5 = self.hero_in_store_class_map[
-            self.hero_in_store_model.predict_classes(np.array([np.array(images[4])]))[0]]
+            self.hero_in_store_model.predict_classes(np.array([np.array(images[4].resize((77, 127)))]))[0]]
 
         heroes_name = [hero1, hero2, hero3, hero4, hero5]
         heroes = []
@@ -95,7 +95,7 @@ class BlueStackEnv(Environment):
         Returns 'InGame', 'InLobby' or 'Other'
         :return:
         """
-        image = self.current_screenshot.resize((512, 280))
+        image = self.current_screenshot.resize((160, 87))
         np_image = np.array(image)
         prediction = self.env_state_map[self.env_state_model.predict_classes(np.array([np_image]))[0]]
         return prediction
