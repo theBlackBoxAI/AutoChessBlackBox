@@ -4,3 +4,5 @@ A fun project trying to build an AI with machine learning techiques for the game
 Project still WIP, and it now can only run on [BlueStacks](https://www.bluestacks.com/) simulator with a screen resolution of 2560 * 1440, with a Chinese version of the game.
 
 The training data used in this project is located in [AutoChessTrainingData](https://github.com/theBlackBoxAI/AutoChessTrainingData)
+
+The model file is too big for github, so it's not included in the repository. You may need to train your own using the classifier.

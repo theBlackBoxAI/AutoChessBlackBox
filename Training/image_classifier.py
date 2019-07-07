@@ -143,9 +143,16 @@ class ImageClassifier:
         self.images_label = [self.labels_dictionary.get(label) for label in self.images_label]
 
         new_images = []
+        # If the image is too big, reduce its size
+        if minw > 1000:
+            minw = minw // 5
+            minh = minh // 5
         for image in self.images:
-            new_image = image.resize((minw, minh))
-            new_images.append(new_image)
+            if (image.size[0] != minw) or (image.size[1] != minh):
+                new_image = image.resize((minw, minh))
+                new_images.append(new_image)
+            else:
+                new_images.append(image)
 
         self.images = new_images
         self.image_width = minw

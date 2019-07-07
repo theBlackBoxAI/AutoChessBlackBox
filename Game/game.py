@@ -22,11 +22,14 @@ class Game:
         """
         while True:
             self.env.grab_current_screenshot()
-            print("Current Money: " + str(self.env.get_money()))
-            print("Current Heroes in store: ")
-            for hero in self.env.get_heroes_in_store():
-                if hero:
-                    print(hero.name)
+            env_state = self.env.get_env_state()
+            print("Env State: " + env_state)
+            if env_state == 'InGame':
+                print("Current Money: " + str(self.env.get_money()))
+                print("Current Heroes in store: ")
+                for hero in self.env.get_heroes_in_store():
+                    if hero:
+                        print(hero.name)
             time.sleep(5)
 
     def buy_hero_in_store(self, position):

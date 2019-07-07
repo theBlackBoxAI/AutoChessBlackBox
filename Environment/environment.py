@@ -6,6 +6,13 @@ class Environment:
     def __init__(self):
         self.is_active = False
 
+    def get_env_state(self):
+        """
+        Returns 'InGame' or 'Other', custom environment may return more values based on its use case
+        :return:
+        """
+        return 'Other'
+
     def get_heroes_in_store(self):
         return [None, None, None, None, None]
 

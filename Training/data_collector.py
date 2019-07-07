@@ -10,10 +10,10 @@ class DataCollector:
         while True:
             self.env.grab_current_screenshot()
             screenshot = self.env.current_screenshot
-            file_name = 'D:/AutoChess/Data/Screenshots/'+ str(time.time()) + '.jpg'
+            file_name = 'D:/AutoChess/Data/Screenshots/Raw/'+ str(time.time()) + '.jpg'
             screenshot.save(file_name)
             print(file_name)
-            time.sleep(1)
+            time.sleep(5)
 
     def annotate_hero_in_store(self):
         """
