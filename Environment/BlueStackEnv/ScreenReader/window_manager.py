@@ -93,7 +93,7 @@ class WindowManager:
 
     @staticmethod
     def grab_turn(screenshot):
-        return pytesseract.image_to_string(screenshot.crop((204, 50, 249, 86)), lang='eng')
+        return screenshot.crop((204, 50, 249, 86))
 
     @staticmethod
     def save_img(image, file_name):
