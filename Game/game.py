@@ -25,11 +25,21 @@ class Game:
             env_state = self.env.get_env_state()
             print("Env State: " + env_state)
             if env_state == 'InGame':
+                store_state = self.env.get_store_state()
+                print("Store State: " + store_state)
+                if store_state == 'StoreOpened':
+                    print("Current Heroes in store: ")
+                    for hero in self.env.get_heroes_in_store():
+                        if hero:
+                            print(hero.name + ' ', end='')
+                        else:
+                            print('Empty ', end='')
+                    print()
                 print("Current Money: " + str(self.env.get_money()))
-                print("Current Heroes in store: ")
-                for hero in self.env.get_heroes_in_store():
-                    if hero:
-                        print(hero.name)
+
+                battle_state = self.env.get_battle_state()
+                print("Battle State: " + battle_state)
+                print()
             time.sleep(5)
 
     def buy_hero_in_store(self, position):

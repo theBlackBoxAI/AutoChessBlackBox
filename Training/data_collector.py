@@ -13,7 +13,7 @@ class DataCollector:
             file_name = 'D:/AutoChess/Data/Screenshots/Raw/'+ str(time.time()) + '.jpg'
             screenshot.save(file_name)
             print(file_name)
-            time.sleep(5)
+            time.sleep(1)
 
     def annotate_hero_in_store(self):
         """
@@ -45,6 +45,23 @@ class DataCollector:
                     print("New image saved: " + file_name)
 
             time.sleep(20)
+
+    def screenshot_battle_state(self):
+        """
+        Crop out the battle state and store the screenshot of it
+
+        :return:
+        """
+        folder_name = 'D:/AutoChess/Data/BattleState/Raw'
+        while True:
+            self.env.grab_current_screenshot()
+            image = self.env.grab_battle_state_image()
+            file_name = folder_name + '/' + str(time.time()) + '.jpg'
+            image.save(file_name)
+            print("New image saved: " + file_name)
+
+            time.sleep(1)
+
 
     def screenshot_hero_in_store(self):
         """

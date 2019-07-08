@@ -67,6 +67,15 @@ class WindowManager:
                 screenshot.crop((1753, 280, 2064, 790))]
 
     @staticmethod
+    def grab_battle_state_image(screenshot):
+        """
+        Crop out the battle state image and return it.
+        :param screenshot:
+        :return:
+        """
+        return screenshot.crop((445, 50, 615, 165))
+
+    @staticmethod
     def grab_hp_images(screenshot):
         """
         Grab all the hp images on the side.

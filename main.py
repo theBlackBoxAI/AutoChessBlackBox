@@ -26,12 +26,27 @@ def run_training_hero_in_store():
 
 
 def run_training_simulator_state():
-    classifier = classifier = ImageClassifier()
+    classifier = ImageClassifier()
     classifier.load_and_train('D:/AutoChess/Data/Screenshots',
                               './Model/simulator_state.h5',
                               model_name='vgg',
                               resize_ratio=16)
 
+
+def run_training_store_state():
+    classifier = ImageClassifier()
+    classifier.load_and_train('D:/AutoChess/Data/StoreScreenshots',
+                              './Model/store_state.h5',
+                              model_name='vgg',
+                              resize_ratio=16)
+
+
+def run_training_battle_state():
+    classifier = ImageClassifier()
+    classifier.load_and_train('D:/AutoChess/Data/BattleState',
+                              './Model/battle_state.h5',
+                              model_name='vgg',
+                              resize_ratio=4)
 
 def run_observation_game_with_bluestack():
     game = Game(BlueStackEnv())
@@ -42,9 +57,9 @@ def run_data_collector():
     data_collector = DataCollector()
     #data_collector.annotate_hero_in_store()
     #data_collector.screenshot_hero_in_store()
-    data_collector.full_screen_screenshot()
-
+    #data_collector.full_screen_screenshot()
+    #data_collector.screenshot_battle_state()
 
 if __name__ == '__main__':
-    run_training_hero_in_store()
+    run_observation_game_with_bluestack()
 

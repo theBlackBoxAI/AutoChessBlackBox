@@ -25,20 +25,33 @@ class BlueStackEnv(Environment):
         self.money_model = load_model('./Model/money_digit_v2.h5')
 
         # Model consumes image with shape (77, 127)
-        self.hero_in_store_model = load_model('./Model/hero_in_store_v1.h5')
-        # Reverse mapping from number to string, used to parse the model's prediction result
+        self.hero_in_store_model = load_model('./Model/hero_in_store_v2.h5')
         self.hero_in_store_class_map = None
-        with open('./Model/hero_in_store_v1.json') as json_file:
-            hero_in_store_class_reverse_map = json.load(json_file)
-            self.hero_in_store_class_map = {v: k for k, v in hero_in_store_class_reverse_map.items()}
+        with open('./Model/hero_in_store_v2.json') as json_file:
+            reverse_map = json.load(json_file)
+            self.hero_in_store_class_map = {v: k for k, v in reverse_map.items()}
 
         # Model consumes image with shape (160, 87)
         self.env_state_model = load_model('./Model/simulator_state_v2.h5')
-        # Reverse mapping from number to string, used to parse the model's prediction result
         self.env_state_map = None
         with open('./Model/simulator_state_v2.json') as json_file:
-            env_state_reverse_map = json.load(json_file)
-            self.env_state_map = {v: k for k, v in env_state_reverse_map.items()}
+            reverse_map = json.load(json_file)
+            self.env_state_map = {v: k for k, v in reverse_map.items()}
+
+        # Model consumes image with shape (160, 87)
+        self.store_state_model = load_model('./Model/store_state_v1.h5')
+        self.store_state_map = None
+        with open('./Model/store_state_v1.json') as json_file:
+            reverse_map = json.load(json_file)
+            self.store_state_map = {v: k for k, v in reverse_map.items()}
+
+        # Model consumes image with shape (42, 28)
+        self.battle_state_model = load_model('./Model/battle_state_v1.h5')
+        self.battle_state_map = None
+        with open('./Model/battle_state_v1.json') as json_file:
+            reverse_map = json.load(json_file)
+            self.battle_state_map = {v: k for k, v in reverse_map.items()}
+
 
     def grab_current_screenshot(self):
         """
@@ -53,7 +66,7 @@ class BlueStackEnv(Environment):
 
         :return:
         """
-        images = WindowManager.grab_heroes_pool_images(self.current_screenshot)
+        images = self.grab_heroes_in_store_images()
         hero1 = self.hero_in_store_class_map[
             self.hero_in_store_model.predict_classes(np.array([np.array(images[0].resize((77, 127)))]))[0]]
         hero2 = self.hero_in_store_class_map[
@@ -67,15 +80,10 @@ class BlueStackEnv(Environment):
 
         heroes_name = [hero1, hero2, hero3, hero4, hero5]
         heroes = []
-        print("Heroes name with classifier: ")
-        print(heroes_name)
         for name in heroes_name:
             heroes.append(self.hero_factory.get_hero_by_name(name, 1))
 
         return heroes
-
-    def grab_heroes_in_store_images(self):
-        return self.window_manager.grab_heroes_pool_images(self.current_screenshot)
 
     def get_money(self):
         images = DataProcessor.extract_money_digit(self.current_screenshot)
@@ -86,8 +94,6 @@ class BlueStackEnv(Environment):
             np_image = np.array(image)
             prediction = self.money_model.predict_classes(np.array([np_image]))[0]
             money = money * 10 + int(prediction)
-
-        print("Current money: " + str(money))
         return money
 
     def get_env_state(self):
@@ -100,9 +106,28 @@ class BlueStackEnv(Environment):
         prediction = self.env_state_map[self.env_state_model.predict_classes(np.array([np_image]))[0]]
         return prediction
 
+    def get_store_state(self):
+        """
+        Returns 'StoreOpened', 'StoreClosed'
+        :return:
+        """
+        image = self.current_screenshot.resize((160, 87))
+        np_image = np.array(image)
+        prediction = self.store_state_map[self.store_state_model.predict_classes(np.array([np_image]))[0]]
+        return prediction
 
-class GameState(Enum):
-    prepare_shopping = 1
-    prepare_waiting = 2
-    in_battle = 3
+    def get_battle_state(self):
+        """
+        Returns 'InBattle', 'InPreparation'
+        :return:
+        """
+        image = self.grab_battle_state_image().resize((42, 28))
+        np_image = np.array(image)
+        prediction = self.battle_state_map[self.battle_state_model.predict_classes(np.array([np_image]))[0]]
+        return prediction
 
+    def grab_heroes_in_store_images(self):
+        return self.window_manager.grab_heroes_pool_images(self.current_screenshot)
+
+    def grab_battle_state_image(self):
+        return self.window_manager.grab_battle_state_image(self.current_screenshot)

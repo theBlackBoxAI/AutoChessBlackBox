@@ -13,6 +13,20 @@ class Environment:
         """
         return 'Other'
 
+    def get_store_state(self):
+        """
+        Returns 'StoreOpened', 'StoreClosed'
+        :return:
+        """
+        return 'StoreOpened'
+
+    def get_battle_state(self):
+        """
+        Returns 'InBattle', 'InPreparation'
+        :return:
+        """
+        return 'InPreparation'
+
     def get_heroes_in_store(self):
         return [None, None, None, None, None]
 
