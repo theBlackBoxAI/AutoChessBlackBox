@@ -1,14 +1,11 @@
-import win32gui
 import time
-import pytesseract
-import json
-import numpy as np
-from Util.imge_util import ImageUtil
-from Training.data_processor import DataProcessor
-from keras.models import load_model
 
+import pytesseract
+import win32gui
 from PIL import Image
 from desktopmagic.screengrab_win32 import getRectAsImage
+
+from Util.imge_util import ImageUtil
 
 
 class WindowManager:
@@ -111,16 +108,3 @@ class WindowManager:
             WindowManager.save_img(src_image, file_name)
             print(file_name)
             time.sleep(10)
-
-    def main(self):
-        #src_image = Image.open('D:/AutoChess/Data/Screenshots/Sample132.jpg')
-        #src_image = Image.open('D:/AutoChess/Sample1.jpg')
-        src_image = WindowManager.grab_screenshot("BlueStacks")
-
-        #WindowManager.save_img(src_image, 'D:/AutoChess/Sample3.jpg')
-        #print(WindowManager.grab_heroes_pool(src_image))
-        #src_image.show()
-        #window_manager = WindowManager()
-        #src_image.show()
-        #window_manager.grab_money(src_image)
-        #print(window_manager.grab_heroes_pool(src_image))
