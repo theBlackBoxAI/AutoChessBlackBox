@@ -1,6 +1,5 @@
 import json
 import numpy as np
-from enum import Enum
 from Environment.BlueStackEnv.ScreenReader.window_manager import WindowManager
 from Environment.environment import Environment
 from GameBasic.hero_factory import HeroFactory
