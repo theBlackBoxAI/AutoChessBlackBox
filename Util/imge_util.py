@@ -6,11 +6,11 @@ class ImageUtil:
     # All images input should be PIL
     @staticmethod
     #
-    def to_grey_and_smooth(img):
+    def to_grey_and_smooth(img, kernel_size = 5):
         img = ImageUtil.pil_to_cv2(img)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-        blur = cv2.GaussianBlur(img, (5, 5), 0)
+        blur = cv2.GaussianBlur(img, (kernel_size, kernel_size), 0)
         ret, th = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
         return ImageUtil.cv2_to_pil(th)
 

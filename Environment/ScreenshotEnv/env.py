@@ -1,8 +1,6 @@
-from Environment.BlueStackEnv.ScreenReader.window_manager import WindowManager
 from Environment.BlueStackEnv.env import BlueStackEnv
-from GameBasic.hero_factory import HeroFactory
-from Training.data_processor import DataProcessor
-from keras.models import load_model
+from Util.imge_util import ImageUtil
+import cv2
 
 
 class ScreenshotEnv(BlueStackEnv):
@@ -20,5 +18,8 @@ class ScreenshotEnv(BlueStackEnv):
         :return:
         """
         super().grab_current_screenshot()
-        self.current_screenshot.show()
+        if self.current_screenshot:
+            cv2.destroyAllWindows()
+            cv2.imshow("Screenshot", ImageUtil.pil_to_cv2(self.current_screenshot))
+            cv2.waitKey(1)
         return self.current_screenshot

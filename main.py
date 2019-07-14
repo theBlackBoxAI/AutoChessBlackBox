@@ -4,6 +4,9 @@ from Game.game import Game
 from Environment.BlueStackEnv.env import BlueStackEnv
 from Environment.ScreenshotEnv.env import ScreenshotEnv
 from Training.data_collector import DataCollector
+from Training.data_processor import DataProcessor
+
+from PIL import Image
 
 
 def run_win_manager():
@@ -62,9 +65,9 @@ def run_observation_game_with_bluestack():
     game.start_observation_only_game()
 
 
-def run_observation_game_with_screenshot():
-    game = Game(ScreenshotEnv('D:/Python/AutoChessTrainingData/StoreScreenshots/StoreClosed'))
-    game.start_observation_only_game(time_interval=20)
+def run_observation_game_with_screenshots():
+    game = Game(ScreenshotEnv('D:/Python/AutoChessTrainingData/StoreScreenshots/test'))
+    game.start_observation_only_game(time_interval=10)
 
 
 def run_data_collector():
@@ -77,5 +80,6 @@ def run_data_collector():
 
 
 if __name__ == '__main__':
-    run_observation_game_with_screenshot()
-
+    run_observation_game_with_screenshots()
+    #image = Image.open('D:/Python/AutoChessTrainingData/Hp/MyHP/1563045238.7335513.jpg')
+    #DataProcessor.extract_hp_digit(image)

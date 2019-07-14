@@ -7,6 +7,11 @@ class DataCollector:
         self.env = BlueStackEnv()
 
     def full_screen_screenshot(self):
+        """
+        Keep taking full screen screenshot and store them in a folder.
+
+        :return:
+        """
         while True:
             self.env.grab_current_screenshot()
             screenshot = self.env.current_screenshot

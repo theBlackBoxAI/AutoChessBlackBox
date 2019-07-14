@@ -155,7 +155,17 @@ class BlueStackEnv(Environment):
         if my_hp_image is None:
             return None
 
-        return my_hp_image
+        digit_images = DataProcessor.extract_hp_digit(my_hp_image)
+
+        hp = 0
+        # Model has shape (22, 41)
+        for image in digit_images:
+            image = image.resize((22, 41))
+            np_image = np.array(image)
+            prediction = self.money_model.predict_classes(np.array([np_image]))[0]
+            hp = hp * 10 + int(prediction)
+
+        return hp
 
     def grab_heroes_in_store_images(self):
         return self.window_manager.grab_heroes_pool_images(self.current_screenshot)

@@ -38,7 +38,7 @@ class Game:
                 if store_state == 'StoreClosed':
                     hp = self.env.get_hp()
                     if hp:
-                        hp.show()
+                        print('Hp: ' + str(hp))
                     else:
                         print("No Hp image is found")
 
