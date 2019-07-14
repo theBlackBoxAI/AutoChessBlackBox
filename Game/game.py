@@ -15,7 +15,7 @@ class Game:
 
         self.env = environment
 
-    def start_observation_only_game(self):
+    def start_observation_only_game(self, time_interval = 5):
         """
         Start a game that does not take any action. This is mostly used for debugging.
         :return:
@@ -35,12 +35,19 @@ class Game:
                         else:
                             print('Empty ', end='')
                     print()
+                if store_state == 'StoreClosed':
+                    hp = self.env.get_hp()
+                    if hp:
+                        hp.show()
+                    else:
+                        print("No Hp image is found")
+
                 print("Current Money: " + str(self.env.get_money()))
 
                 battle_state = self.env.get_battle_state()
                 print("Battle State: " + battle_state)
                 print()
-            time.sleep(5)
+            time.sleep(time_interval)
 
     def buy_hero_in_store(self, position):
         '''

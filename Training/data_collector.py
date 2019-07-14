@@ -10,7 +10,7 @@ class DataCollector:
         while True:
             self.env.grab_current_screenshot()
             screenshot = self.env.current_screenshot
-            file_name = 'D:/AutoChess/Data/Screenshots/Raw/'+ str(time.time()) + '.jpg'
+            file_name = 'D:/Python/AutoChessTrainingData/Screenshots/Raw/'+ str(time.time()) + '.jpg'
             screenshot.save(file_name)
             print(file_name)
             time.sleep(1)
@@ -32,10 +32,10 @@ class DataCollector:
             for hero, screenshot in zip(heroes, heroes_screenshot):
                 folder_name = None
                 if hero:
-                    folder_name = 'D:/AutoChess/Data/HeroInStore/' + hero.name
+                    folder_name = 'D:/Python/AutoChessTrainingData/HeroInStore/' + hero.name
                 else:
                     if is_store_opened:
-                        folder_name = 'D:/AutoChess/Data/HeroInStore/undefined'
+                        folder_name = 'D:/Python/AutoChessTrainingData/HeroInStore/undefined'
                 if folder_name:
                     if not os.path.exists(folder_name):
                         os.mkdir(folder_name)
@@ -52,7 +52,7 @@ class DataCollector:
 
         :return:
         """
-        folder_name = 'D:/AutoChess/Data/BattleState/Raw'
+        folder_name = 'D:/Python/AutoChessTrainingData/BattleState/Raw'
         while True:
             self.env.grab_current_screenshot()
             image = self.env.grab_battle_state_image()
@@ -61,7 +61,6 @@ class DataCollector:
             print("New image saved: " + file_name)
 
             time.sleep(1)
-
 
     def screenshot_hero_in_store(self):
         """
@@ -73,7 +72,7 @@ class DataCollector:
             self.env.grab_current_screenshot()
             heroes_screenshot = self.env.grab_heroes_in_store_images()
             for screenshot in heroes_screenshot:
-                folder_name = 'D:/AutoChess/Data/HeroInStore/undefined'
+                folder_name = 'D:/Python/AutoChessTrainingData/HeroInStore/undefined'
                 if not os.path.exists(folder_name):
                     os.mkdir(folder_name)
                     print("New folder created: " + folder_name)
@@ -83,7 +82,27 @@ class DataCollector:
 
             time.sleep(1)
 
+    def screenshot_hp(self):
+        """
+        Crop out all the hp section and store the screenshot of it
 
+        :return:
+        """
+        folder_name = 'D:/Python/AutoChessTrainingData/Hp/undefined'
+        self.env.window_manager.set_local_screenshot_folder(
+            'D:/Python/AutoChessTrainingData/StoreScreenshots/StoreClosed')
+        while True:
+            if not self.env.grab_current_screenshot():
+                break
+            if self.env.get_env_state() == 'InGame':
+                if self.env.get_battle_state() == 'InPreparation':
+                    if self.env.get_store_state() == 'StoreClosed':
+                        for screenshot in self.env.grab_hp_images():
+                            file_name = folder_name + '/' + str(time.time()) + '.jpg'
+                            screenshot.save(file_name)
+                            print("New image saved: " + file_name)
+
+            #time.sleep(1)
 
 
 

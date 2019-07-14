@@ -51,6 +51,12 @@ class BlueStackEnv(Environment):
             reverse_map = json.load(json_file)
             self.battle_state_map = {v: k for k, v in reverse_map.items()}
 
+        # Model consumes image with shape (170, 46)
+        self.hp_state_model = load_model('./Model/hp_state_v1.h5')
+        self.hp_state_map = None
+        with open('./Model/hp_state_v1.json') as json_file:
+            reverse_map = json.load(json_file)
+            self.hp_state_map = {v: k for k, v in reverse_map.items()}
 
     def grab_current_screenshot(self):
         """
@@ -58,6 +64,7 @@ class BlueStackEnv(Environment):
         :return:
         """
         self.current_screenshot = self.window_manager.grab_current_screenshot()
+        return self.current_screenshot
 
     def get_heroes_in_store(self):
         """
@@ -125,8 +132,36 @@ class BlueStackEnv(Environment):
         prediction = self.battle_state_map[self.battle_state_model.predict_classes(np.array([np_image]))[0]]
         return prediction
 
+    def get_hp(self):
+        """
+        Returns the current hp, if not found, return None
+        Hp image's type is one of the following: 'DEAD', 'EnemyHP', 'MyHP', 'Other'
+        :return:
+        """
+        hp_images = self.grab_hp_images()
+        np_images = []
+        for image in hp_images:
+            np_image = np.array(image)
+            np_images.append(np_image)
+        predictions = [self.hp_state_map[p] for p in self.hp_state_model.predict_classes(np.array(np_images))]
+        my_hp_image = None
+        for hp_image, prediction in zip(hp_images, predictions):
+            if prediction == 'MyHP':
+                if my_hp_image:
+                    # if there are 2 images classified as MyHp, consider none of them are true and return None.
+                    return None
+                my_hp_image = hp_image
+
+        if my_hp_image is None:
+            return None
+
+        return my_hp_image
+
     def grab_heroes_in_store_images(self):
         return self.window_manager.grab_heroes_pool_images(self.current_screenshot)
 
     def grab_battle_state_image(self):
         return self.window_manager.grab_battle_state_image(self.current_screenshot)
+
+    def grab_hp_images(self):
+        return self.window_manager.grab_hp_images(self.current_screenshot)

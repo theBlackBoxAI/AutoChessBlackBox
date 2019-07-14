@@ -1,4 +1,5 @@
 import time
+import os
 
 import pytesseract
 import win32gui
@@ -11,9 +12,30 @@ from Util.imge_util import ImageUtil
 class WindowManager:
     def __init__(self):
         pytesseract.pytesseract.tesseract_cmd = r"D:\Program Files\Tesseract-OCR\tesseract.exe"
+        # Whether to use local screenshot instead of taking real time ones.
+        self.use_local_screenshot = False
+        self.local_screenshot_iter = None
+
+    def set_local_screenshot_folder(self, folder):
+        """
+        Set the manager to take local screenshots instead of real time ones from simulator.
+        :param folder: The folder to take screenshots from, screenshots have to be in the root of the folder, not in
+        sub folders.
+        :return:
+        """
+        self.use_local_screenshot = True
+        self.local_screenshot_iter = iter(os.scandir(folder))
 
     def grab_current_screenshot(self):
-        return WindowManager.grab_screenshot("BlueStacks")
+        if self.use_local_screenshot:
+            try:
+                file = next(self.local_screenshot_iter)
+                print(file.path)
+                return Image.open(file.path)
+            except StopIteration:
+                return None
+        else:
+            return WindowManager.grab_screenshot("BlueStacks")
 
     @staticmethod
     def grab_screenshot(windows_name):
@@ -79,14 +101,14 @@ class WindowManager:
         :param screenshot:
         :return:
         """
-        return [screenshot.crop((220, 204, 400, 254)),
-                screenshot.crop((220, 312, 400, 362)),
-                screenshot.crop((220, 420, 400, 470)),
-                screenshot.crop((220, 528, 400, 578)),
-                screenshot.crop((220, 636, 400, 686)),
-                screenshot.crop((220, 744, 400, 794)),
-                screenshot.crop((220, 852, 400, 902)),
-                screenshot.crop((220, 960, 400, 1010))]
+        return [screenshot.crop((230, 208, 400, 254)),
+                screenshot.crop((230, 316, 400, 362)),
+                screenshot.crop((230, 424, 400, 470)),
+                screenshot.crop((230, 532, 400, 578)),
+                screenshot.crop((230, 640, 400, 686)),
+                screenshot.crop((230, 748, 400, 794)),
+                screenshot.crop((230, 856, 400, 902)),
+                screenshot.crop((230, 964, 400, 1010))]
 
     @staticmethod
     def grab_turn(screenshot):

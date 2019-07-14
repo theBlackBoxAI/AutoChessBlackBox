@@ -36,6 +36,9 @@ class Environment:
     def get_round(self):
         return 0
 
+    def get_hp(self):
+        return 0
+
     def get_heroes_in_hand(self):
         return [None, None, None, None, None, None, None, None]
 

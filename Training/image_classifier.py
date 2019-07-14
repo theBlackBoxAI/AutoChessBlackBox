@@ -21,6 +21,7 @@ class ImageClassifier:
         # All the image data and labels
         self.images = []
         self.images_label = []
+        self.np_images = None
 
         # All the image data and labels, split into training and testing.
         # 10% of the images will be turned into testing data.
@@ -121,6 +122,7 @@ class ImageClassifier:
         Load all the image in a folder, sub-folder name will be the label for the images
 
         :param folder: the root folder
+        :param resize_ratio: the resize ratio used to down scale the image
         :return:
         """
         subfolders = [f for f in os.scandir(folder) if f.is_dir()]
