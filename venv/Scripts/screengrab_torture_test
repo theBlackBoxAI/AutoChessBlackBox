@@ -1,5 +1,0 @@
-#!C:\Users\zhong\PycharmProjects\AutoChessBlackBox\venv\Scripts\python.exe
-
-from desktopmagic.scripts.screengrab_torture_test import main
-
-main()
