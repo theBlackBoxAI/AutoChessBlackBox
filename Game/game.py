@@ -1,4 +1,10 @@
 import time
+import sys
+import os
+
+from Util.Logger import Logger
+
+DEBUG_FOLDER_ROOT = 'D:/AutoChess'
 
 class Game:
     def __init__(self, environment):
@@ -15,13 +21,39 @@ class Game:
 
         self.env = environment
 
+        self.debug_mode = False
+        self.debug_folder = None
+        self.debug_log_file = None
+
+        self.logger = None
+
+    def toggle_debug_mode(self, enabled):
+        self.debug_mode = enabled
+        if enabled:
+            self.debug_folder = DEBUG_FOLDER_ROOT + '/' + str(time.time()) + '/'
+            if not os.path.exists(self.debug_folder):
+                os.mkdir(self.debug_folder)
+                print("New folder created: " + self.debug_folder)
+
+            self.debug_log_file = self.debug_folder + 'log.txt'
+            f = open(self.debug_log_file, 'w')
+            f.close()
+
+            self.logger = Logger(self.debug_log_file)
+            sys.stdout = self.logger
+
     def start_observation_only_game(self, time_interval = 5):
         """
         Start a game that does not take any action. This is mostly used for debugging.
         :return:
         """
+        f = open(self.debug_log_file, 'w')
         while True:
             self.env.grab_current_screenshot()
+            if self.debug_mode:
+                screenshot_file = self.debug_folder + str(time.time()) + '.jpg'
+                self.env.current_screenshot.save(screenshot_file)
+                print("Current Screenshot: " + screenshot_file)
             env_state = self.env.get_env_state()
             print("Env State: " + env_state)
             if env_state == 'InGame':

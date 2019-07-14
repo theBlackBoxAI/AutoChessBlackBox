@@ -67,6 +67,7 @@ def run_observation_game_with_bluestack():
 
 def run_observation_game_with_screenshots():
     game = Game(ScreenshotEnv('D:/Python/AutoChessTrainingData/StoreScreenshots/test'))
+    game.toggle_debug_mode(True)
     game.start_observation_only_game(time_interval=10)
 
 
@@ -81,5 +82,3 @@ def run_data_collector():
 
 if __name__ == '__main__':
     run_observation_game_with_screenshots()
-    #image = Image.open('D:/Python/AutoChessTrainingData/Hp/MyHP/1563045238.7335513.jpg')
-    #DataProcessor.extract_hp_digit(image)
