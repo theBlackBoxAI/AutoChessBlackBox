@@ -14,10 +14,10 @@ def run_win_manager():
     win_manager.main()
 
 
-def run_training_money_classifier():
+def run_training_digit_classifier():
     classifier = ImageClassifier()
-    classifier.load_and_train('D:/Python/AutoChessTrainingData/MoneyDigit/Raw',
-                              './Model/money_digit.h5',
+    classifier.load_and_train('D:/Python/AutoChessTrainingData/Digit',
+                              './Model/digit.h5',
                               model_name='vgg')
 
 
@@ -66,9 +66,9 @@ def run_observation_game_with_bluestack():
 
 
 def run_observation_game_with_screenshots():
-    game = Game(ScreenshotEnv('D:/Python/AutoChessTrainingData/StoreScreenshots/test'))
-    game.toggle_debug_mode(True)
-    game.start_observation_only_game(time_interval=10)
+    game = Game(ScreenshotEnv('D:/Python/AutoChessTrainingData/StoreScreenshots/StoreClosed', text_only=True))
+    #game.toggle_debug_mode(True)
+    game.start_observation_only_game(time_interval=0)
 
 
 def run_data_collector():
@@ -81,4 +81,4 @@ def run_data_collector():
 
 
 if __name__ == '__main__':
-    run_observation_game_with_screenshots()
+    run_training_digit_classifier()

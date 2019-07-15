@@ -47,9 +47,10 @@ class Game:
         Start a game that does not take any action. This is mostly used for debugging.
         :return:
         """
-        f = open(self.debug_log_file, 'w')
         while True:
-            self.env.grab_current_screenshot()
+            if self.env.grab_current_screenshot() is None:
+                # If no screenshot is available, stop the game
+                break
             if self.debug_mode:
                 screenshot_file = self.debug_folder + str(time.time()) + '.jpg'
                 self.env.current_screenshot.save(screenshot_file)
@@ -57,6 +58,8 @@ class Game:
             env_state = self.env.get_env_state()
             print("Env State: " + env_state)
             if env_state == 'InGame':
+                round = self.env.get_round()
+                print("Round: " + str(round))
                 store_state = self.env.get_store_state()
                 print("Store State: " + store_state)
                 if store_state == 'StoreOpened':

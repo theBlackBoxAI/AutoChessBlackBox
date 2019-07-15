@@ -6,6 +6,8 @@ from GameBasic.hero_factory import HeroFactory
 from Training.data_processor import DataProcessor
 from keras.models import load_model
 
+import time
+
 
 class BlueStackEnv(Environment):
     def __init__(self):
@@ -21,7 +23,7 @@ class BlueStackEnv(Environment):
         self.hero_factory = HeroFactory()
 
         # Model consumes image with shape (22, 41)
-        self.money_model = load_model('./Model/money_digit_v2.h5')
+        self.digit_model = load_model('./Model/digit_v1.h5')
 
         # Model consumes image with shape (77, 127)
         self.hero_in_store_model = load_model('./Model/hero_in_store_v2.h5')
@@ -98,7 +100,7 @@ class BlueStackEnv(Environment):
         for image in images:
             image = image.resize((22, 41))
             np_image = np.array(image)
-            prediction = self.money_model.predict_classes(np.array([np_image]))[0]
+            prediction = self.digit_model.predict_classes(np.array([np_image]))[0]
             money = money * 10 + int(prediction)
         return money
 
@@ -162,10 +164,27 @@ class BlueStackEnv(Environment):
         for image in digit_images:
             image = image.resize((22, 41))
             np_image = np.array(image)
-            prediction = self.money_model.predict_classes(np.array([np_image]))[0]
+            prediction = self.digit_model.predict_classes(np.array([np_image]))[0]
+            #image.save('D:/Python/AutoChessTrainingData/Digit/' + str(prediction) + '/' + str(time.time()) + '.jpg')
             hp = hp * 10 + int(prediction)
 
         return hp
+
+    def get_round(self):
+        """
+        Return the current turn, if not found, return None
+        :return:
+        """
+        images = DataProcessor.extract_round_digit(self.grab_round_image())
+        round = 0
+        # Model has shape (22, 41)
+        for image in images:
+            image = image.resize((22, 41))
+            np_image = np.array(image)
+            prediction = self.digit_model.predict_classes(np.array([np_image]))[0]
+            #image.save('D:/Python/AutoChessTrainingData/Digit/' + str(prediction) + '/' + str(time.time()) + '.jpg')
+            round = round * 10 + int(prediction)
+        return round
 
     def grab_heroes_in_store_images(self):
         return self.window_manager.grab_heroes_pool_images(self.current_screenshot)
@@ -175,3 +194,6 @@ class BlueStackEnv(Environment):
 
     def grab_hp_images(self):
         return self.window_manager.grab_hp_images(self.current_screenshot)
+
+    def grab_round_image(self):
+        return self.window_manager.grab_round_image(self.current_screenshot)

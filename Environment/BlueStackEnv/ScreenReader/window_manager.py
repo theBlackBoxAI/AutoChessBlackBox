@@ -111,8 +111,8 @@ class WindowManager:
                 screenshot.crop((230, 964, 400, 1010))]
 
     @staticmethod
-    def grab_turn(screenshot):
-        return screenshot.crop((204, 50, 249, 86))
+    def grab_round_image(screenshot):
+        return screenshot.crop((204, 58, 320, 87))
 
     @staticmethod
     def save_img(image, file_name):
@@ -126,7 +126,7 @@ class WindowManager:
     def grab_screenshot_and_save():
         for i in range(1000):
             src_image = WindowManager.grab_screenshot("BlueStacks")
-            file_name = 'D:/AutoChess/Screenshots/Sample' + str(i) +  '.jpg'
+            file_name = 'D:/AutoChess/Screenshots/Sample' + str(i) + '.jpg'
             WindowManager.save_img(src_image, file_name)
             print(file_name)
             time.sleep(10)

@@ -4,13 +4,14 @@ import cv2
 
 
 class ScreenshotEnv(BlueStackEnv):
-    def __init__(self, folder_name):
+    def __init__(self, folder_name, text_only=False):
         """
         An environment runs on a series of screenshots taken from BlueStackEnv
         :param folder_name: The folder that contains the screenshots, all screenshots must be in the root folder.
         """
         super().__init__()
         self.window_manager.set_local_screenshot_folder(folder_name)
+        self.text_only = text_only
 
     def grab_current_screenshot(self):
         """
@@ -18,8 +19,9 @@ class ScreenshotEnv(BlueStackEnv):
         :return:
         """
         super().grab_current_screenshot()
-        if self.current_screenshot:
-            cv2.destroyAllWindows()
-            cv2.imshow("Screenshot", ImageUtil.pil_to_cv2(self.current_screenshot))
-            cv2.waitKey(1)
+        if not self.text_only:
+            if self.current_screenshot:
+                cv2.destroyAllWindows()
+                cv2.imshow("Screenshot", ImageUtil.pil_to_cv2(self.current_screenshot))
+                cv2.waitKey(1)
         return self.current_screenshot
