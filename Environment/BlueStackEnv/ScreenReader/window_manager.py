@@ -115,6 +115,14 @@ class WindowManager:
         return screenshot.crop((204, 58, 320, 87))
 
     @staticmethod
+    def grab_level_image(screenshot):
+        return screenshot.crop((350, 1183, 453, 1219))
+
+    @staticmethod
+    def grab_exp_image(screenshot):
+        return screenshot.crop((355, 1233, 452, 1270))
+
+    @staticmethod
     def save_img(image, file_name):
         image.save(file_name)
 

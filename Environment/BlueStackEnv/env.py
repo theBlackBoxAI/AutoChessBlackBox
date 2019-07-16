@@ -60,6 +60,22 @@ class BlueStackEnv(Environment):
             reverse_map = json.load(json_file)
             self.hp_state_map = {v: k for k, v in reverse_map.items()}
 
+    def convert_img_digit_to_number(self, digit_images):
+        """
+        Convert a list of digit images into one number
+
+        :param digit_images: the digit images
+        :return:
+        """
+        number = 0
+        # Model has shape (22, 41)
+        for image in digit_images:
+            image = image.resize((22, 41))
+            np_image = np.array(image)
+            prediction = self.digit_model.predict_classes(np.array([np_image]))[0]
+            number = number * 10 + int(prediction)
+        return number
+
     def grab_current_screenshot(self):
         """
         This need to be called before all other actions, to update the screenshot
@@ -95,13 +111,7 @@ class BlueStackEnv(Environment):
 
     def get_money(self):
         images = DataProcessor.extract_money_digit(self.current_screenshot)
-        money = 0
-        # Model has shape (22, 41)
-        for image in images:
-            image = image.resize((22, 41))
-            np_image = np.array(image)
-            prediction = self.digit_model.predict_classes(np.array([np_image]))[0]
-            money = money * 10 + int(prediction)
+        money = self.convert_img_digit_to_number(images)
         return money
 
     def get_env_state(self):
@@ -158,16 +168,7 @@ class BlueStackEnv(Environment):
             return None
 
         digit_images = DataProcessor.extract_hp_digit(my_hp_image)
-
-        hp = 0
-        # Model has shape (22, 41)
-        for image in digit_images:
-            image = image.resize((22, 41))
-            np_image = np.array(image)
-            prediction = self.digit_model.predict_classes(np.array([np_image]))[0]
-            #image.save('D:/Python/AutoChessTrainingData/Digit/' + str(prediction) + '/' + str(time.time()) + '.jpg')
-            hp = hp * 10 + int(prediction)
-
+        hp = self.convert_img_digit_to_number(digit_images)
         return hp
 
     def get_round(self):
@@ -176,15 +177,13 @@ class BlueStackEnv(Environment):
         :return:
         """
         images = DataProcessor.extract_round_digit(self.grab_round_image())
-        round = 0
-        # Model has shape (22, 41)
-        for image in images:
-            image = image.resize((22, 41))
-            np_image = np.array(image)
-            prediction = self.digit_model.predict_classes(np.array([np_image]))[0]
-            #image.save('D:/Python/AutoChessTrainingData/Digit/' + str(prediction) + '/' + str(time.time()) + '.jpg')
-            round = round * 10 + int(prediction)
-        return round
+        current_round = self.convert_img_digit_to_number(images)
+        return current_round
+
+    def get_level(self):
+        images = DataProcessor.extract_level_digit(self.grab_level_image())
+        level = self.convert_img_digit_to_number(images)
+        return level
 
     def grab_heroes_in_store_images(self):
         return self.window_manager.grab_heroes_pool_images(self.current_screenshot)
@@ -197,3 +196,9 @@ class BlueStackEnv(Environment):
 
     def grab_round_image(self):
         return self.window_manager.grab_round_image(self.current_screenshot)
+
+    def grab_level_image(self):
+        return self.window_manager.grab_level_image(self.current_screenshot)
+
+    def grab_exp_image(self):
+        return self.window_manager.grab_exp_image(self.current_screenshot)

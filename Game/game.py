@@ -60,6 +60,10 @@ class Game:
             if env_state == 'InGame':
                 round = self.env.get_round()
                 print("Round: " + str(round))
+
+                level = self.env.get_level()
+                print("Level: " + str(level))
+
                 store_state = self.env.get_store_state()
                 print("Store State: " + store_state)
                 if store_state == 'StoreOpened':

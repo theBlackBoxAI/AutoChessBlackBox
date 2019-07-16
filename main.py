@@ -62,13 +62,14 @@ def run_training_hp_state():
 
 def run_observation_game_with_bluestack():
     game = Game(BlueStackEnv())
+    game.toggle_debug_mode(True)
     game.start_observation_only_game()
 
 
 def run_observation_game_with_screenshots():
-    game = Game(ScreenshotEnv('D:/Python/AutoChessTrainingData/StoreScreenshots/StoreClosed', text_only=True))
+    game = Game(ScreenshotEnv('D:/Python/AutoChessTrainingData/StoreScreenshots/StoreClosed'))
     #game.toggle_debug_mode(True)
-    game.start_observation_only_game(time_interval=0)
+    game.start_observation_only_game(time_interval=10)
 
 
 def run_data_collector():
@@ -81,4 +82,4 @@ def run_data_collector():
 
 
 if __name__ == '__main__':
-    run_training_digit_classifier()
+    run_observation_game_with_bluestack()
