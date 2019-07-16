@@ -67,9 +67,9 @@ def run_observation_game_with_bluestack():
 
 
 def run_observation_game_with_screenshots():
-    game = Game(ScreenshotEnv('D:/Python/AutoChessTrainingData/StoreScreenshots/StoreClosed'))
+    game = Game(ScreenshotEnv('D:/AutoChess/1563243945.0482247'))
     #game.toggle_debug_mode(True)
-    game.start_observation_only_game(time_interval=10)
+    game.start_observation_only_game(time_interval=0)
 
 
 def run_data_collector():
@@ -82,4 +82,4 @@ def run_data_collector():
 
 
 if __name__ == '__main__':
-    run_observation_game_with_bluestack()
+    run_observation_game_with_screenshots()

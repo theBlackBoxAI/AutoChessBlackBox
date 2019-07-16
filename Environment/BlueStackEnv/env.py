@@ -91,6 +91,8 @@ class BlueStackEnv(Environment):
         :return:
         """
         images = self.grab_heroes_in_store_images()
+        #for image in images:
+        #    image.save('D:/AutoChess/TempData/' + str(time.time()) + '.jpg')
         hero1 = self.hero_in_store_class_map[
             self.hero_in_store_model.predict_classes(np.array([np.array(images[0].resize((77, 127)))]))[0]]
         hero2 = self.hero_in_store_class_map[

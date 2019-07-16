@@ -59,9 +59,9 @@ Name, Level, Quality, HP, ATK, Armor, ATK Speed, Magic Resistant, ATK Range, Rac
 光麟龙, 1, Uncommon, 450, 45, 5, 1.7, 0, 3, Dragon, Feathered, Mage
 光麟龙, 2, Uncommon, 900, 90, 5, 1.7, 0, 3, Dragon, Feathered, Mage
 光麟龙, 3, Uncommon, 1800, 180, 5, 1.7, 0, 3, Dragon, Feathered, Mage
-撕裂者, 1, Uncommon, 800, 57, 5, 1.4, 0, 1, Goblin, , Mech
-撕裂者, 2, Uncommon, 1600, 115, 7, 1.4, 0, 1, Goblin, , Mech
-撕裂者, 3, Uncommon, 3200, 230, 9, 1.4, 0, 1, Goblin, , Mech
+伐木者, 1, Uncommon, 800, 57, 5, 1.4, 0, 1, Goblin, , Mech
+伐木者, 2, Uncommon, 1600, 115, 7, 1.4, 0, 1, Goblin, , Mech
+伐木者, 3, Uncommon, 3200, 230, 9, 1.4, 0, 1, Goblin, , Mech
 炼狱骑士, 1, Uncommon, 700, 75, 5, 1.2, 0, 1, Demon, , Knight
 炼狱骑士, 2, Uncommon, 1400, 150, 5, 1.2, 0, 1, Demon, , Knight
 炼狱骑士, 3, Uncommon, 2800, 300, 5, 1.2, 0, 1, Demon, , Knight
