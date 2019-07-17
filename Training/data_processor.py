@@ -135,27 +135,27 @@ class DataProcessor:
             # Throw away the first two characters '等级'
             if w < 10 or w > 18 or h < 20 or h > 26:
                 continue
-            print(x, y, w, h)
+            #print(x, y, w, h)
             digit_img = img[y:y+h, x:x+w]
             digit_img = ImageUtil.cv2_to_pil(digit_img)
             images.append(digit_img)
         return images
 
     @staticmethod
-    def extract_xp_digit(cropped_image):
+    def extract_exp_digit(cropped_image):
         """
         Extract the digit images.
 
-        :param cropped_image: The image contains the player's xp information
+        :param cropped_image: The image contains the player's exp information
         :return:
         """
-        # Makes all not-so-white color into black, especially green color. To extract only the white text.
+        # Makes all not-so-white color into black
         img = cropped_image.convert("RGBA")
         pix_data = img.load()
         for y in range(img.size[1]):
             for x in range(img.size[0]):
                 r, g, b, a = img.getpixel((x, y))
-                if (r < 220) & (b < 220):
+                if (g < 130) and (r < 150) and (b < 100):
                     pix_data[x, y] = (0, 0, 0, 1)
         img = ImageUtil.to_grey_and_smooth(img, 1)
 
@@ -173,7 +173,7 @@ class DataProcessor:
         for c in cnts:
             # compute the bounding box of the contour
             (x, y, w, h) = cv2.boundingRect(c)
-            if w < 10 or w > 20 or h < 15 or h > 25:
+            if w < 10 or w > 20 or h < 15 or h > 30:
                 continue
             #print(x, y, w, h)
             digit_img = img[y:y+h, x:x+w]

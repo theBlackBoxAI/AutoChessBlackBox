@@ -64,6 +64,9 @@ class Game:
                 level = self.env.get_level()
                 print("Level: " + str(level))
 
+                exp = self.env.get_exp()
+                print("Exp: " + str(exp))
+
                 store_state = self.env.get_store_state()
                 print("Store State: " + store_state)
                 if store_state == 'StoreOpened':

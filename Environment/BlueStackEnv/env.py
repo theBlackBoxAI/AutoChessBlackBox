@@ -25,6 +25,13 @@ class BlueStackEnv(Environment):
         # Model consumes image with shape (22, 41)
         self.digit_model = load_model('./Model/digit_v1.h5')
 
+        # Model consumes image with shape (22, 41)
+        self.digit_with_slash_model = load_model('./Model/digit_with_slash_v1.h5')
+        self.digit_with_slash_map = None
+        with open('./Model/digit_with_slash_v1.json') as json_file:
+            reverse_map = json.load(json_file)
+            self.digit_with_slash_map = {v: k for k, v in reverse_map.items()}
+
         # Model consumes image with shape (77, 127)
         self.hero_in_store_model = load_model('./Model/hero_in_store_v2.h5')
         self.hero_in_store_class_map = None
@@ -186,6 +193,26 @@ class BlueStackEnv(Environment):
         images = DataProcessor.extract_level_digit(self.grab_level_image())
         level = self.convert_img_digit_to_number(images)
         return level
+
+    def get_exp(self):
+        """
+        Grab the exp value of current screen
+        :return: the exp value, if the image is broken(No slash detected), returns -1
+        """
+        images = DataProcessor.extract_exp_digit(self.grab_exp_image())
+        #for image in images:
+        #    image = image.resize((22,41))
+        #    image.save('D:/AutoChess/TempData/' + str(time.time()) + '.jpg')
+        exp = 0
+        # Model has shape (22, 41)
+        for image in images:
+            image = image.resize((22, 41))
+            np_image = np.array(image)
+            prediction = self.digit_with_slash_map[self.digit_with_slash_model.predict_classes(np.array([np_image]))[0]]
+            if prediction == 'Slash':
+                return exp
+            exp = exp * 10 + int(prediction)
+        return -1
 
     def grab_heroes_in_store_images(self):
         return self.window_manager.grab_heroes_pool_images(self.current_screenshot)
