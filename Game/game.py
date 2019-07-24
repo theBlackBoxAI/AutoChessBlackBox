@@ -1,6 +1,7 @@
 import time
 import sys
 import os
+from GameBasic.game_state import GameState
 
 from Util.Logger import Logger
 
@@ -8,17 +9,6 @@ DEBUG_FOLDER_ROOT = 'D:/AutoChess'
 
 class Game:
     def __init__(self, environment):
-        self.hand = Hand()
-        self.board = Board()
-        self.store = Store()
-        self.money = 0
-        self.turn = 0
-        self.battle_record = []
-        self.hp = 0
-        self.level = 0
-        self.exp = 0
-        self.score = 0
-
         self.env = environment
 
         self.debug_mode = False
@@ -42,6 +32,34 @@ class Game:
             self.logger = Logger(self.debug_log_file)
             sys.stdout = self.logger
 
+    def grab_current_game_state(self):
+        """
+        Grab the game state for the current screenshot.
+        :return: The game state of current screenshot
+        """
+        game_state = GameState()
+        env_state = self.env.get_env_state()
+        if env_state == 'InGame':
+            game_state.is_active = True
+            game_state.round = self.env.get_round()
+            game_state.level = self.env.get_level()
+            game_state.exp = self.env.get_exp()
+            game_state.money = self.env.get_money()
+            store_state = self.env.get_store_state()
+            if store_state == 'StoreOpened':
+                game_state.store.is_open = True
+                heroes = self.env.get_heroes_in_store()
+                game_state.store.update_store(heroes)
+            if store_state == 'StoreClosed':
+                game_state.hp = self.env.get_hp()
+
+            battle_state = self.env.get_battle_state()
+            if battle_state == 'InBattle':
+                game_state.in_battle = True
+
+        return game_state
+
+
     def start_observation_only_game(self, time_interval = 5):
         """
         Start a game that does not take any action. This is mostly used for debugging.
@@ -55,40 +73,8 @@ class Game:
                 screenshot_file = self.debug_folder + str(time.time()) + '.jpg'
                 self.env.current_screenshot.save(screenshot_file)
                 print("Current Screenshot: " + screenshot_file)
-            env_state = self.env.get_env_state()
-            print("Env State: " + env_state)
-            if env_state == 'InGame':
-                round = self.env.get_round()
-                print("Round: " + str(round))
+            self.grab_current_game_state().print()
 
-                level = self.env.get_level()
-                print("Level: " + str(level))
-
-                exp = self.env.get_exp()
-                print("Exp: " + str(exp))
-
-                store_state = self.env.get_store_state()
-                print("Store State: " + store_state)
-                if store_state == 'StoreOpened':
-                    print("Current Heroes in store: ")
-                    for hero in self.env.get_heroes_in_store():
-                        if hero:
-                            print(hero.name + ' ', end='')
-                        else:
-                            print('Empty ', end='')
-                    print()
-                if store_state == 'StoreClosed':
-                    hp = self.env.get_hp()
-                    if hp:
-                        print('Hp: ' + str(hp))
-                    else:
-                        print("No Hp image is found")
-
-                print("Current Money: " + str(self.env.get_money()))
-
-                battle_state = self.env.get_battle_state()
-                print("Battle State: " + battle_state)
-                print()
             time.sleep(time_interval)
 
     def buy_hero_in_store(self, position):
@@ -106,43 +92,6 @@ class Game:
         self.store.remove_hero(position)
         self.money -= hero.price
         return True
-
-
-class Store:
-    def __init__(self):
-        self.heroes = [None, None, None, None, None]
-
-    def get_hero(self, position):
-        return self.heroes[position]
-
-    def remove_hero(self, position):
-        self.heroes[position] = None
-
-    def update_store(self, heroes):
-        self.heroes = heroes
-
-
-
-class Hand:
-    def __init__(self):
-        self.heroes = [None, None, None, None, None, None, None, None]
-
-    def put_hero_in_hand(self, hero):
-        for index in range(len(self.heroes)):
-            if self.heroes[index] is None:
-                self.heroes[index] = hero
-                return True
-        else:
-            return False
-
-
-class Board:
-    def __init__(self):
-        self.board = [[None, None, None, None, None, None, None, None],
-                      [None, None, None, None, None, None, None, None],
-                      [None, None, None, None, None, None, None, None],
-                      [None, None, None, None, None, None, None, None]]
-
 
 
 
