@@ -5,8 +5,7 @@ from Environment.BlueStackEnv.env import BlueStackEnv
 from Environment.ScreenshotEnv.env import ScreenshotEnv
 from Training.data_collector import DataCollector
 from Training.data_processor import DataProcessor
-
-from PIL import Image
+from Environment.BlueStackEnv.Operator.operator import Operator
 
 
 def run_win_manager():
@@ -82,4 +81,4 @@ def run_data_collector():
 
 
 if __name__ == '__main__':
-    run_observation_game_with_screenshots()
+    Operator.leave_game()

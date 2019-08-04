@@ -50,7 +50,6 @@ class Environment:
 
     def put_hero_on_board(self, position, x, y):
         """
-
         :param position: 0-7, the position for the hero in hand
         :param x: 0-7, the x position on board
         :param y: 0-3, the y position on board
@@ -60,7 +59,6 @@ class Environment:
 
     def drag_hero_from_board(self, x, y, position):
         """
-
         :param x: 0-7, the x position on board
         :param y: 0-3, the y position on board
         :param position: 0-7, the position to move to in hand
@@ -70,7 +68,6 @@ class Environment:
 
     def sell_hero_in_hand(self, position):
         """
-
         :param position: 0-7, the position in hand to sell
         :return:
         """
@@ -78,7 +75,6 @@ class Environment:
 
     def sell_hero_on_board(self, x, y):
         """
-
         :param x: 0-7, the x position on board
         :param y: 0-3, the y position on board
         :return:
@@ -95,4 +91,10 @@ class Environment:
         return False
 
     def unlock_store(self):
+        return False
+
+    def open_store(self):
+        return False
+
+    def close_store(self):
         return False

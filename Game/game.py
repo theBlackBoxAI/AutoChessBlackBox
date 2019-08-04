@@ -16,6 +16,10 @@ class Game:
         self.debug_log_file = None
 
         self.logger = None
+        self.ai = None
+
+    def install_ai(self, ai_engine):
+        self.ai = ai_engine
 
     def toggle_debug_mode(self, enabled):
         self.debug_mode = enabled

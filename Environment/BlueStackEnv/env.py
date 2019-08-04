@@ -4,6 +4,7 @@ from Environment.BlueStackEnv.ScreenReader.window_manager import WindowManager
 from Environment.environment import Environment
 from GameBasic.hero_factory import HeroFactory
 from Training.data_processor import DataProcessor
+from Environment.BlueStackEnv.Operator.operator import Operator
 from keras.models import load_model
 
 import time
@@ -231,3 +232,4 @@ class BlueStackEnv(Environment):
 
     def grab_exp_image(self):
         return self.window_manager.grab_exp_image(self.current_screenshot)
+
