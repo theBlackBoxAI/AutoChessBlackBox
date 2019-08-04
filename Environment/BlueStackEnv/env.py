@@ -215,8 +215,19 @@ class BlueStackEnv(Environment):
             exp = exp * 10 + int(prediction)
         return -1
 
+    def perform_action(self, action):
+        """
+        Perform the given action.
+        :param action:
+        :return:
+        """
+        Operator.perform_action(action)
+
     def grab_heroes_in_store_images(self):
         return self.window_manager.grab_heroes_pool_images(self.current_screenshot)
+
+    def grab_heroes_in_hand_images(self):
+        return self.window_manager.grab_heroes_in_hand_images(self.current_screenshot)
 
     def grab_battle_state_image(self):
         return self.window_manager.grab_battle_state_image(self.current_screenshot)

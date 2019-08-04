@@ -15,6 +15,7 @@ class Action:
             lock_store
             reroll
             wait
+            log
         :param action_param: The parameter associate with the action. All position start from 0.
         """
         self.name = action_name

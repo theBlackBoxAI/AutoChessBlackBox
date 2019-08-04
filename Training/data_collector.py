@@ -109,7 +109,25 @@ class DataCollector:
 
             #time.sleep(1)
 
+    def screenshot_hero_in_hand(self):
+        """
+        Split all heroes in store and store the screenshot of them.
 
+        :return:
+        """
+        while True:
+            self.env.grab_current_screenshot()
+            heroes_screenshot = self.env.grab_heroes_in_hand_images()
+            for screenshot in heroes_screenshot:
+                folder_name = 'D:/Python/AutoChessTrainingData/HeroInHand/undefined'
+                if not os.path.exists(folder_name):
+                    os.mkdir(folder_name)
+                    print("New folder created: " + folder_name)
+                file_name = folder_name + '/' + str(time.time()) + '.jpg'
+                screenshot.save(file_name)
+                print("New image saved: " + file_name)
+
+            time.sleep(1)
 
 
 

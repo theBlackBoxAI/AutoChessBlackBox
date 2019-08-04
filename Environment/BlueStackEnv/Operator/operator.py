@@ -1,7 +1,7 @@
 import time
 import pyautogui
 
-OPERATION_INTERVAL = 0.3
+OPERATION_INTERVAL = 1
 SHOP_CHESS_POSITION = [(640, 500), (960, 500), (1270, 500), (1580, 500), (1900, 500)]
 HAND_CHESS_POSITION = [(640, 1220), (820, 1220), (1000, 1220), (1180, 1220),
                        (1360, 1220), (1540, 1220), (1720, 1220), (1900, 1220)]
@@ -30,9 +30,14 @@ class Operator:
             toggle_store
             lock_store
             reroll
+            wait
         :param action: GameBasic.Action
         :return:
         """
+        if action.param is None:
+            action.param = 0
+        print("Action: " + action.name + ' ' + str(action.param))
+
         if action.name == 'start_game':
             Operator.start_game()
             return
@@ -57,6 +62,8 @@ class Operator:
             return
         if action.name == 'reroll':
             Operator.reroll()
+        if action.name == 'wait':
+            Operator.sleep(action.param)
 
     @staticmethod
     def press(key):
@@ -77,6 +84,10 @@ class Operator:
         pyautogui.moveTo(position1[0], position1[1])
         pyautogui.dragTo(position2[1], position2[1], 1)
         time.sleep(OPERATION_INTERVAL)
+
+    @staticmethod
+    def sleep(duration):
+        time.sleep(duration)
 
     @staticmethod
     def start_game():

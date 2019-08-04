@@ -59,7 +59,7 @@ class WindowManager:
     def grab_heroes_pool_text(screenshot):
         """
         Grabs the 5 names of the heroes in the pool using OCR. Empty if already empty
-        :param PIL.Image screenshot: The screenshot to grab from
+        :param screenshot: PIL.Image screenshot to grab from
         :rtype: Array the names
         """
 
@@ -74,7 +74,7 @@ class WindowManager:
     def grab_heroes_pool_images(screenshot):
         """
         Grabs the 5 image of the heroes in the pool.
-        :param PIL.Image screenshot: The screenshot to grab from
+        :param screenshot: PIL.Image screenshot to grab from
         :rtype: Array the images
         """
 
@@ -84,6 +84,23 @@ class WindowManager:
                 screenshot.crop((1131, 280, 1442, 790)),
                 screenshot.crop((1442, 280, 1753, 790)),
                 screenshot.crop((1753, 280, 2064, 790))]
+
+    @staticmethod
+    def grab_heroes_in_hand_images(screenshot):
+        """
+        Grabs the 8 image of heroes in hand.
+        :param screenshot: PIL.Image screenshot. The screenshot to grab from
+        :return:
+        """
+
+        return [screenshot.crop((550, 1140, 731, 1325)),
+                screenshot.crop((731, 1140, 912, 1325)),
+                screenshot.crop((912, 1140, 1093, 1325)),
+                screenshot.crop((1093, 1140, 1274, 1325)),
+                screenshot.crop((1274, 1140, 1455, 1325)),
+                screenshot.crop((1455, 1140, 1636, 1325)),
+                screenshot.crop((1636, 1140, 1817, 1325)),
+                screenshot.crop((1817, 1140, 1998, 1325))]
 
     @staticmethod
     def grab_battle_state_image(screenshot):

@@ -16,10 +16,10 @@ class Game:
         self.debug_log_file = None
 
         self.logger = None
-        self.ai = None
+        self.bot = None
 
-    def install_ai(self, ai_engine):
-        self.ai = ai_engine
+    def install_bot(self, bot):
+        self.bot = bot
 
     def toggle_debug_mode(self, enabled):
         self.debug_mode = enabled
@@ -63,7 +63,6 @@ class Game:
 
         return game_state
 
-
     def start_observation_only_game(self, time_interval = 5):
         """
         Start a game that does not take any action. This is mostly used for debugging.
@@ -81,6 +80,33 @@ class Game:
 
             time.sleep(time_interval)
 
+    def start_game(self):
+        """
+        Start a game.
+        :return:
+        """
+        while True:
+            screenshot = self.env.grab_current_screenshot()
+            if screenshot is None:
+                # If no screenshot is available, stop the game
+                break
+            game_state = self.grab_current_game_state()
+            if self.debug_mode:
+                screenshot_file = self.debug_folder + str(time.time()) + '.jpg'
+                self.env.current_screenshot.save(screenshot_file)
+                print("Current Screenshot: " + screenshot_file)
+
+            game_state.print()
+
+            actions = self.bot.get_actions(game_state)
+            for action in actions:
+                if action.name == 'log':
+                    self.log_heroes_in_hand(game_state, screenshot)
+                else:
+                    self.env.perform_action(action)
+
+            time.sleep(1)
+
     def buy_hero_in_store(self, position):
         '''
 
@@ -97,7 +123,28 @@ class Game:
         self.money -= hero.price
         return True
 
+    def log_heroes_in_hand(self, game_state, screenshot):
+        """
+        Log the heroes in hand with a guessed label for it.
+        :param game_state:
+        :param screenshot:
+        :return:
+        """
 
+        heroes_screenshot = self.env.grab_heroes_in_hand_images()
+        for i in range(5):
+            hero_name = 'Empty'
+            if game_state.store.heroes[i]:
+                hero_name = game_state.store.heroes[i].name + '_1'
+            folder_name = 'D:/Python/AutoChessTrainingData/HeroInHand/' + hero_name
+            if not os.path.exists(folder_name):
+                os.mkdir(folder_name)
+                print("New folder created: " + folder_name)
+            file_name = folder_name + '/' + str(time.time()) + '.jpg'
+            screenshot.save(file_name)
+            print("New image saved: " + file_name)
+
+        time.sleep(1)
 
 
 
