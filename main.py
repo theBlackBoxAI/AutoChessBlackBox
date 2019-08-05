@@ -13,6 +13,7 @@ def run_win_manager():
     screenshot = WindowManager.grab_current_screenshot()
     images = WindowManager.grab_heroes_in_hand_images(screenshot)
 
+
 def run_observation_game_with_bluestack():
     game = Game(BlueStackEnv())
     game.toggle_debug_mode(True)
@@ -23,6 +24,7 @@ def run_observation_game_with_screenshots():
     game = Game(ScreenshotEnv('D:/AutoChess/1563243945.0482247'))
     #game.toggle_debug_mode(True)
     game.start_observation_only_game(time_interval=10)
+
 
 def run_game_with_buy_and_sell_bot():
     game = Game(BlueStackEnv())
@@ -40,4 +42,4 @@ def run_data_collector():
 
 
 if __name__ == '__main__':
-    training.run_training_hero_in_store()
+    run_game_with_buy_and_sell_bot()

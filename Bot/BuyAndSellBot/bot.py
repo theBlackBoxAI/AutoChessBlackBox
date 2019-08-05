@@ -21,7 +21,12 @@ class BuyAndSellBot:
             actions.append(Action('leave_game'))
             return actions
 
-        if game_state.money < 20:
+        # Identify a game is ended.
+        if (game_state.exp == -1) and (game_state.level == 0) and (not game_state.store.is_open):
+            actions.append(Action('leave_game'))
+            return actions
+
+        if game_state.money < 15:
             actions.append(Action('wait', 5))
             return actions
 
@@ -39,6 +44,7 @@ class BuyAndSellBot:
 
         for i in range(5):
             actions.append(Action('recruit', i))
+        # Allow the game to log the heroes in hand.
         actions.append(Action('log'))
         for i in range(5):
             actions.append(Action('sell_hero_in_hand', i))

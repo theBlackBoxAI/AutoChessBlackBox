@@ -101,7 +101,14 @@ class Game:
             actions = self.bot.get_actions(game_state)
             for action in actions:
                 if action.name == 'log':
-                    self.log_heroes_in_hand(game_state, screenshot)
+                    self.env.grab_current_screenshot()
+                    self.log_heroes_in_hand(game_state)
+                    time.sleep(0.5)
+                    self.env.grab_current_screenshot()
+                    self.log_heroes_in_hand(game_state)
+                    time.sleep(0.5)
+                    self.env.grab_current_screenshot()
+                    self.log_heroes_in_hand(game_state)
                 else:
                     self.env.perform_action(action)
 
@@ -123,11 +130,10 @@ class Game:
         self.money -= hero.price
         return True
 
-    def log_heroes_in_hand(self, game_state, screenshot):
+    def log_heroes_in_hand(self, game_state):
         """
         Log the heroes in hand with a guessed label for it.
-        :param game_state:
-        :param screenshot:
+        :param game_state: The old game_state with heroes all in the store.
         :return:
         """
 
@@ -141,7 +147,7 @@ class Game:
                 os.mkdir(folder_name)
                 print("New folder created: " + folder_name)
             file_name = folder_name + '/' + str(time.time()) + '.jpg'
-            screenshot.save(file_name)
+            heroes_screenshot[i].save(file_name)
             print("New image saved: " + file_name)
 
         time.sleep(1)
