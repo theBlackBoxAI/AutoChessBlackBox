@@ -42,4 +42,4 @@ def run_data_collector():
 
 
 if __name__ == '__main__':
-    run_game_with_buy_and_sell_bot()
+    training.run_training_hero_in_store()
