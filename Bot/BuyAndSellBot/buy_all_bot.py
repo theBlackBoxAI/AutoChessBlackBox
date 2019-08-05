@@ -1,12 +1,12 @@
 from GameBasic.action import Action
 
 
-class BuyAndSellBot:
+class BuyAllBot:
     """
     A bot only buy and sell heroes.
     """
     def __init__(self):
-        self.strategy = None
+        return
 
     def get_actions(self, game_state):
         """
@@ -45,8 +45,13 @@ class BuyAndSellBot:
         for i in range(5):
             actions.append(Action('recruit', i))
         # Allow the game to log the heroes in hand.
-        actions.append(Action('log'))
-        for i in range(5):
+        actions.append(Action('log', [0, 1, 2, 3, 4]))
+        actions.append(Action('move_hero_in_hand', [0, 7]))
+        actions.append(Action('move_hero_in_hand', [1, 6]))
+        actions.append(Action('move_hero_in_hand', [2, 5]))
+        actions.append(Action('move_hero_in_hand', [3, 4]))
+        actions.append(Action('log', [7, 6, 5, 4, 3]))
+        for i in range(8):
             actions.append(Action('sell_hero_in_hand', i))
         return actions
 

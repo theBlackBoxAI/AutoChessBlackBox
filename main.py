@@ -6,7 +6,7 @@ from Environment.ScreenshotEnv.env import ScreenshotEnv
 from Training.data_collector import DataCollector
 from Training.data_processor import DataProcessor
 from Environment.BlueStackEnv.Operator.operator import Operator
-from Bot.BuyAndSellBot.bot import BuyAndSellBot
+from Bot.BuyAndSellBot.buy_all_bot import BuyAllBot
 
 
 def run_win_manager():
@@ -28,7 +28,7 @@ def run_observation_game_with_screenshots():
 
 def run_game_with_buy_and_sell_bot():
     game = Game(BlueStackEnv())
-    game.install_bot(BuyAndSellBot())
+    game.install_bot(BuyAllBot())
     game.start_game()
 
 

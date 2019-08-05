@@ -1,9 +1,10 @@
 import csv
 from .hero import Hero
 from os import path
+from Common.singleton import Singleton
 
 
-class HeroFactory:
+class HeroFactory(metaclass=Singleton):
     def __init__(self):
         self.heroes = self.load_heroes()
 

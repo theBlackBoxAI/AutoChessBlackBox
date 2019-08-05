@@ -5,10 +5,12 @@ OPERATION_INTERVAL = 1
 SHOP_CHESS_POSITION = [(640, 500), (960, 500), (1270, 500), (1580, 500), (1900, 500)]
 HAND_CHESS_POSITION = [(640, 1220), (820, 1220), (1000, 1220), (1180, 1220),
                        (1360, 1220), (1540, 1220), (1720, 1220), (1900, 1220)]
+HAND_CHESS_UPGRADE_POSITION = [(640, 1100), (820, 1100), (1000, 1100), (1180, 1100),
+                               (1360, 1100), (1540, 1100), (1720, 1100), (1900, 1100)]
 BOARD_CHESS_POSITION = [(640, 1220), (820, 1220), (1000, 1220), (1180, 1220),
                         (1360, 1220), (1540, 1220), (1720, 1220), (1900, 1220)]
 
-SELL_HERO_POSITION = (320, 900)
+SELL_HERO_POSITION = (2125, 1030)
 LEVEL_UP_POSITION = (250, 1200)
 LOCK_STORE_POSITION = (290, 670)
 REROLL_STORE_POSITION = (2250, 670)
@@ -24,13 +26,15 @@ class Operator:
             The current supported actions are:
             start_game
             leave_game
-            recruit (param 0 - 4)
-            sell_hero_in_hand (param 0 - 7)
+            recruit :param 0 - 4
+            sell_hero_in_hand :param 0 - 7
             level_up
             toggle_store
             lock_store
             reroll
             wait
+            move_hero_in_hand :param [0 - 7, 0 - 7]
+            upgrade_hero_in_hand :param 0 - 7
         :param action: GameBasic.Action
         :return:
         """
@@ -64,6 +68,11 @@ class Operator:
             Operator.reroll()
         if action.name == 'wait':
             Operator.sleep(action.param)
+        if action.name == 'move_hero_in_hand':
+            Operator.move_hero_in_hand(action.param)
+        if action.name == 'upgrade_hero_in_hand':
+            Operator.upgrade_hero_in_hand(action.param)
+
 
     @staticmethod
     def press(key):
@@ -82,7 +91,7 @@ class Operator:
     @staticmethod
     def drag(position1, position2):
         pyautogui.moveTo(position1[0], position1[1])
-        pyautogui.dragTo(position2[1], position2[1], 1)
+        pyautogui.dragTo(position2[0], position2[1], 1)
         time.sleep(OPERATION_INTERVAL)
 
     @staticmethod
@@ -137,3 +146,13 @@ class Operator:
     @staticmethod
     def reroll():
         Operator.click(REROLL_STORE_POSITION)
+
+    @staticmethod
+    def move_hero_in_hand(position_pair):
+        """:
+        """
+        Operator.drag(HAND_CHESS_POSITION[position_pair[0]], HAND_CHESS_POSITION[position_pair[1]])
+
+    @staticmethod
+    def upgrade_hero_in_hand(position):
+        Operator.click(HAND_CHESS_UPGRADE_POSITION[position])

@@ -2,6 +2,7 @@ import time
 import sys
 import os
 from GameBasic.game_state import GameState
+from GameBasic.action import Action
 
 from Util.Logger import Logger
 
@@ -102,13 +103,7 @@ class Game:
             for action in actions:
                 if action.name == 'log':
                     self.env.grab_current_screenshot()
-                    self.log_heroes_in_hand(game_state)
-                    time.sleep(0.5)
-                    self.env.grab_current_screenshot()
-                    self.log_heroes_in_hand(game_state)
-                    time.sleep(0.5)
-                    self.env.grab_current_screenshot()
-                    self.log_heroes_in_hand(game_state)
+                    self.log_heroes_in_hand(game_state, action.param)
                 else:
                     self.env.perform_action(action)
 
@@ -130,10 +125,11 @@ class Game:
         self.money -= hero.price
         return True
 
-    def log_heroes_in_hand(self, game_state):
+    def log_heroes_in_hand(self, game_state, match_array=[0, 1, 2, 3, 4]):
         """
         Log the heroes in hand with a guessed label for it.
         :param game_state: The old game_state with heroes all in the store.
+        :param match_array: The in-store to in-hand mapping
         :return:
         """
 
@@ -147,7 +143,7 @@ class Game:
                 os.mkdir(folder_name)
                 print("New folder created: " + folder_name)
             file_name = folder_name + '/' + str(time.time()) + '.jpg'
-            heroes_screenshot[i].save(file_name)
+            heroes_screenshot[match_array[i]].save(file_name)
             print("New image saved: " + file_name)
 
         time.sleep(1)
