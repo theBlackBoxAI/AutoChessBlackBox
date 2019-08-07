@@ -1,5 +1,5 @@
 from Environment.BlueStackEnv.ScreenReader.window_manager import WindowManager
-from Training import training
+#from Training import training
 from Game.game import Game
 from Environment.BlueStackEnv.env import BlueStackEnv
 from Environment.ScreenshotEnv.env import ScreenshotEnv
@@ -7,6 +7,7 @@ from Training.data_collector import DataCollector
 from Training.data_processor import DataProcessor
 from Environment.BlueStackEnv.Operator.operator import Operator
 from Bot.BuyAndSellBot.buy_all_bot import BuyAllBot
+from Bot.BuyAndSellBot.buy_one_hero_bot import BuyOneHeroBot
 
 
 def run_win_manager():
@@ -32,6 +33,12 @@ def run_game_with_buy_and_sell_bot():
     game.start_game()
 
 
+def run_game_with_buy_one_hero_bot():
+    game = Game(BlueStackEnv())
+    game.install_bot(BuyOneHeroBot())
+    game.start_game()
+
+
 def run_data_collector():
     data_collector = DataCollector()
     #data_collector.annotate_hero_in_store()
@@ -42,4 +49,4 @@ def run_data_collector():
 
 
 if __name__ == '__main__':
-    training.run_training_hero_in_store()
+    run_game_with_buy_one_hero_bot()

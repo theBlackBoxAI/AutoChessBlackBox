@@ -103,9 +103,13 @@ class Game:
             for action in actions:
                 if action.name == 'log':
                     self.env.grab_current_screenshot()
-                    self.log_heroes_in_hand(game_state, action.param)
-                else:
-                    self.env.perform_action(action)
+                    self.log_heroes_in_hand_with_guess(game_state, action.param)
+                    continue
+                if action.name == 'log_hero_in_hand':
+                    self.env.grab_current_screenshot()
+                    self.log_heroes_in_hand(action.param)
+                    continue
+                self.env.perform_action(action)
 
             time.sleep(1)
 
@@ -125,7 +129,28 @@ class Game:
         self.money -= hero.price
         return True
 
-    def log_heroes_in_hand(self, game_state, match_array=[0, 1, 2, 3, 4]):
+    def log_heroes_in_hand(self, hand):
+        """
+        Log the heroes in hand..
+        :param game_state: The old game_state with heroes all in the store.
+        :param hand: the Hand object for the current screenshot.
+        :return:
+        """
+        heroes_screenshot = self.env.grab_heroes_in_hand_images()
+        for i in range(8):
+            if hand.heroes[i]:
+                hero_name = hand.heroes[i].name + '_' + str(hand.heroes[i].level)
+            else:
+                continue
+            folder_name = 'D:/Python/AutoChessTrainingData/HeroInHand/' + hero_name
+            if not os.path.exists(folder_name):
+                os.mkdir(folder_name)
+                print("New folder created: " + folder_name)
+            file_name = folder_name + '/' + str(time.time()) + '.jpg'
+            heroes_screenshot[i].save(file_name)
+            print("New image saved: " + file_name)
+
+    def log_heroes_in_hand_with_guess(self, game_state, match_array=[0, 1, 2, 3, 4]):
         """
         Log the heroes in hand with a guessed label for it.
         :param game_state: The old game_state with heroes all in the store.
@@ -145,8 +170,6 @@ class Game:
             file_name = folder_name + '/' + str(time.time()) + '.jpg'
             heroes_screenshot[match_array[i]].save(file_name)
             print("New image saved: " + file_name)
-
-        time.sleep(1)
 
 
 

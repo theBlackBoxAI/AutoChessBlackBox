@@ -18,6 +18,7 @@ class Action:
             upgrade_hero_in_hand :param 0 - 7
 
             log
+            log_hero_in_hand :param Hand object
         :param action_param: The parameter associate with the action. All position start from 0.
         """
         self.name = action_name

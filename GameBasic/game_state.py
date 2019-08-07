@@ -1,3 +1,6 @@
+from GameBasic.hero_factory import HeroFactory
+
+
 class GameState:
     def __init__(self):
         self.hand = Hand()
@@ -65,9 +68,10 @@ class Store:
 
 class Hand:
     def __init__(self):
+        self.hero_factory = HeroFactory()
         self.heroes = [None, None, None, None, None, None, None, None]
 
-    def put_hero_in_hand(self, hero):
+    def add_hero(self, hero):
         for index in range(len(self.heroes)):
             if self.heroes[index] is None:
                 self.heroes[index] = hero
@@ -75,6 +79,37 @@ class Hand:
         else:
             return False
 
+    def can_hero_upgrade(self):
+        """
+        :return: The first position for the hero that can upgrade, None if not exist.
+        """
+        for i in range(len(self.heroes)):
+            if self.heroes[i] is None:
+                continue
+            hero_count = 1
+            for j in range(i + 1, len(self.heroes)):
+                if self.heroes[j] is None:
+                    continue
+                if self.heroes[i].name == self.heroes[j].name and self.heroes[i].level == self.heroes[j].level:
+                    hero_count = hero_count + 1
+                    if hero_count == 3:
+                        return i
+        return None
+
+    def upgrade_hero(self, position):
+        if (self.can_hero_upgrade()) != position:
+            return
+        hero = self.heroes[position]
+        self.heroes[position] = self.hero_factory.get_hero_by_name(hero.name, hero.level + 1)
+        hero_count = 1
+        for i in range(position + 1, len(self.heroes)):
+            if self.heroes[i] is None:
+                continue
+            if hero.name == self.heroes[i].name and hero.level == self.heroes[i].level:
+                self.heroes[i] = None
+                hero_count = hero_count + 1
+                if hero_count == 3:
+                    return
 
 class Board:
     def __init__(self):

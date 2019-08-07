@@ -30,3 +30,36 @@ class HeroFactory(metaclass=Singleton):
                 break
         else:
             return None
+
+    def get_all_hero_names(self):
+        hero_names = set()
+        for hero in self.heroes:
+            hero_names.add(hero.name)
+
+        return sorted(hero_names)
+
+    def get_all_common_hero_names(self):
+        hero_names = set()
+        for hero in self.heroes:
+            if hero.quality == 'Common':
+                hero_names.add(hero.name)
+
+        return sorted(hero_names)
+
+    def get_all_uncommon_hero_names(self):
+        hero_names = set()
+        for hero in self.heroes:
+            if hero.quality == 'Uncommon':
+                hero_names.add(hero.name)
+
+        return sorted(hero_names)
+
+    def get_all_rare_hero_names(self):
+        hero_names = set()
+        for hero in self.heroes:
+            if hero.quality == 'Rare':
+                hero_names.add(hero.name)
+
+        return sorted(hero_names)
+
+
