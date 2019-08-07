@@ -102,7 +102,7 @@ class Hand:
         hero = self.heroes[position]
         self.heroes[position] = self.hero_factory.get_hero_by_name(hero.name, hero.level + 1)
         hero_count = 1
-        for i in range(position + 1, len(self.heroes)):
+        for i in range(len(self.heroes) - 1, position, -1):
             if self.heroes[i] is None:
                 continue
             if hero.name == self.heroes[i].name and hero.level == self.heroes[i].level:
