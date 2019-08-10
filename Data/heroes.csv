@@ -83,6 +83,9 @@ Name, Level, Quality, HP, ATK, Armor, ATK Speed, Magic Resistant, ATK Range, Rac
 魔化巨虫, 1, Rare, 600, 55, 0, 1.2, 0.2, 3, Beast, , Warlock
 魔化巨虫, 2, Rare, 1200, 110, 0, 1.2, 0.2, 3, Beast, , Warlock
 魔化巨虫, 3, Rare, 2400, 220, 0, 1.2, 0.2, 3, Beast, , Warlock
+占卜师, 1, Rare, 550, 62, 5, 1.4, 0, 3, Glacier, , Priest
+占卜师, 2, Rare, 1100, 125, 5, 1.4, 0, 3, Glacier, , Priest
+占卜师, 3, Rare, 2200, 250, 5, 1.4, 0, 3, Glacier, , Priest
 不眠骑士, 1, Rare, 750, 50, 10, 1.3, 0, 1, Egersis, , Knight
 不眠骑士, 2, Rare, 1500, 100, 10, 1.3, 0, 1, Egersis, , Knight
 不眠骑士, 3, Rare, 3000, 200, 10, 1.3, 0, 1, Egersis, , Knight
@@ -95,9 +98,9 @@ Name, Level, Quality, HP, ATK, Armor, ATK Speed, Magic Resistant, ATK Range, Rac
 焰灵法师, 1, Rare, 600, 52, 5, 1.3, 0, 4, Human, , Mage
 焰灵法师, 2, Rare, 1200, 105, 5, 1.3, 0, 4, Human, , Mage
 焰灵法师, 3, Rare, 2400, 210, 5, 1.3, 0, 4, Human, , Mage
-毒液, 1, Rare, 550, 55, 5, 1.0, 0.2, 3, Dragon, , Assassin
-毒液, 2, Rare, 1100, 110, 5, 1.0, 0.2, 3, Dragon, , Assassin
-毒液, 3, Rare, 2200, 220, 5, 1.0, 0.2, 3, Dragon, , Assassin
+绿龙, 1, Rare, 550, 55, 5, 1.0, 0.2, 3, Dragon, , Assassin
+绿龙, 2, Rare, 1100, 110, 5, 1.0, 0.2, 3, Dragon, , Assassin
+绿龙, 3, Rare, 2200, 220, 5, 1.0, 0.2, 3, Dragon, , Assassin
 矮人火枪手, 1, Rare, 450, 75, 5, 1.1, 0, 4, Dwarf, , Hunter
 矮人火枪手, 2, Rare, 900, 150, 5, 1.1, 0, 4, Dwarf, , Hunter
 矮人火枪手, 3, Rare, 1800, 300, 5, 1.1, 0, 4, Dwarf, , Hunter
@@ -155,9 +158,6 @@ Name, Level, Quality, HP, ATK, Armor, ATK Speed, Magic Resistant, ATK Range, Rac
 不眠预言家, 1, Legendary, 1000, 55, 5, 1.4, 0.3, 3, Egersis, , Warlock
 不眠预言家, 2, Legendary, 2000, 110, 5, 1.4, 0.3, 3, Egersis, , Warlock
 不眠预言家, 3, Legendary, 4000, 220, 5, 1.4, 0.3, 3, Egersis, , Warlock
-凋零法师, 1, Legendary, 850, 42, 5, 1.5, 0.2, 3, Egersis, , Mage
-凋零法师, 2, Legendary, 1700, 85, 5, 1.5, 0.2, 3, Egersis, , Mage
-凋零法师, 3, Legendary, 3400, 170, 5, 2.0, 0.2, 3, Egersis, , Mage
 海啸追猎者, 1, Legendary, 950, 50, 5, 2.0, 0, 1, Marine, , Hunter
 海啸追猎者, 2, Legendary, 1900, 100, 5, 2.0, 0, 1, Marine, , Hunter
 海啸追猎者, 3, Legendary, 3800, 200, 5, 2.0, 0, 1, Marine, , Hunter

@@ -1,5 +1,5 @@
 from Environment.BlueStackEnv.ScreenReader.window_manager import WindowManager
-#from Training import training
+from Training import training
 from Game.game import Game
 from Environment.BlueStackEnv.env import BlueStackEnv
 from Environment.ScreenshotEnv.env import ScreenshotEnv
@@ -49,4 +49,4 @@ def run_data_collector():
 
 
 if __name__ == '__main__':
-    run_game_with_buy_one_hero_bot()
+    training.run_training_hero_in_store()

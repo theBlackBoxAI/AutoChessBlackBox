@@ -13,7 +13,7 @@ class BuyOneHeroBot:
         self.hero_factory = HeroFactory()
         self.hero_names = hero_names
         if self.hero_names is None:
-            self.hero_names = self.hero_factory.get_all_common_hero_names()
+            self.hero_names = self.hero_factory.get_all_uncommon_hero_names()
             random.shuffle(self.hero_names)
 
         self.hero_index = 0
@@ -87,7 +87,7 @@ class BuyOneHeroBot:
                 hero_positions.append(i)
         if len(hero_positions) == 0:
             if (game_state.money > 30) or (not self.need_level_up(game_state)
-                                           and game_state.round > 10 and game_state.money >= 2):
+                                           and game_state.round > 10 and game_state.money >= 7):
                 actions.append(Action('reroll'))
             else:
                 actions.append(Action('wait', 5))
