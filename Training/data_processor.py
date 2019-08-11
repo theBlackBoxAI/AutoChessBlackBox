@@ -1,6 +1,5 @@
 import win32gui
 import time
-import pytesseract
 import cv2
 import imutils
 from imutils import contours
@@ -9,7 +8,6 @@ from Util.imge_util import ImageUtil
 
 from PIL import Image
 from PIL import ImageFilter
-from desktopmagic.screengrab_win32 import getRectAsImage
 
 
 class DataProcessor:

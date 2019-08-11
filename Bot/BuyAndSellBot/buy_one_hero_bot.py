@@ -13,7 +13,7 @@ class BuyOneHeroBot:
         self.hero_factory = HeroFactory()
         self.hero_names = hero_names
         if self.hero_names is None:
-            self.hero_names = self.hero_factory.get_all_uncommon_hero_names()
+            self.hero_names = self.hero_factory.get_all_common_hero_names()
             random.shuffle(self.hero_names)
 
         self.hero_index = 0
@@ -102,6 +102,8 @@ class BuyOneHeroBot:
         if len(actions) == 0:
             actions.append(Action('wait', 5))
             return actions
+        else:
+            actions.insert(0, Action('log_hero_in_store'))
         # Allow the game to log the heroes in hand before upgrade.
         actions.append(Action('log_hero_in_hand', copy.deepcopy(self.hand)))
 

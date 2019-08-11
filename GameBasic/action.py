@@ -19,6 +19,7 @@ class Action:
 
             log
             log_hero_in_hand :param Hand object
+            log_hero_in_store
         :param action_param: The parameter associate with the action. All position start from 0.
         """
         self.name = action_name

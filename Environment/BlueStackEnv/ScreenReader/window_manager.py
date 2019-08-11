@@ -1,7 +1,6 @@
 import time
 import os
 
-import pytesseract
 import win32gui
 from PIL import Image
 from desktopmagic.screengrab_win32 import getRectAsImage
@@ -11,7 +10,6 @@ from Util.imge_util import ImageUtil
 
 class WindowManager:
     def __init__(self):
-        pytesseract.pytesseract.tesseract_cmd = r"D:\Program Files\Tesseract-OCR\tesseract.exe"
         # Whether to use local screenshot instead of taking real time ones.
         self.use_local_screenshot = False
         self.local_screenshot_iter = None
@@ -54,21 +52,6 @@ class WindowManager:
         #print(window_rect)
         src_image: Image = getRectAsImage(window_rect)
         return src_image
-
-    @staticmethod
-    def grab_heroes_pool_text(screenshot):
-        """
-        Grabs the 5 names of the heroes in the pool using OCR. Empty if already empty
-        :param screenshot: PIL.Image screenshot to grab from
-        :rtype: Array the names
-        """
-
-        screenshot = WindowManager.preprocess_image(screenshot)
-        return [pytesseract.image_to_string(screenshot.crop((490, 670, 810, 725)), lang='chi_sim'),
-                pytesseract.image_to_string(screenshot.crop((810, 670, 1130, 725)), lang='chi_sim'),
-                pytesseract.image_to_string(screenshot.crop((1100, 670, 1430, 725)), lang='chi_sim'),
-                pytesseract.image_to_string(screenshot.crop((1440, 670, 1730, 725)), lang='chi_sim'),
-                pytesseract.image_to_string(screenshot.crop((1740, 670, 2050, 725)), lang='chi_sim')]
 
     @staticmethod
     def grab_heroes_pool_images(screenshot):
@@ -126,6 +109,22 @@ class WindowManager:
                 screenshot.crop((230, 748, 400, 794)),
                 screenshot.crop((230, 856, 400, 902)),
                 screenshot.crop((230, 964, 400, 1010))]
+
+    @staticmethod
+    def grab_big_hp_images(screenshot):
+        """
+        Grab all the hp images on the side.
+        :param screenshot:
+        :return:
+        """
+        return [screenshot.crop((123, 160, 400, 254)),
+                screenshot.crop((123, 268, 400, 362)),
+                screenshot.crop((123, 376, 400, 470)),
+                screenshot.crop((123, 484, 400, 578)),
+                screenshot.crop((123, 592, 400, 686)),
+                screenshot.crop((123, 700, 400, 794)),
+                screenshot.crop((123, 808, 400, 902)),
+                screenshot.crop((123, 916, 400, 1010))]
 
     @staticmethod
     def grab_round_image(screenshot):

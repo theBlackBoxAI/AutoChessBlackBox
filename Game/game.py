@@ -1,6 +1,8 @@
 import time
 import sys
 import os
+import threading
+from pynput import keyboard
 from GameBasic.game_state import GameState
 from GameBasic.action import Action
 
@@ -18,6 +20,12 @@ class Game:
 
         self.logger = None
         self.bot = None
+
+    def on_press(self, key):
+        print('{0} pressed'.format(
+            key))
+        if key == keyboard.Key.esc:
+            return False
 
     def install_bot(self, bot):
         self.bot = bot
@@ -86,32 +94,35 @@ class Game:
         Start a game.
         :return:
         """
-        while True:
-            screenshot = self.env.grab_current_screenshot()
-            if screenshot is None:
-                # If no screenshot is available, stop the game
-                break
-            game_state = self.grab_current_game_state()
-            if self.debug_mode:
-                screenshot_file = self.debug_folder + str(time.time()) + '.jpg'
-                self.env.current_screenshot.save(screenshot_file)
-                print("Current Screenshot: " + screenshot_file)
+        with keyboard.Listener(on_press=self.on_press) as listener:
+            while True:
+                screenshot = self.env.grab_current_screenshot()
+                if screenshot is None:
+                    # If no screenshot is available, stop the game
+                    break
+                game_state = self.grab_current_game_state()
+                if self.debug_mode:
+                    screenshot_file = self.debug_folder + str(time.time()) + '.jpg'
+                    self.env.current_screenshot.save(screenshot_file)
+                    print("Current Screenshot: " + screenshot_file)
 
-            game_state.print()
+                game_state.print()
 
-            actions = self.bot.get_actions(game_state)
-            for action in actions:
-                if action.name == 'log':
-                    self.env.grab_current_screenshot()
-                    self.log_heroes_in_hand_with_guess(game_state, action.param)
-                    continue
-                if action.name == 'log_hero_in_hand':
-                    self.env.grab_current_screenshot()
-                    self.log_heroes_in_hand(action.param)
-                    continue
-                self.env.perform_action(action)
+                actions = self.bot.get_actions(game_state)
+                for action in actions:
+                    if action.name == 'log':
+                        self.env.grab_current_screenshot()
+                        self.log_hero_in_hand_with_guess(game_state, action.param)
+                        continue
+                    if action.name == 'log_hero_in_hand':
+                        self.env.grab_current_screenshot()
+                        self.log_hero_in_hand(action.param)
+                        continue
+                    self.env.perform_action(action)
 
-            time.sleep(1)
+                time.sleep(1)
+                if not listener.running:
+                    break
 
     def buy_hero_in_store(self, position):
         '''
@@ -129,7 +140,22 @@ class Game:
         self.money -= hero.price
         return True
 
-    def log_heroes_in_hand(self, hand):
+    def log_hero_in_store(self, game_state):
+        if game_state.store.is_open:
+            hero_images = self.env.grab_heroes_in_store_images()
+            for i in range(5):
+                hero = game_state.store.heroes[i]
+                if hero is None:
+                    continue
+                folder_name = 'D:/Python/AutoChessTrainingData/HeroInStore_v2/' + hero.name
+                if not os.path.exists(folder_name):
+                    os.mkdir(folder_name)
+                    print("New folder created: " + folder_name)
+                file_name = folder_name + '/' + str(time.time()) + '.jpg'
+                hero_images[i].save(file_name)
+            print("New image saved: " + file_name)
+
+    def log_hero_in_hand(self, hand):
         """
         Log the heroes in hand..
         :param game_state: The old game_state with heroes all in the store.
@@ -150,7 +176,7 @@ class Game:
             heroes_screenshot[i].save(file_name)
             print("New image saved: " + file_name)
 
-    def log_heroes_in_hand_with_guess(self, game_state, match_array=[0, 1, 2, 3, 4]):
+    def log_hero_in_hand_with_guess(self, game_state, match_array=[0, 1, 2, 3, 4]):
         """
         Log the heroes in hand with a guessed label for it.
         :param game_state: The old game_state with heroes all in the store.

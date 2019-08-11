@@ -95,14 +95,14 @@ class DataCollector:
         """
         folder_name = 'D:/Python/AutoChessTrainingData/Hp/undefined'
         self.env.window_manager.set_local_screenshot_folder(
-            'D:/Python/AutoChessTrainingData/StoreScreenshots/StoreClosed')
+            'D:/AutoChess/1565474421.3376565/')
         while True:
             if not self.env.grab_current_screenshot():
                 break
             if self.env.get_env_state() == 'InGame':
                 if self.env.get_battle_state() == 'InPreparation':
                     if self.env.get_store_state() == 'StoreClosed':
-                        for screenshot in self.env.grab_hp_images():
+                        for screenshot in self.env.grab_big_hp_images():
                             file_name = folder_name + '/' + str(time.time()) + '.jpg'
                             screenshot.save(file_name)
                             print("New image saved: " + file_name)

@@ -4,8 +4,6 @@ from Game.game import Game
 from Environment.BlueStackEnv.env import BlueStackEnv
 from Environment.ScreenshotEnv.env import ScreenshotEnv
 from Training.data_collector import DataCollector
-from Training.data_processor import DataProcessor
-from Environment.BlueStackEnv.Operator.operator import Operator
 from Bot.BuyAndSellBot.buy_all_bot import BuyAllBot
 from Bot.BuyAndSellBot.buy_one_hero_bot import BuyOneHeroBot
 
@@ -18,7 +16,7 @@ def run_win_manager():
 def run_observation_game_with_bluestack():
     game = Game(BlueStackEnv())
     game.toggle_debug_mode(True)
-    game.start_observation_only_game()
+    game.start_observation_only_game(time_interval=5)
 
 
 def run_observation_game_with_screenshots():
@@ -42,11 +40,12 @@ def run_game_with_buy_one_hero_bot():
 def run_data_collector():
     data_collector = DataCollector()
     #data_collector.annotate_hero_in_store()
-    data_collector.screenshot_hero_in_store()
+    #data_collector.screenshot_hero_in_store()
     #data_collector.full_screen_screenshot()
     #data_collector.screenshot_battle_state()
     #data_collector.screenshot_hero_in_hand()
+    data_collector.screenshot_hp()
 
 
 if __name__ == '__main__':
-    training.run_training_hero_in_store()
+    run_game_with_buy_one_hero_bot()
