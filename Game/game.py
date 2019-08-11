@@ -118,6 +118,9 @@ class Game:
                         self.env.grab_current_screenshot()
                         self.log_hero_in_hand(action.param)
                         continue
+                    if action.name == 'log_hero_in_store':
+                        self.env.grab_current_screenshot()
+                        self.log_hero_in_store(game_state)
                     self.env.perform_action(action)
 
                 time.sleep(1)
@@ -153,7 +156,7 @@ class Game:
                     print("New folder created: " + folder_name)
                 file_name = folder_name + '/' + str(time.time()) + '.jpg'
                 hero_images[i].save(file_name)
-            print("New image saved: " + file_name)
+                print("New image saved: " + file_name)
 
     def log_hero_in_hand(self, hand):
         """

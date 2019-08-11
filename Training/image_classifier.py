@@ -39,6 +39,43 @@ class ImageClassifier:
 
         self.model = None
 
+    def load_folders_and_train(self, folders, model_file_name, model_name = 'vgg', resize_ratio = 1):
+        """
+        Load the data, train the model, and validate it.
+        This can be used to load multiple folders together, to help better migrate from an old data set to a new one.
+
+        :param folders: The folder that contains the data, each sub-folder is a class, with examples inside
+        :param model_file_name: The file name to save the model as
+        :param model_name: The model to use to train. right now 'vgg' and 'simple' is supported
+        :param resize_ratio Whether to resize the image with a given ratio, ratio should be bigger or equal to 1
+        :return:
+        """
+        for folder in folders:
+            self.load_subdir_as_label(folder)
+        self.process_labels()
+        self.resize_images(resize_ratio)
+        #self.to_grey_scale()
+        self.prepare_data()
+        self.shuffle_training_data()
+        self.data_reshape()
+
+        if model_name == 'simple':
+            self.define_model()
+        if model_name == 'vgg':
+            self.define_smaller_vgg_model()
+
+        self.train(32, 8)
+        self.save_model(model_file_name)
+        #self.load_model(model_file_name)
+        self.evaluate()
+        # self.load_model(model_file_name)
+
+        print(self.model.predict_classes(np.array([self.x_train[0]])))
+        print(self.reverse_labels_dictionary)
+        print(self.reverse_labels_dictionary[self.model.predict_classes(np.array([self.x_train[0]]))[0]])
+        # Show an image and its label to verify the classifier is working as intended
+        ImageUtil.np_array_to_pil(self.x_train[0]).show()
+
     def load_and_train(self, folder, model_file_name, model_name = 'vgg', resize_ratio = 1):
         """
         Load the data, train the model, and validate it
@@ -49,7 +86,9 @@ class ImageClassifier:
         :param resize_ratio Whether to resize the image with a given ratio, ratio should be bigger or equal to 1
         :return:
         """
-        self.load_subdir_as_label(folder, resize_ratio)
+        self.load_subdir_as_label(folder)
+        self.process_labels()
+        self.resize_images(resize_ratio)
         #self.to_grey_scale()
         self.prepare_data()
         self.shuffle_training_data()
@@ -79,6 +118,8 @@ class ImageClassifier:
         :return:
         """
         self.load_subdir_as_label(folder)
+        self.process_labels()
+        self.resize_images()
         #self.to_grey_scale()
         self.prepare_data()
         self.shuffle_training_data()
@@ -117,7 +158,7 @@ class ImageClassifier:
         with open(dic_name, 'w') as json_file:
             json.dump(self.labels_dictionary, json_file, cls=NpJSONEncoder)
 
-    def load_subdir_as_label(self, folder, resize_ratio = 1):
+    def load_subdir_as_label(self, folder):
         """
         Load all the image in a folder, sub-folder name will be the label for the images
 
@@ -126,24 +167,30 @@ class ImageClassifier:
         :return:
         """
         subfolders = [f for f in os.scandir(folder) if f.is_dir()]
-        minw = 1000000
-        minh = 1000000
         for f in subfolders:
             for image_file in os.scandir(f.path):
                 image = load_img(image_file.path)
-                minw = min(minw, image.size[0])
-                minh = min(minh, image.size[1])
                 self.images.append(image)
                 self.images_label.append(f.name)
 
             self.labels.add(f.name)
+        print("Training data loaded.")
+        print("# of images: " + str(len(self.images)))
 
+    def process_labels(self):
         sorted_labels = sorted(self.labels)
         self.labels_dictionary = dict(zip(sorted_labels, np.arange(len(sorted_labels))))
         self.reverse_labels_dictionary = {v: k for k, v in self.labels_dictionary.items()}
 
         # Change the text label to int based on dictionary
         self.images_label = [self.labels_dictionary.get(label) for label in self.images_label]
+
+    def resize_images(self, resize_ratio = 1):
+        minw = 1000000
+        minh = 1000000
+        for image in self.images:
+            minw = min(minw, image.size[0])
+            minh = min(minh, image.size[1])
 
         new_images = []
         minw = minw // resize_ratio
@@ -159,8 +206,6 @@ class ImageClassifier:
         self.image_width = minw
         self.image_height = minh
 
-        print("Training data loaded.")
-        print("# of images: " + str(len(self.images)))
         print("Image width: " + str(minw))
         print("Image height: " + str(minh))
         print("Number of classes: " + str(len(self.labels)))
