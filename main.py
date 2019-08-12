@@ -20,7 +20,7 @@ def run_observation_game_with_bluestack():
 
 
 def run_observation_game_with_screenshots():
-    game = Game(ScreenshotEnv('D:/AutoChess/1563243945.0482247'))
+    game = Game(ScreenshotEnv('D:/AutoChess/1565564620.3663607'))
     #game.toggle_debug_mode(True)
     game.start_observation_only_game(time_interval=10)
 
@@ -34,11 +34,12 @@ def run_game_with_buy_and_sell_bot():
 def run_game_with_buy_one_hero_bot():
     game = Game(BlueStackEnv())
     game.install_bot(BuyOneHeroBot())
+    game.toggle_debug_mode(True)
     game.start_game()
 
 
 def run_data_collector():
-    data_collector = DataCollector()
+    data_collector = DataCollector(ScreenshotEnv('D:/AutoChess/1565564620.3663607'))
     #data_collector.annotate_hero_in_store()
     #data_collector.screenshot_hero_in_store()
     #data_collector.full_screen_screenshot()
@@ -48,4 +49,4 @@ def run_data_collector():
 
 
 if __name__ == '__main__':
-    training.run_training_hero_in_store()
+    run_observation_game_with_screenshots()

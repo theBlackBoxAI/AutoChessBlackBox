@@ -7,8 +7,6 @@ from Training.data_processor import DataProcessor
 from Environment.BlueStackEnv.Operator.operator import Operator
 from keras.models import load_model
 
-import time
-
 
 class BlueStackEnv(Environment):
     def __init__(self):
@@ -61,7 +59,7 @@ class BlueStackEnv(Environment):
             reverse_map = json.load(json_file)
             self.battle_state_map = {v: k for k, v in reverse_map.items()}
 
-        # Model consumes image with shape (170, 46)
+        # Model consumes image with shape (277, 94)
         self.hp_state_model = load_model('./Model/hp_state_v1.h5')
         self.hp_state_map = None
         with open('./Model/hp_state_v1.json') as json_file:
@@ -157,10 +155,10 @@ class BlueStackEnv(Environment):
     def get_hp(self):
         """
         Returns the current hp, if not found, return None
-        Hp image's type is one of the following: 'DEAD', 'EnemyHP', 'MyHP', 'Other'
+        Hp image's type is one of the following: 'EnemyHP', 'MyHP', 'Other'
         :return:
         """
-        hp_images = self.grab_hp_images()
+        hp_images = self.grab_big_hp_images()
         np_images = []
         for image in hp_images:
             np_image = np.array(image)
@@ -229,11 +227,17 @@ class BlueStackEnv(Environment):
     def grab_heroes_in_hand_images(self):
         return self.window_manager.grab_heroes_in_hand_images(self.current_screenshot)
 
+    def grab_heroes_in_hand_upgrade_images(self):
+        return self.window_manager.grab_heroes_in_hand_upgrade_images(self.current_screenshot)
+
     def grab_battle_state_image(self):
         return self.window_manager.grab_battle_state_image(self.current_screenshot)
 
     def grab_hp_images(self):
         return self.window_manager.grab_hp_images(self.current_screenshot)
+
+    def grab_big_hp_images(self):
+        return self.window_manager.grab_big_hp_images(self.current_screenshot)
 
     def grab_round_image(self):
         return self.window_manager.grab_round_image(self.current_screenshot)

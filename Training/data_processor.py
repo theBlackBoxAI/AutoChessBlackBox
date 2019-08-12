@@ -52,12 +52,13 @@ class DataProcessor:
     @staticmethod
     def extract_hp_digit(cropped_image):
         """
-        Extract the digit images.
+        Extract the digit images, of size (277, 94)
 
         :param cropped_image: The image contains the player's hp information.
         :return:
         """
         # Makes all not-so-white color into black, especially green color. To extract only the white text.
+        cropped_image = cropped_image.crop((102, 73, 277, 94))
         img = cropped_image.convert("RGBA")
         pix_data = img.load()
         for y in range(img.size[1]):
@@ -81,7 +82,7 @@ class DataProcessor:
         for c in cnts:
             # compute the bounding box of the contour
             (x, y, w, h) = cv2.boundingRect(c)
-            if w < 10 or w > 20 or h < 15 or h > 25:
+            if w < 5 or w > 20 or h < 13 or h > 25:
                 continue
             #print(x, y, w, h)
             digit_img = img[y:y+h, x:x+w]

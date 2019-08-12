@@ -13,8 +13,7 @@ class BuyOneHeroBot:
         self.hero_factory = HeroFactory()
         self.hero_names = hero_names
         if self.hero_names is None:
-            self.hero_names = self.hero_factory.get_all_common_hero_names()
-            self.hero_names.extend(self.hero_factory.get_all_uncommon_hero_names())
+            self.hero_names = self.hero_factory.get_all_uncommon_hero_names()
             random.shuffle(self.hero_names)
 
         self.hero_index = 0

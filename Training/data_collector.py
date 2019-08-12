@@ -3,8 +3,12 @@ import os
 from Environment.BlueStackEnv.env import BlueStackEnv
 
 class DataCollector:
-    def __init__(self):
-        self.env = BlueStackEnv()
+    def __init__(self, env=None):
+        self.env = None
+        if env is None:
+            self.env = BlueStackEnv()
+        else:
+            self.env = env
 
     def full_screen_screenshot(self):
         """
@@ -94,8 +98,6 @@ class DataCollector:
         :return:
         """
         folder_name = 'D:/Python/AutoChessTrainingData/Hp/undefined'
-        self.env.window_manager.set_local_screenshot_folder(
-            'D:/AutoChess/1565474421.3376565/')
         while True:
             if not self.env.grab_current_screenshot():
                 break
@@ -109,6 +111,28 @@ class DataCollector:
 
             #time.sleep(1)
 
+    def screenshot_hero_upgrade_in_hand(self):
+        """
+        Split all heroes in store and store the screenshot of them.
+
+        :return:
+        """
+        while True:
+            self.env.grab_current_screenshot()
+            if self.env.get_env_state() != 'InGame':
+                continue
+            heroes_screenshot = self.env.grab_heroes_in_hand_upgrade_images()
+            for screenshot in heroes_screenshot:
+                folder_name = 'D:/Python/AutoChessTrainingData/HeroInHandUpgrade/undefined'
+                if not os.path.exists(folder_name):
+                    os.mkdir(folder_name)
+                    print("New folder created: " + folder_name)
+                file_name = folder_name + '/' + str(time.time()) + '.jpg'
+                screenshot.save(file_name)
+                print("New image saved: " + file_name)
+
+            time.sleep(1)
+
     def screenshot_hero_in_hand(self):
         """
         Split all heroes in store and store the screenshot of them.
@@ -117,6 +141,8 @@ class DataCollector:
         """
         while True:
             self.env.grab_current_screenshot()
+            if self.env.get_env_state() != 'InGame':
+                continue
             heroes_screenshot = self.env.grab_heroes_in_hand_images()
             for screenshot in heroes_screenshot:
                 folder_name = 'D:/Python/AutoChessTrainingData/HeroInHand/undefined'

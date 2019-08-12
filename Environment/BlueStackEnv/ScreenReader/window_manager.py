@@ -86,6 +86,23 @@ class WindowManager:
                 screenshot.crop((1817, 1140, 1998, 1325))]
 
     @staticmethod
+    def grab_heroes_in_hand_upgrade_images(screenshot):
+        """
+        Grabs the 8 image of heroes upgrade icon in hand.
+        :param screenshot: PIL.Image screenshot. The screenshot to grab from
+        :return:
+        """
+
+        return [screenshot.crop((550, 1070, 731, 1140)),
+                screenshot.crop((731, 1070, 912, 1140)),
+                screenshot.crop((912, 1070, 1093, 1140)),
+                screenshot.crop((1093, 1070, 1274, 1140)),
+                screenshot.crop((1274, 1070, 1455, 1140)),
+                screenshot.crop((1455, 1070, 1636, 1140)),
+                screenshot.crop((1636, 1070, 1817, 1140)),
+                screenshot.crop((1817, 1070, 1998, 1140))]
+
+    @staticmethod
     def grab_battle_state_image(screenshot):
         """
         Crop out the battle state image and return it.
