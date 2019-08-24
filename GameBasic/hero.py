@@ -48,3 +48,9 @@ class Hero:
 
         if self.hero_class == 'Druid' and self.level == 3:
             self.price = self.price - 1
+
+    def to_string_name_and_level(self):
+        str_value = self.name
+        for i in range(self.level):
+            str_value = str_value + "★"
+        return str_value

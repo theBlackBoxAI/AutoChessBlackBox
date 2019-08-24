@@ -71,7 +71,7 @@ class WindowManager:
     @staticmethod
     def grab_heroes_in_hand_images(screenshot):
         """
-        Grabs the 8 image of heroes in hand.
+        Grabs the 8 image of heroes in hand. (181, 185)
         :param screenshot: PIL.Image screenshot. The screenshot to grab from
         :return:
         """
@@ -84,6 +84,52 @@ class WindowManager:
                 screenshot.crop((1455, 1140, 1636, 1325)),
                 screenshot.crop((1636, 1140, 1817, 1325)),
                 screenshot.crop((1817, 1140, 1998, 1325))]
+
+    @staticmethod
+    def grab_heroes_on_board_images(screenshot):
+        """
+        Grabs the 32 image of heroes on board. (181, 185)
+        :param screenshot: PIL.Image screenshot. The screenshot to grab from
+        :return:
+        """
+
+        row3 = [screenshot.crop((617, 919, 782, 1060)),
+                screenshot.crop((782, 919, 947, 1060)),
+                screenshot.crop((947, 919, 1112, 1060)),
+                screenshot.crop((1112, 919, 1277, 1060)),
+                screenshot.crop((1277, 919, 1442, 1060)),
+                screenshot.crop((1442, 919, 1607, 1060)),
+                screenshot.crop((1607, 919, 1772, 1060)),
+                screenshot.crop((1772, 919, 1937, 1060))]
+
+        row2 = [screenshot.crop((641, 786, 800, 919)),
+                screenshot.crop((800, 786, 959, 919)),
+                screenshot.crop((959, 786, 1118, 919)),
+                screenshot.crop((1118, 786, 1277, 919)),
+                screenshot.crop((1277, 786, 1436, 919)),
+                screenshot.crop((1436, 786, 1595, 919)),
+                screenshot.crop((1595, 786, 1754, 919)),
+                screenshot.crop((1754, 786, 1913, 919))]
+
+        row1 = [screenshot.crop((662, 662, 816, 786)),
+                screenshot.crop((816, 662, 970, 786)),
+                screenshot.crop((970, 662, 1124, 786)),
+                screenshot.crop((1124, 662, 1278, 786)),
+                screenshot.crop((1278, 662, 1432, 786)),
+                screenshot.crop((1432, 662, 1586, 786)),
+                screenshot.crop((1586, 662, 1740, 786)),
+                screenshot.crop((1740, 662, 1894, 786))]
+
+        row0 = [screenshot.crop((662, 546, 816, 662)),
+                screenshot.crop((828, 546, 978, 662)),
+                screenshot.crop((978, 546, 1128, 662)),
+                screenshot.crop((1128, 546, 1278, 662)),
+                screenshot.crop((1278, 546, 1428, 662)),
+                screenshot.crop((1428, 546, 1578, 662)),
+                screenshot.crop((1578, 546, 1728, 662)),
+                screenshot.crop((1728, 546, 1878, 662))]
+
+        return [row0, row1, row2, row3]
 
     @staticmethod
     def grab_heroes_in_hand_upgrade_images(screenshot):
@@ -114,6 +160,7 @@ class WindowManager:
     @staticmethod
     def grab_hp_images(screenshot):
         """
+        DEPRECATED
         Grab all the hp images on the side.
         :param screenshot:
         :return:

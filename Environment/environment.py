@@ -42,6 +42,9 @@ class Environment:
     def get_heroes_in_hand(self):
         return [None, None, None, None, None, None, None, None]
 
+    def get_hero_upgrade_state(self):
+        return [False, False, False, False, False, False, False, False]
+
     def get_heroes_on_board(self):
         return [[None, None, None, None, None, None, None, None],
                 [None, None, None, None, None, None, None, None],

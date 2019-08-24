@@ -34,6 +34,7 @@ class GameState:
         print("Money: " + str(self.money))
         print("Hp: " + str(self.hp))
         self.store.print()
+        self.hand.print()
 
 
 class Store:
@@ -60,7 +61,7 @@ class Store:
         print("Current Heroes in store: ")
         for hero in self.heroes:
             if hero:
-                print(hero.name + ' ', end='')
+                print(hero.name + " ", end="")
             else:
                 print("Empty ", end="")
         print()
@@ -70,6 +71,7 @@ class Hand:
     def __init__(self):
         self.hero_factory = HeroFactory()
         self.heroes = [None, None, None, None, None, None, None, None]
+        self.upgrade_state = [False, False, False, False, False, False, False, False]
 
     def add_hero(self, hero):
         for index in range(len(self.heroes)):
@@ -95,6 +97,26 @@ class Hand:
                     if hero_count == 3:
                         return i
         return None
+
+    def print(self):
+        print("Current Heroes in hand: ")
+        for hero in self.heroes:
+            if hero:
+                print(hero.to_string_name_and_level() + " ", end="")
+            else:
+                print("Empty ", end="")
+        print()
+
+        can_upgrade = False
+        for i in range(8):
+            if self.upgrade_state[i]:
+                can_upgrade = True
+                break
+        if can_upgrade:
+            print("Can upgrade: ")
+            for i in range(8):
+                if self.upgrade_state[i] and self.heroes[i]:
+                    print(self.heroes[i].to_string_name_and_level() + " at position " + str(i))
 
     def upgrade_hero(self, position):
         if (self.can_hero_upgrade()) != position:

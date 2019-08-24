@@ -31,34 +31,30 @@ class HeroFactory(metaclass=Singleton):
         else:
             return None
 
-    def get_all_hero_names(self):
+    def get_hero_by_name_level_string(self, name_level_string):
+        """
+        :param name_level_string: Example:  战神_2
+        :return:
+        """
+        strings = name_level_string.split('_')
+        if len(strings) != 2:
+            return None
+        name = strings[0]
+        level = int(strings[1])
+        for hero in self.heroes:
+            if (hero.name == name) and (hero.level == level):
+                return hero
+                break
+        else:
+            return None
+
+    def get_all_hero_names(self, quality=None):
         hero_names = set()
         for hero in self.heroes:
+            if quality is not None:
+                if hero.quality != quality:
+                    continue
             hero_names.add(hero.name)
-
-        return sorted(hero_names)
-
-    def get_all_common_hero_names(self):
-        hero_names = set()
-        for hero in self.heroes:
-            if hero.quality == 'Common':
-                hero_names.add(hero.name)
-
-        return sorted(hero_names)
-
-    def get_all_uncommon_hero_names(self):
-        hero_names = set()
-        for hero in self.heroes:
-            if hero.quality == 'Uncommon':
-                hero_names.add(hero.name)
-
-        return sorted(hero_names)
-
-    def get_all_rare_hero_names(self):
-        hero_names = set()
-        for hero in self.heroes:
-            if hero.quality == 'Rare':
-                hero_names.add(hero.name)
 
         return sorted(hero_names)
 

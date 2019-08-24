@@ -45,4 +45,21 @@ def run_training_hp_state():
     classifier.load_and_train('D:/Python/AutoChessTrainingData/Hp',
                               './Model/hp_state.h5',
                               model_name='vgg',
-                              resize_ratio=1)
+                              resize_ratio=2)
+
+def run_training_hero_upgrade_state():
+    classifier = ImageClassifier()
+    classifier.load_and_train('D:/Python/AutoChessTrainingData/HeroInHandUpgrade',
+                              './Model/hero_upgrade_state.h5',
+                              model_name='vgg',
+                              resize_ratio=2)
+
+
+def run_training_hero_in_hand():
+    classifier = ImageClassifier()
+    classifier.load_folders_and_train(
+        ['D:/Python/AutoChessTrainingData/HeroInHand',
+         'D:/Python/AutoChessTrainingData/HeroInHand_v2'],
+        './Model/hero_in_hand.h5',
+        model_name='vgg',
+        resize_ratio=2)

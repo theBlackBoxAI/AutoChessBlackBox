@@ -70,6 +70,9 @@ class Game:
             if battle_state == 'InBattle':
                 game_state.in_battle = True
 
+            game_state.hand.upgrade_state = self.env.get_hero_upgrade_state()
+            game_state.hand.heroes = self.env.get_heroes_in_hand()
+
         return game_state
 
     def start_observation_only_game(self, time_interval = 5):
@@ -122,6 +125,8 @@ class Game:
                         self.env.grab_current_screenshot()
                         self.log_hero_in_store(game_state)
                     self.env.perform_action(action)
+                    if not listener.running:
+                        break
 
                 time.sleep(1)
                 if not listener.running:
@@ -171,7 +176,7 @@ class Game:
                 hero_name = hand.heroes[i].name + '_' + str(hand.heroes[i].level)
             else:
                 continue
-            folder_name = 'D:/Python/AutoChessTrainingData/HeroInHand/' + hero_name
+            folder_name = 'D:/Python/AutoChessTrainingData/HeroInHand_v2/' + hero_name
             if not os.path.exists(folder_name):
                 os.mkdir(folder_name)
                 print("New folder created: " + folder_name)
@@ -192,7 +197,7 @@ class Game:
             hero_name = 'Empty'
             if game_state.store.heroes[i]:
                 hero_name = game_state.store.heroes[i].name + '_1'
-            folder_name = 'D:/Python/AutoChessTrainingData/HeroInHand/' + hero_name
+            folder_name = 'D:/Python/AutoChessTrainingData/HeroInHand_v2/' + hero_name
             if not os.path.exists(folder_name):
                 os.mkdir(folder_name)
                 print("New folder created: " + folder_name)

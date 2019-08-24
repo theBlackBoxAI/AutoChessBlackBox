@@ -59,12 +59,26 @@ class BlueStackEnv(Environment):
             reverse_map = json.load(json_file)
             self.battle_state_map = {v: k for k, v in reverse_map.items()}
 
+        # Model consumes image with shape (90, 35)
+        self.hero_upgrade_state_model = load_model('./Model/hero_upgrade_state_v1.h5')
+        self.hero_upgrade_state_map = None
+        with open('./Model/hero_upgrade_state_v1.json') as json_file:
+            reverse_map = json.load(json_file)
+            self.hero_upgrade_state_map = {v: k for k, v in reverse_map.items()}
+
         # Model consumes image with shape (277, 94)
         self.hp_state_model = load_model('./Model/hp_state_v1.h5')
         self.hp_state_map = None
         with open('./Model/hp_state_v1.json') as json_file:
             reverse_map = json.load(json_file)
             self.hp_state_map = {v: k for k, v in reverse_map.items()}
+
+        # Model consumes image with shape (181, 185)
+        self.hero_in_hand_model = load_model('./Model/hero_in_hand_v1.h5')
+        self.hero_in_hand_class_map = None
+        with open('./Model/hero_in_hand_v1.json') as json_file:
+            reverse_map = json.load(json_file)
+            self.hero_in_hand_class_map = {v: k for k, v in reverse_map.items()}
 
     def convert_img_digit_to_number(self, digit_images):
         """
@@ -89,6 +103,26 @@ class BlueStackEnv(Environment):
         """
         self.current_screenshot = self.window_manager.grab_current_screenshot()
         return self.current_screenshot
+
+    def get_heroes_in_hand(self):
+        """
+        Get all 8 heroes object in hand, if the hero cannot be recognized or is empty, a None will be in the list.
+
+        :return:
+        """
+        images = self.grab_heroes_in_hand_images()
+        np_images = []
+        for image in images:
+            np_image = np.array(image)
+            np_images.append(np_image)
+        predictions = [self.hero_in_hand_class_map[p]
+                       for p in self.hero_in_hand_model.predict_classes(np.array(np_images))]
+
+        heroes = []
+        for prediction in predictions:
+            heroes.append(self.hero_factory.get_hero_by_name_level_string(prediction))
+
+        return heroes
 
     def get_heroes_in_store(self):
         """
@@ -151,6 +185,26 @@ class BlueStackEnv(Environment):
         np_image = np.array(image)
         prediction = self.battle_state_map[self.battle_state_model.predict_classes(np.array([np_image]))[0]]
         return prediction
+
+    def get_hero_upgrade_state(self):
+        """
+        Returns an array with length 8
+        :return:
+        """
+        images = self.grab_heroes_in_hand_upgrade_images()
+        np_images = []
+        for image in images:
+            np_image = np.array(image.resize((90, 35)))
+            np_images.append(np_image)
+        predictions = [self.hero_upgrade_state_map[p]
+                       for p in self.hero_upgrade_state_model.predict_classes(np.array(np_images))]
+        result = []
+        for prediction in predictions:
+            if prediction == 'CanUpgrade':
+                result.append(True)
+            else:
+                result.append(False)
+        return result
 
     def get_hp(self):
         """
