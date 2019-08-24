@@ -50,4 +50,4 @@ def run_data_collector():
 
 
 if __name__ == '__main__':
-    training.run_training_hero_in_hand()
+    training.run_training_hp_state()
