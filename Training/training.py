@@ -27,10 +27,12 @@ def run_training_simulator_state():
 
 def run_training_store_state():
     classifier = ImageClassifier()
-    classifier.load_and_train('D:/Python/AutoChessTrainingData/StoreScreenshots',
-                              './Model/store_state.h5',
-                              model_name='vgg',
-                              resize_ratio=16)
+    classifier.load_folders_and_train(
+        ['D:/Python/AutoChessTrainingData/StoreScreenshots',
+         'D:/Python/AutoChessTrainingData/StoreScreenshots_v2'],
+        './Model/store_state.h5',
+        model_name='vgg',
+        resize_ratio=16)
 
 
 def run_training_battle_state():

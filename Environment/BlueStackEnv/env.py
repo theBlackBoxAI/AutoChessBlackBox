@@ -124,6 +124,13 @@ class BlueStackEnv(Environment):
 
         return heroes
 
+    def get_heroes_on_board(self):
+        images = self.grab_heroes_on_board_images()
+        for i in range(4):
+            for j in range(8):
+                images[i][j].show()
+        return []
+
     def get_heroes_in_store(self):
         """
         Get all 5 heroes object in store, if the hero cannot be recognized or is empty, a None will be in the list.
@@ -274,6 +281,9 @@ class BlueStackEnv(Environment):
         :return:
         """
         Operator.perform_action(action)
+
+    def grab_heroes_on_board_images(self):
+        return self.window_manager.grab_heroes_on_board_images(self.current_screenshot)
 
     def grab_heroes_in_store_images(self):
         return self.window_manager.grab_heroes_pool_images(self.current_screenshot)

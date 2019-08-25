@@ -91,6 +91,33 @@ class DataCollector:
 
             time.sleep(1)
 
+
+    def screenshot_hero_on_board(self):
+        """
+        Split all heroes in store and store the screenshot of them.
+
+        :return:
+        """
+        while True:
+            self.env.grab_current_screenshot()
+            battle_state = self.env.get_battle_state()
+            if battle_state == 'InBattle':
+                continue
+            store_state = self.env.get_store_state()
+            if store_state == 'StoreClosed':
+                heroes_screenshot = self.env.grab_heroes_on_board_images()
+                flat_list = [item for sublist in heroes_screenshot for item in sublist]
+                for screenshot in flat_list:
+                    folder_name = 'D:/Python/AutoChessTrainingData/HeroOnBoard/undefined'
+                    if not os.path.exists(folder_name):
+                        os.mkdir(folder_name)
+                        print("New folder created: " + folder_name)
+                    file_name = folder_name + '/' + str(time.time()) + '.jpg'
+                    screenshot.save(file_name)
+                    print("New image saved: " + file_name)
+
+                #time.sleep(1)
+
     def screenshot_hp(self):
         """
         Crop out all the hp section and store the screenshot of it
