@@ -74,11 +74,11 @@ class BlueStackEnv(Environment):
             self.hp_state_map = {v: k for k, v in reverse_map.items()}
 
         # Model consumes image with shape (181, 185)
-        self.hero_in_hand_model = load_model('./Model/hero_in_hand_v1.h5')
-        self.hero_in_hand_class_map = None
-        with open('./Model/hero_in_hand_v1.json') as json_file:
+        self.hero_model = load_model('./Model/hero_v1.h5')
+        self.hero_class_map = None
+        with open('./Model/hero_v1.json') as json_file:
             reverse_map = json.load(json_file)
-            self.hero_in_hand_class_map = {v: k for k, v in reverse_map.items()}
+            self.hero_class_map = {v: k for k, v in reverse_map.items()}
 
     def convert_img_digit_to_number(self, digit_images):
         """
@@ -113,10 +113,10 @@ class BlueStackEnv(Environment):
         images = self.grab_heroes_in_hand_images()
         np_images = []
         for image in images:
-            np_image = np.array(image.resize((90, 92)))
+            np_image = np.array(image.resize((140, 100)))
             np_images.append(np_image)
-        predictions = [self.hero_in_hand_class_map[p]
-                       for p in self.hero_in_hand_model.predict_classes(np.array(np_images))]
+        predictions = [self.hero_class_map[p]
+                       for p in self.hero_model.predict_classes(np.array(np_images))]
 
         heroes = []
         for prediction in predictions:
@@ -126,10 +126,20 @@ class BlueStackEnv(Environment):
 
     def get_heroes_on_board(self):
         images = self.grab_heroes_on_board_images()
-        for i in range(4):
-            for j in range(8):
-                images[i][j].show()
-        return []
+        flat_list = [item for sublist in images for item in sublist]
+
+        np_images = []
+        for image in flat_list:
+            np_image = np.array(image.resize((140, 100)))
+            np_images.append(np_image)
+        predictions = [self.hero_class_map[p]
+                       for p in self.hero_model.predict_classes(np.array(np_images))]
+
+        heroes = []
+        for prediction in predictions:
+            heroes.append(self.hero_factory.get_hero_by_name_level_string(prediction))
+
+        return np.array(heroes).reshape(4, 8).tolist()
 
     def get_heroes_in_store(self):
         """

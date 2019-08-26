@@ -34,6 +34,8 @@ class GameState:
         print("Money: " + str(self.money))
         print("Hp: " + str(self.hp))
         self.store.print()
+        if not self.in_battle:
+            self.board.print()
         self.hand.print()
 
 
@@ -54,11 +56,10 @@ class Store:
 
     def print(self):
         if self.is_open:
-            print("Store is open")
+            print("STORE")
         else:
             return
 
-        print("Current Heroes in store: ")
         for hero in self.heroes:
             if hero:
                 print(hero.name + " ", end="")
@@ -99,7 +100,7 @@ class Hand:
         return None
 
     def print(self):
-        print("Current Heroes in hand: ")
+        print("HAND")
         for hero in self.heroes:
             if hero:
                 print(hero.to_string_name_and_level() + " ", end="")
@@ -133,6 +134,7 @@ class Hand:
                 if hero_count == 3:
                     return
 
+
 class Board:
     def __init__(self):
         self.is_visible = False
@@ -140,3 +142,16 @@ class Board:
                       [None, None, None, None, None, None, None, None],
                       [None, None, None, None, None, None, None, None],
                       [None, None, None, None, None, None, None, None]]
+
+    def update_board(self, board):
+        self.board = board
+
+    def print(self):
+        print("BOARD")
+        for row in self.board:
+            for hero in row:
+                if hero:
+                    print(hero.to_string_name_and_level() + " ", end="")
+                else:
+                    print("Empty ", end="")
+            print()

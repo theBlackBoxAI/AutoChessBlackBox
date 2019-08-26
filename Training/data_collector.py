@@ -99,7 +99,8 @@ class DataCollector:
         :return:
         """
         while True:
-            self.env.grab_current_screenshot()
+            if not self.env.grab_current_screenshot():
+                break
             battle_state = self.env.get_battle_state()
             if battle_state == 'InBattle':
                 continue
@@ -171,8 +172,10 @@ class DataCollector:
             if self.env.get_env_state() != 'InGame':
                 continue
             heroes_screenshot = self.env.grab_heroes_in_hand_images()
-            for screenshot in heroes_screenshot:
-                folder_name = 'D:/Python/AutoChessTrainingData/HeroInHand/undefined'
+            heroes = self.env.get_heroes_in_hand()
+            screenshot_hero = zip(heroes_screenshot, heroes)
+            for screenshot, hero in screenshot_hero:
+                folder_name = 'D:/Python/AutoChessTrainingData/HeroInHand_v3/undefined'
                 if not os.path.exists(folder_name):
                     os.mkdir(folder_name)
                     print("New folder created: " + folder_name)

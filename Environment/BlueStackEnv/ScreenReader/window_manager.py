@@ -28,7 +28,8 @@ class WindowManager:
         if self.use_local_screenshot:
             try:
                 file = next(self.local_screenshot_iter)
-                #print(file.path)
+                while file.path.endswith('.txt'):
+                    file = next(self.local_screenshot_iter)
                 return Image.open(file.path)
             except StopIteration:
                 return None

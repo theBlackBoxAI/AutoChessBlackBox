@@ -65,6 +65,8 @@ class Game:
                 game_state.store.update_store(heroes)
             if store_state == 'StoreClosed':
                 game_state.hp = self.env.get_hp()
+                heroes = self.env.get_heroes_on_board()
+                game_state.board.update_board(heroes)
 
             battle_state = self.env.get_battle_state()
             if battle_state == 'InBattle':

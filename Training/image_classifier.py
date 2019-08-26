@@ -39,7 +39,7 @@ class ImageClassifier:
 
         self.model = None
 
-    def load_folders_and_train(self, folders, model_file_name, model_name = 'vgg', resize_ratio = 1):
+    def load_folders_and_train(self, folders, model_file_name, model_name = 'vgg', resize_ratio=1, maxw=1000000, maxh=1000000):
         """
         Load the data, train the model, and validate it.
         This can be used to load multiple folders together, to help better migrate from an old data set to a new one.
@@ -48,12 +48,14 @@ class ImageClassifier:
         :param model_file_name: The file name to save the model as
         :param model_name: The model to use to train. right now 'vgg' and 'simple' is supported
         :param resize_ratio Whether to resize the image with a given ratio, ratio should be bigger or equal to 1
+        :param maxw The maximum resize with, if samples are smaller then this will be changed.
+        :param maxh The maximum resize height, if samples are smaller then this will be changed.
         :return:
         """
         for folder in folders:
             self.load_subdir_as_label(folder)
         self.process_labels()
-        self.resize_images(resize_ratio)
+        self.resize_images(resize_ratio, maxw, maxh)
         #self.to_grey_scale()
         self.prepare_data()
         self.shuffle_training_data()
@@ -185,9 +187,7 @@ class ImageClassifier:
         # Change the text label to int based on dictionary
         self.images_label = [self.labels_dictionary.get(label) for label in self.images_label]
 
-    def resize_images(self, resize_ratio = 1):
-        minw = 1000000
-        minh = 1000000
+    def resize_images(self, resize_ratio=1, minw=1000000, minh=1000000):
         for image in self.images:
             minw = min(minw, image.size[0])
             minh = min(minh, image.size[1])

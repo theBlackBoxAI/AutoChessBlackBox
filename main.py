@@ -40,7 +40,7 @@ def run_game_with_buy_one_hero_bot():
 
 def run_data_collector():
     #data_collector = DataCollector()
-    data_collector = DataCollector(ScreenshotEnv('D:/AutoChess/1566071618.5363798'))
+    data_collector = DataCollector(ScreenshotEnv('D:/AutoChess/1566771920.0318313'))
     #data_collector.annotate_hero_in_store()
     #data_collector.screenshot_hero_in_store()
     #data_collector.full_screen_screenshot()

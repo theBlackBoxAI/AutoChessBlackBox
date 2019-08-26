@@ -65,3 +65,16 @@ def run_training_hero_in_hand():
         './Model/hero_in_hand.h5',
         model_name='vgg',
         resize_ratio=2)
+
+
+def run_training_hero():
+    classifier = ImageClassifier()
+    classifier.load_folders_and_train(
+        ['D:/Python/AutoChessTrainingData/HeroInHand',
+         'D:/Python/AutoChessTrainingData/HeroInHand_v2',
+         'D:/Python/AutoChessTrainingData/HeroOnBoard'],
+        './Model/hero.h5',
+        model_name='vgg',
+        resize_ratio=1,
+        maxh=100,
+        maxw=140)
