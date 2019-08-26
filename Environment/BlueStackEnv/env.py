@@ -113,7 +113,7 @@ class BlueStackEnv(Environment):
         images = self.grab_heroes_in_hand_images()
         np_images = []
         for image in images:
-            np_image = np.array(image.resize((140, 100)))
+            np_image = np.array(image.resize((119, 115)))
             np_images.append(np_image)
         predictions = [self.hero_class_map[p]
                        for p in self.hero_model.predict_classes(np.array(np_images))]
@@ -130,7 +130,7 @@ class BlueStackEnv(Environment):
 
         np_images = []
         for image in flat_list:
-            np_image = np.array(image.resize((140, 100)))
+            np_image = np.array(image.resize((119, 115)))
             np_images.append(np_image)
         predictions = [self.hero_class_map[p]
                        for p in self.hero_model.predict_classes(np.array(np_images))]

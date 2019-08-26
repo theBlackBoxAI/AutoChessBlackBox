@@ -94,41 +94,41 @@ class WindowManager:
         :return:
         """
 
-        row3 = [screenshot.crop((617, 919, 782, 1060)),
-                screenshot.crop((782, 919, 947, 1060)),
-                screenshot.crop((947, 919, 1112, 1060)),
-                screenshot.crop((1112, 919, 1277, 1060)),
-                screenshot.crop((1277, 919, 1442, 1060)),
-                screenshot.crop((1442, 919, 1607, 1060)),
-                screenshot.crop((1607, 919, 1772, 1060)),
-                screenshot.crop((1772, 919, 1937, 1060))]
+        row3 = [screenshot.crop((609, 897, 790, 1082)),
+                screenshot.crop((774, 897, 955, 1082)),
+                screenshot.crop((939, 897, 1120, 1082)),
+                screenshot.crop((1104, 897, 1285, 1082)),
+                screenshot.crop((1269, 897, 1450, 1082)),
+                screenshot.crop((1434, 897, 1615, 1082)),
+                screenshot.crop((1599, 897, 1780, 1082)),
+                screenshot.crop((1764, 897, 1945, 1082))]
 
-        row2 = [screenshot.crop((641, 786, 800, 919)),
-                screenshot.crop((800, 786, 959, 919)),
-                screenshot.crop((959, 786, 1118, 919)),
-                screenshot.crop((1118, 786, 1277, 919)),
-                screenshot.crop((1277, 786, 1436, 919)),
-                screenshot.crop((1436, 786, 1595, 919)),
-                screenshot.crop((1595, 786, 1754, 919)),
-                screenshot.crop((1754, 786, 1913, 919))]
+        row2 = [screenshot.crop((633, 764, 808, 941)),
+                screenshot.crop((792, 764, 967, 941)),
+                screenshot.crop((951, 764, 1126, 941)),
+                screenshot.crop((1110, 764, 1285, 941)),
+                screenshot.crop((1269, 764, 1444, 941)),
+                screenshot.crop((1428, 764, 1603, 941)),
+                screenshot.crop((1587, 764, 1762, 941)),
+                screenshot.crop((1746, 764, 1921, 941))]
 
-        row1 = [screenshot.crop((662, 662, 816, 786)),
-                screenshot.crop((816, 662, 970, 786)),
-                screenshot.crop((970, 662, 1124, 786)),
-                screenshot.crop((1124, 662, 1278, 786)),
-                screenshot.crop((1278, 662, 1432, 786)),
-                screenshot.crop((1432, 662, 1586, 786)),
-                screenshot.crop((1586, 662, 1740, 786)),
-                screenshot.crop((1740, 662, 1894, 786))]
+        row1 = [screenshot.crop((654, 640, 822, 808)),
+                screenshot.crop((808, 640, 976, 808)),
+                screenshot.crop((962, 640, 1130, 808)),
+                screenshot.crop((1116, 640, 1284, 808)),
+                screenshot.crop((1270, 640, 1438, 808)),
+                screenshot.crop((1424, 640, 1592, 808)),
+                screenshot.crop((1578, 640, 1746, 808)),
+                screenshot.crop((1732, 640, 1900, 808))]
 
-        row0 = [screenshot.crop((662, 546, 816, 662)),
-                screenshot.crop((828, 546, 978, 662)),
-                screenshot.crop((978, 546, 1128, 662)),
-                screenshot.crop((1128, 546, 1278, 662)),
-                screenshot.crop((1278, 546, 1428, 662)),
-                screenshot.crop((1428, 546, 1578, 662)),
-                screenshot.crop((1578, 546, 1728, 662)),
-                screenshot.crop((1728, 546, 1878, 662))]
+        row0 = [screenshot.crop((654, 524, 824, 684)),
+                screenshot.crop((820, 524, 986, 684)),
+                screenshot.crop((970, 524, 1136, 684)),
+                screenshot.crop((1120, 524, 1286, 684)),
+                screenshot.crop((1270, 524, 1436, 684)),
+                screenshot.crop((1420, 524, 1586, 684)),
+                screenshot.crop((1570, 524, 1736, 684)),
+                screenshot.crop((1720, 524, 1886, 684))]
 
         return [row0, row1, row2, row3]
 

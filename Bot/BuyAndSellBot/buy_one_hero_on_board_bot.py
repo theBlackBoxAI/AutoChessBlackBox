@@ -140,6 +140,11 @@ class BuyOneHeroOnBoardBot:
             current_position = i
         return actions
 
+    def move_hero_on_board(self):
+        actions = []
+
+        return actions
+
 
 
 

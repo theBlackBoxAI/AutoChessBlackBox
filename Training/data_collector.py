@@ -22,7 +22,7 @@ class DataCollector:
             file_name = 'D:/Python/AutoChessTrainingData/Screenshots/Raw/'+ str(time.time()) + '.jpg'
             screenshot.save(file_name)
             print(file_name)
-            time.sleep(1)
+            #time.sleep(1)
 
     def annotate_hero_in_store(self):
         """
@@ -53,7 +53,7 @@ class DataCollector:
                     screenshot.save(file_name)
                     print("New image saved: " + file_name)
 
-            time.sleep(20)
+            #time.sleep(20)
 
     def screenshot_battle_state(self):
         """
@@ -69,7 +69,7 @@ class DataCollector:
             image.save(file_name)
             print("New image saved: " + file_name)
 
-            time.sleep(1)
+            #time.sleep(1)
 
     def screenshot_hero_in_store(self):
         """
@@ -89,7 +89,7 @@ class DataCollector:
                 screenshot.save(file_name)
                 print("New image saved: " + file_name)
 
-            time.sleep(1)
+            #time.sleep(1)
 
 
     def screenshot_hero_on_board(self):
@@ -159,7 +159,7 @@ class DataCollector:
                 screenshot.save(file_name)
                 print("New image saved: " + file_name)
 
-            time.sleep(1)
+            #time.sleep(1)
 
     def screenshot_hero_in_hand(self):
         """
@@ -183,7 +183,7 @@ class DataCollector:
                 screenshot.save(file_name)
                 print("New image saved: " + file_name)
 
-            time.sleep(1)
+            #time.sleep(1)
 
 
 

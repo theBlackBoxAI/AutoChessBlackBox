@@ -157,5 +157,26 @@ class Operator:
         Operator.drag(HAND_CHESS_POSITION[position_pair[0]], HAND_CHESS_POSITION[position_pair[1]])
 
     @staticmethod
+    def move_hero_to_board(position_pair):
+        """:
+        TODO
+        """
+        Operator.drag(HAND_CHESS_POSITION[position_pair[0]], HAND_CHESS_POSITION[position_pair[1]])
+
+    @staticmethod
+    def move_hero_from_board(position_pair):
+        """:
+        TODO
+        """
+        Operator.drag(HAND_CHESS_POSITION[position_pair[0]], HAND_CHESS_POSITION[position_pair[1]])
+
+    @staticmethod
+    def move_hero_on_board(position_pair):
+        """:
+        TODO
+        """
+        Operator.drag(HAND_CHESS_POSITION[position_pair[0]], HAND_CHESS_POSITION[position_pair[1]])
+
+    @staticmethod
     def upgrade_hero_in_hand(position):
         Operator.click(HAND_CHESS_UPGRADE_POSITION[position])
