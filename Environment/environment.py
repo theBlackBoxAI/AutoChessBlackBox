@@ -39,6 +39,9 @@ class Environment:
     def get_hp(self):
         return 0
 
+    def get_num_hero_on_board(self):
+        return 0
+
     def get_heroes_in_hand(self):
         return [None, None, None, None, None, None, None, None]
 

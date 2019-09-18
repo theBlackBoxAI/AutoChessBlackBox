@@ -71,6 +71,8 @@ class Game:
             battle_state = self.env.get_battle_state()
             if battle_state == 'InBattle':
                 game_state.in_battle = True
+            else:
+                game_state.num_hero_on_board = self.env.get_num_hero_on_board()
 
             game_state.hand.upgrade_state = self.env.get_hero_upgrade_state()
             game_state.hand.heroes = self.env.get_heroes_in_hand()
@@ -126,6 +128,10 @@ class Game:
                     if action.name == 'log_hero_in_store':
                         self.env.grab_current_screenshot()
                         self.log_hero_in_store(game_state)
+                        continue
+                    if action.name == 'log_hero_on_board':
+                        self.env.grab_current_screenshot()
+                        self.log_hero_on_board(action.param)
                     self.env.perform_action(action)
                     if not listener.running:
                         break
@@ -205,6 +211,25 @@ class Game:
                 print("New folder created: " + folder_name)
             file_name = folder_name + '/' + str(time.time()) + '.jpg'
             heroes_screenshot[match_array[i]].save(file_name)
+            print("New image saved: " + file_name)
+
+    def log_hero_on_board(self, board):
+        """
+        Log the heroes on board.
+        :param game_state: The old game_state with heroes all in the store.
+        :param board: the Board object for the current screenshot.
+        :return:
+        """
+        heroes_screenshot = self.env.grab_heroes_on_board_images()
+        heroes, positions = board.get_heroes_and_positions()
+        for hero, position in zip(heroes, positions):
+            hero_name = hero.name + '_' + str(hero.level)
+            folder_name = 'D:/Python/AutoChessTrainingData/HeroOnBoard_v2/' + hero_name
+            if not os.path.exists(folder_name):
+                os.mkdir(folder_name)
+                print("New folder created: " + folder_name)
+            file_name = folder_name + '/' + str(time.time()) + '.jpg'
+            heroes_screenshot[position[0]][position[1]].save(file_name)
             print("New image saved: " + file_name)
 
 

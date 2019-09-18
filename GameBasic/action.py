@@ -15,11 +15,15 @@ class Action:
             reroll
             wait
             move_hero_in_hand :param [0 - 7, 0 - 7]
+            move_hero_from_board_to_hand :param [(0 - 4, 0 - 7), 0 - 7]
+            move_hero_from_hand_to_board :param [0 - 7, (0 - 4, 0 - 7)]
+            move_hero_on_board :param [(0 - 4, 0 - 7), (0 - 4, 0 - 7)]
             upgrade_hero_in_hand :param 0 - 7
 
             log
             log_hero_in_hand :param Hand object
             log_hero_in_store
+            log_hero_on_board
         :param action_param: The parameter associate with the action. All position start from 0.
         """
         self.name = action_name

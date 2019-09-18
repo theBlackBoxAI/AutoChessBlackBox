@@ -73,9 +73,14 @@ class Operator:
             Operator.sleep(action.param)
         if action.name == 'move_hero_in_hand':
             Operator.move_hero_in_hand(action.param)
+        if action.name == 'move_hero_from_board_to_hand':
+            Operator.move_hero_from_board(action.param)
+        if action.name == 'move_hero_from_hand_to_board':
+            Operator.move_hero_to_board(action.param)
+        if action.name == 'move_hero_on_board':
+            Operator.move_hero_on_board(action.param)
         if action.name == 'upgrade_hero_in_hand':
             Operator.upgrade_hero_in_hand(action.param)
-
 
     @staticmethod
     def press(key):
@@ -93,6 +98,7 @@ class Operator:
 
     @staticmethod
     def drag(position1, position2):
+        #drag_time = (position1[0] - position2[0])**2 + (position1[1] - position2[1])**2
         pyautogui.moveTo(position1[0], position1[1])
         pyautogui.dragTo(position2[0], position2[1], 1)
         time.sleep(OPERATION_INTERVAL)
@@ -152,30 +158,22 @@ class Operator:
 
     @staticmethod
     def move_hero_in_hand(position_pair):
-        """:
-        """
         Operator.drag(HAND_CHESS_POSITION[position_pair[0]], HAND_CHESS_POSITION[position_pair[1]])
 
     @staticmethod
     def move_hero_to_board(position_pair):
-        """:
-        TODO
-        """
-        Operator.drag(HAND_CHESS_POSITION[position_pair[0]], HAND_CHESS_POSITION[position_pair[1]])
+        Operator.drag(HAND_CHESS_POSITION[position_pair[0]],
+                      BOARD_CHESS_POSITION[position_pair[1][0]][position_pair[1][1]])
 
     @staticmethod
     def move_hero_from_board(position_pair):
-        """:
-        TODO
-        """
-        Operator.drag(HAND_CHESS_POSITION[position_pair[0]], HAND_CHESS_POSITION[position_pair[1]])
+        Operator.drag(BOARD_CHESS_POSITION[position_pair[0][0]][position_pair[0][1]],
+                      HAND_CHESS_POSITION[position_pair[1]])
 
     @staticmethod
     def move_hero_on_board(position_pair):
-        """:
-        TODO
-        """
-        Operator.drag(HAND_CHESS_POSITION[position_pair[0]], HAND_CHESS_POSITION[position_pair[1]])
+        Operator.drag(BOARD_CHESS_POSITION[position_pair[0][0]][position_pair[0][1]],
+                      BOARD_CHESS_POSITION[position_pair[1][0]][position_pair[1][1]])
 
     @staticmethod
     def upgrade_hero_in_hand(position):

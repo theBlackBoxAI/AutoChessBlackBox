@@ -10,11 +10,12 @@ def run_training_digit_classifier():
 
 def run_training_hero_in_store():
     classifier = ImageClassifier()
-    classifier.load_folders_and_train(['D:/Python/AutoChessTrainingData/HeroInStore',
-                                       'D:/Python/AutoChessTrainingData/HeroInStore_v2'],
-                                      './Model/hero_in_store.h5',
-                                      model_name='vgg',
-                                      resize_ratio=4)
+    classifier.load_folders_and_train(
+        ['D:/Python/AutoChessTrainingData/HeroInStore',
+         'D:/Python/AutoChessTrainingData/HeroInStore_v2'],
+        './Model/hero_in_store.h5',
+        model_name='vgg',
+        resize_ratio=4)
 
 
 def run_training_simulator_state():
@@ -72,7 +73,8 @@ def run_training_hero():
     classifier.load_folders_and_train(
         ['D:/Python/AutoChessTrainingData/HeroInHand',
          'D:/Python/AutoChessTrainingData/HeroInHand_v2',
-         'D:/Python/AutoChessTrainingData/HeroOnBoard'],
+         'D:/Python/AutoChessTrainingData/HeroOnBoard',
+         'D:/Python/AutoChessTrainingData/HeroOnBoard_v2'],
         './Model/hero.h5',
         model_name='vgg',
         resize_ratio=1,

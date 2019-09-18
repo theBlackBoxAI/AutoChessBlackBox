@@ -13,6 +13,7 @@ class GameState:
         self.hp = 0
         self.level = 0
         self.exp = 0
+        self.num_hero_on_board = 0
 
         self.in_battle = False
 
@@ -33,6 +34,7 @@ class GameState:
         print("Exp: " + str(self.exp))
         print("Money: " + str(self.money))
         print("Hp: " + str(self.hp))
+        print("Num Heroes: " + str(self.num_hero_on_board))
         self.store.print()
         if not self.in_battle:
             self.board.print()
@@ -145,6 +147,30 @@ class Board:
 
     def update_board(self, board):
         self.board = board
+
+    def replace(self, position, new_hero):
+        self.board[position[0]][position[1]] = new_hero
+
+    def is_empty(self):
+        for row in self.board:
+            for hero in row:
+                if hero is not None:
+                    return False
+        return True
+
+    def get_heroes_and_positions(self):
+        """
+        Returns a list of hero and its positions
+        :return:
+        """
+        heroes = []
+        positions = []
+        for i in range(4):
+            for j in range(8):
+                if self.board[i][j] is not None:
+                    heroes.append(self.board[i][j])
+                    positions.append((i, j))
+        return heroes, positions
 
     def print(self):
         print("BOARD")

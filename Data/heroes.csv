@@ -164,9 +164,12 @@ Name, Level, Quality, HP, ATK, Armor, ATK Speed, Magic Resistant, ATK Range, Rac
 矮人直升机, 1, Legendary, 900, 77, 10, 0.9, 0, 3, Dwarf, , Mech
 矮人直升机, 2, Legendary, 1800, 155, 10, 0.9, 0, 3, Dwarf, , Mech
 矮人直升机, 3, Legendary, 3600, 310, 10, 0.9, 0, 3, Dwarf, , Mech
-爆破者, 1, Legendary, 1000, 50, 10, 1.5, 0, 4, Goblin, , Mech
-爆破者, 2, Legendary, 2000, 100, 10, 1.5, 0, 4, Goblin, , Mech
-爆破者, 3, Legendary, 4000, 200, 10, 1.5, 0, 4, Goblin, , Mech
+毁灭者, 1, Legendary, 1000, 50, 10, 1.5, 0, 4, Goblin, , Mech
+毁灭者, 2, Legendary, 2000, 100, 10, 1.5, 0, 4, Goblin, , Mech
+毁灭者, 3, Legendary, 4000, 200, 10, 1.5, 0, 4, Goblin, , Mech
+沉沦守卫, 1, Legendary, 1200, 125, 10, 1.3, 0, 1, Demon, , Warrior
+沉沦守卫, 2, Legendary, 2400, 250, 10, 1.3, 0, 1, Demon, , Warrior
+沉沦守卫, 3, Legendary, 4800, 500, 10, 1.3, 0, 1, Demon, , Warrior
 暗之灵, 1, Legendary, 1000, 50, 5, 1.5, 0.4, 3, Spirits, , Warlock
 暗之灵, 2, Legendary, 2000, 100, 5, 1.5, 0.4, 3, Spirits, , Warlock
 暗之灵, 3, Legendary, 4000, 200, 5, 1.5, 0.4, 3, Spirits, , Warlock

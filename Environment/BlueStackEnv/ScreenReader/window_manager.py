@@ -121,7 +121,7 @@ class WindowManager:
                 screenshot.crop((1578, 640, 1746, 808)),
                 screenshot.crop((1732, 640, 1900, 808))]
 
-        row0 = [screenshot.crop((654, 524, 824, 684)),
+        row0 = [screenshot.crop((664, 524, 834, 684)),
                 screenshot.crop((820, 524, 986, 684)),
                 screenshot.crop((970, 524, 1136, 684)),
                 screenshot.crop((1120, 524, 1286, 684)),
@@ -202,6 +202,10 @@ class WindowManager:
     @staticmethod
     def grab_exp_image(screenshot):
         return screenshot.crop((355, 1233, 452, 1270))
+
+    @staticmethod
+    def grab_num_hero_on_board_image(screenshot):
+        return screenshot.crop((1216, 131, 1345, 198))
 
     @staticmethod
     def save_img(image, file_name):

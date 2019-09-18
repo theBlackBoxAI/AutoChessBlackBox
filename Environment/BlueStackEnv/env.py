@@ -284,6 +284,23 @@ class BlueStackEnv(Environment):
             exp = exp * 10 + int(prediction)
         return -1
 
+    def get_num_hero_on_board(self):
+        """
+        Grab the number of heroes on board value of current screen
+        :return: the number, if the image is broken(No slash detected), returns -1
+        """
+        images = DataProcessor.extract_hero_on_board_digit(self.grab_num_hero_on_board_image())
+        exp = 0
+        for image in images:
+            image = image.resize((22, 41))
+            np_image = np.array(image)
+            prediction = self.digit_with_slash_map[self.digit_with_slash_model.predict_classes(np.array([np_image]))[0]]
+            if prediction == 'Slash':
+                return exp
+            exp = exp * 10 + int(prediction)
+        return -1
+
+
     def perform_action(self, action):
         """
         Perform the given action.
@@ -322,3 +339,5 @@ class BlueStackEnv(Environment):
     def grab_exp_image(self):
         return self.window_manager.grab_exp_image(self.current_screenshot)
 
+    def grab_num_hero_on_board_image(self):
+        return self.window_manager.grab_num_hero_on_board_image(self.current_screenshot)

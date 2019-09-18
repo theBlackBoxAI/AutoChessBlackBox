@@ -172,6 +172,8 @@ class ImageClassifier:
         for f in subfolders:
             for image_file in os.scandir(f.path):
                 image = load_img(image_file.path)
+                # Force loading the image to prevent `Too many open files` error
+                image.load()
                 self.images.append(image)
                 self.images_label.append(f.name)
 
