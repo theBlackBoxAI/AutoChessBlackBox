@@ -46,7 +46,7 @@ def run_game_with_buy_one_hero_on_board_bot():
 
 def run_data_collector():
     #data_collector = DataCollector()
-    data_collector = DataCollector(ScreenshotEnv('D:/AutoChess/1568774803.6374059'))
+    data_collector = DataCollector(ScreenshotEnv('D:/AutoChess/1568850468.9569485'))
     #data_collector.annotate_hero_in_store()
     #data_collector.screenshot_hero_in_store()
     #data_collector.full_screen_screenshot()
@@ -56,5 +56,7 @@ def run_data_collector():
 
 
 if __name__ == '__main__':
-    run_game_with_buy_one_hero_on_board_bot()
-    #training.run_training_hero()
+    #run_game_with_buy_one_hero_on_board_bot()
+    #run_observation_game_with_bluestack()
+    #run_data_collector()
+    training.run_training_hero()

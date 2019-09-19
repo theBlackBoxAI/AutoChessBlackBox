@@ -6,7 +6,7 @@ import os
 import random
 from Util.imge_util import ImageUtil
 
-from keras.preprocessing.image import load_img
+from keras.preprocessing.image import load_img, ImageDataGenerator
 from keras.utils import to_categorical
 from keras.models import load_model
 from keras.models import save_model
@@ -39,7 +39,15 @@ class ImageClassifier:
 
         self.model = None
 
-    def load_folders_and_train(self, folders, model_file_name, model_name = 'vgg', resize_ratio=1, maxw=1000000, maxh=1000000):
+    def load_folders_and_train(self,
+                               folders,
+                               model_file_name,
+                               model_name = 'vgg',
+                               resize_ratio=1,
+                               maxw=1000000,
+                               maxh=1000000,
+                               width_shift=0,
+                               height_shift=0):
         """
         Load the data, train the model, and validate it.
         This can be used to load multiple folders together, to help better migrate from an old data set to a new one.
@@ -50,6 +58,8 @@ class ImageClassifier:
         :param resize_ratio Whether to resize the image with a given ratio, ratio should be bigger or equal to 1
         :param maxw The maximum resize with, if samples are smaller then this will be changed.
         :param maxh The maximum resize height, if samples are smaller then this will be changed.
+        :param width_shift The random shift range for image width.
+        :param height_shift The random shift range for image height.
         :return:
         """
         for folder in folders:
@@ -66,7 +76,10 @@ class ImageClassifier:
         if model_name == 'vgg':
             self.define_smaller_vgg_model()
 
-        self.train(32, 8)
+        if width_shift == 0 and height_shift == 0:
+            self.train(32, 8)
+        else:
+            self.train_with_generator(batch_size=32, epochs=8, width_shift=width_shift, height_shift=height_shift)
         self.save_model(model_file_name)
         #self.load_model(model_file_name)
         self.evaluate()
@@ -326,11 +339,21 @@ class ImageClassifier:
 
         self.model = model
 
+    def train(self, batch_size=50, epochs=50):
+        self.model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
+        self.model.fit(self.x_train, self.y_train, batch_size=batch_size, epochs=epochs, verbose=1)
 
-    def train(self, batch_size = 50, epochs = 50):
+    def train_with_generator(self, batch_size=0, epochs=50, width_shift=0, height_shift=0):
+        data_generator = ImageDataGenerator(
+            width_shift_range=width_shift,
+            height_shift_range=height_shift)
+        data_generator.fit(self.x_train)
 
         self.model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
-        self.model.fit(self.x_train, self.y_train, batch_size = batch_size, epochs = epochs, verbose = 1)
+
+        self.model.fit_generator(data_generator.flow(self.x_train, self.y_train, batch_size=batch_size),
+                                 steps_per_epoch=len(self.x_train),
+                                 epochs=epochs)
 
     def evaluate(self):
         loss, acc = self.model.evaluate(self.x_test, self.y_test, verbose=1)

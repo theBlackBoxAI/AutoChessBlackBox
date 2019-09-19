@@ -163,7 +163,7 @@ class Game:
                 hero = game_state.store.heroes[i]
                 if hero is None:
                     continue
-                folder_name = 'D:/Python/AutoChessTrainingData/HeroInStore_v2/' + hero.name
+                folder_name = 'D:/Python/AutoChessTrainingData/HeroInStore_v3/' + hero.name
                 if not os.path.exists(folder_name):
                     os.mkdir(folder_name)
                     print("New folder created: " + folder_name)
@@ -184,7 +184,7 @@ class Game:
                 hero_name = hand.heroes[i].name + '_' + str(hand.heroes[i].level)
             else:
                 continue
-            folder_name = 'D:/Python/AutoChessTrainingData/HeroInHand_v2/' + hero_name
+            folder_name = 'D:/Python/AutoChessTrainingData/HeroInHand_v3/' + hero_name
             if not os.path.exists(folder_name):
                 os.mkdir(folder_name)
                 print("New folder created: " + folder_name)
@@ -205,7 +205,7 @@ class Game:
             hero_name = 'Empty'
             if game_state.store.heroes[i]:
                 hero_name = game_state.store.heroes[i].name + '_1'
-            folder_name = 'D:/Python/AutoChessTrainingData/HeroInHand_v2/' + hero_name
+            folder_name = 'D:/Python/AutoChessTrainingData/HeroInHand_v3/' + hero_name
             if not os.path.exists(folder_name):
                 os.mkdir(folder_name)
                 print("New folder created: " + folder_name)

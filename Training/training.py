@@ -79,4 +79,6 @@ def run_training_hero():
         model_name='vgg',
         resize_ratio=1,
         maxh=115,
-        maxw=119)
+        maxw=119,
+        width_shift=20,
+        height_shift=20)
