@@ -56,7 +56,7 @@ def run_data_collector():
 
 
 if __name__ == '__main__':
-    #run_game_with_buy_one_hero_on_board_bot()
+    run_game_with_buy_one_hero_on_board_bot()
     #run_observation_game_with_bluestack()
     #run_data_collector()
-    training.run_training_hero()
+    #training.run_training_hero()

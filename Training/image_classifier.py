@@ -352,7 +352,7 @@ class ImageClassifier:
         self.model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
 
         self.model.fit_generator(data_generator.flow(self.x_train, self.y_train, batch_size=batch_size),
-                                 steps_per_epoch=len(self.x_train),
+                                 steps_per_epoch=len(self.x_train) / batch_size * 5,
                                  epochs=epochs)
 
     def evaluate(self):

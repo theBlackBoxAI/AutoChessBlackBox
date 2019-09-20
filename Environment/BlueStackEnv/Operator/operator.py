@@ -1,4 +1,5 @@
 import time
+import math
 import pyautogui
 
 OPERATION_INTERVAL = 1
@@ -98,9 +99,14 @@ class Operator:
 
     @staticmethod
     def drag(position1, position2):
-        #drag_time = (position1[0] - position2[0])**2 + (position1[1] - position2[1])**2
+        drag_distance = math.sqrt((position1[0] - position2[0])**2 + (position1[1] - position2[1])**2)
+        drag_time = 1
+        if drag_distance < 1000:
+            drag_time = drag_distance / 1000
+        if drag_time < 0.3:
+            drag_time = 0.3
         pyautogui.moveTo(position1[0], position1[1])
-        pyautogui.dragTo(position2[0], position2[1], 1)
+        pyautogui.dragTo(position2[0], position2[1], drag_time)
         time.sleep(OPERATION_INTERVAL)
 
     @staticmethod

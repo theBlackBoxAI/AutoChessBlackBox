@@ -255,6 +255,7 @@ class BlueStackEnv(Environment):
         Return the current turn, if not found, return None
         :return:
         """
+        #self.grab_round_image().show()
         images = DataProcessor.extract_round_digit(self.grab_round_image())
         current_round = self.convert_img_digit_to_number(images)
         return current_round

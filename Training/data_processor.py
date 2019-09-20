@@ -106,8 +106,9 @@ class DataProcessor:
         for c in cnts:
             # compute the bounding box of the contour
             (x, y, w, h) = cv2.boundingRect(c)
+            #print(x, y, w, h)
             # Throw away the last two characters '回合'
-            if w >= 20:
+            if w < 5 or w >= 20 or h < 20 or h > 35:
                 continue
             #print(x, y, w, h)
             digit_img = img[y:y+h, x:x+w]

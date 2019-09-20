@@ -26,6 +26,7 @@ class BuyOneHeroOnBoardBot:
         self.base_hero = self.hero_factory.get_hero_by_name(self.hero_name, 1)
         self.rotate_on_update_only = rotate_on_update_only
         self.level_up_times = 0
+        self.move_to_board_times = 0
 
         self.is_game_started = False
         print('Start bot. Current hero:' + self.hero_name)
@@ -39,6 +40,7 @@ class BuyOneHeroOnBoardBot:
         self.base_hero = self.hero_factory.get_hero_by_name(self.hero_name, 1)
         self.hand = Hand()
         self.level_up_times = 0
+        self.move_to_board_times = 0
 
         print('Reset bot state. Current hero:' + self.hero_name)
 
@@ -131,12 +133,17 @@ class BuyOneHeroOnBoardBot:
                     actions.append(Action('wait', 5))
                 return actions
             else:
-                actions.extend(self.move_hero_to_board(0))
+                if self.move_to_board_times == 0:
+                    actions.extend(self.move_hero_to_board(0))
                 return actions
 
         actions.append(Action('upgrade_hero_in_hand', upgrade_position))
         self.hand.upgrade_hero(upgrade_position)
         self.level_up_times = self.level_up_times + 1
+
+        if self.move_to_board_times == 1:
+            actions.extend(self.move_hero_to_board(0))
+        return actions
 
         new_upgrade_position = self.hand.can_hero_upgrade()
 
@@ -181,6 +188,7 @@ class BuyOneHeroOnBoardBot:
         return actions
 
     def move_hero_to_board(self, position=0):
+        self.move_to_board_times = self.move_to_board_times + 1
         return [Action('move_hero_from_hand_to_board', [position, (0, 0)])]
 
     def move_hero_from_board(self, position=0):
@@ -198,7 +206,7 @@ class BuyOneHeroOnBoardBot:
             new_y = 0
             new_x = new_x + 1
 
-        if new_x >= 5:
+        if new_x >= 4:
             new_x = 0
 
         return [new_x, new_y]
