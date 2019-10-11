@@ -14,8 +14,8 @@ class BuyOneHeroOnBoardBot:
         self.hero_factory = HeroFactory()
         self.hero_names = hero_names
         if self.hero_names is None:
-            self.hero_names = self.hero_factory.get_all_hero_names(quality='Common')
-            self.hero_names.extend(self.hero_factory.get_all_hero_names(quality='Uncommon'))
+            self.hero_names = self.hero_factory.get_all_hero_names(quality='Legendary')
+            self.hero_names.extend(self.hero_factory.get_all_hero_names(quality='Mythical'))
             random.shuffle(self.hero_names)
 
         self.hero_index = 0

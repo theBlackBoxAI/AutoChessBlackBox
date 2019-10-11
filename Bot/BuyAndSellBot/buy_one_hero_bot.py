@@ -103,15 +103,12 @@ class BuyOneHeroBot:
         if len(actions) == 0:
             actions.append(Action('wait', 5))
             return actions
-        else:
-            actions.insert(0, Action('log_hero_in_store'))
         # Allow the game to log the heroes in hand before upgrade.
         actions.append(Action('log_hero_in_hand', copy.deepcopy(self.hand)))
 
         upgrade_position = self.hand.can_hero_upgrade()
         if upgrade_position is None:
-            if len(actions) == 0:
-                actions.append(Action('wait', 5))
+            actions.extend(self.rotate_actions(0))
             return actions
         actions.append(Action('upgrade_hero_in_hand', upgrade_position))
         self.hand.upgrade_hero(upgrade_position)

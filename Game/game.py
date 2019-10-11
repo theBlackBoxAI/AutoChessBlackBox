@@ -126,8 +126,8 @@ class Game:
                         self.log_hero_in_hand(action.param)
                         continue
                     if action.name == 'log_hero_in_store':
-                        self.env.grab_current_screenshot()
-                        self.log_hero_in_store(game_state)
+                        #self.env.grab_current_screenshot()
+                        #self.log_hero_in_store(game_state)
                         continue
                     if action.name == 'log_hero_on_board':
                         self.env.grab_current_screenshot()

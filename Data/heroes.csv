@@ -17,6 +17,9 @@ Name, Level, Quality, HP, ATK, Armor, ATK Speed, Magic Resistant, ATK Range, Rac
 不眠游侠, 1, Common, 400, 47, 5, 1.3, 0, 4, Egersis, , Hunter
 不眠游侠, 2, Common, 800, 95, 5, 1.3, 0, 4, Egersis, , Hunter
 不眠游侠, 3, Common, 1600, 190, 5, 1.3, 0, 4, Egersis, , Hunter
+冰蝠, 1, Common, 550, 47, 0, 1.4, 0.1, 4, Dragon, , Mage
+冰蝠, 2, Common, 1100, 95, 0, 1.4, 0.1, 4, Dragon, , Mage
+冰蝠, 3, Common, 2200, 190, 0, 1.4, 0.1, 4, Dragon, , Mage
 追踪者, 1, Common, 550, 60, 5, 1.0, 0, 1, Goblin, , Assassin
 追踪者, 2, Common, 1100, 120, 5, 1.0, 0, 1, Goblin, , Assassin
 追踪者, 3, Common, 2200, 240, 5, 1.0, 0, 1, Goblin, , Assassin

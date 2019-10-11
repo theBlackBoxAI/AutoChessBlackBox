@@ -1,5 +1,7 @@
 from GameBasic.hero_factory import HeroFactory
 
+EXP_DIC = {1: 1, 2: 1, 3: 2, 4: 4, 5: 8, 6: 16, 7: 24, 8: 32, 9: 40}
+
 
 class GameState:
     def __init__(self):
@@ -18,6 +20,11 @@ class GameState:
         self.in_battle = False
 
         self.battle_record = []
+
+    def can_level_up(self):
+        if (EXP_DIC[self.level] - self.exp + 3) / 4 * 5 <= self.money:
+            return True
+        return False
 
     def print(self):
         if self.is_active:
@@ -75,6 +82,12 @@ class Hand:
         self.hero_factory = HeroFactory()
         self.heroes = [None, None, None, None, None, None, None, None]
         self.upgrade_state = [False, False, False, False, False, False, False, False]
+
+    def has_empty_space(self):
+        for hero in self.heroes:
+            if hero is None:
+                return True
+        return False
 
     def add_hero(self, hero):
         for index in range(len(self.heroes)):
