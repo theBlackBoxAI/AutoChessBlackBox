@@ -175,7 +175,7 @@ class DataCollector:
             heroes = self.env.get_heroes_in_hand()
             screenshot_hero = zip(heroes_screenshot, heroes)
             for screenshot, hero in screenshot_hero:
-                folder_name = 'D:/Python/AutoChessTrainingData/HeroInHand_v3/undefined'
+                folder_name = 'D:/Python/AutoChessTrainingData/HeroInHand_v2/undefined'
                 if not os.path.exists(folder_name):
                     os.mkdir(folder_name)
                     print("New folder created: " + folder_name)

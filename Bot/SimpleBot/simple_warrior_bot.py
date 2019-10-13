@@ -58,6 +58,8 @@ class SimpleWarriorBot:
             return True
         if game_state.level < 8 and game_state.round >= 21:
             return True
+        if game_state.level <= 9 and game_state.money >= 60:
+            return True
         return False
 
     def level_up(self, game_state):
@@ -82,8 +84,8 @@ class SimpleWarriorBot:
         return actions
 
     def can_buy_heroes(self, game_state):
-        if not game_state.hand.has_empty_space():
-            return False
+        #if not game_state.hand.has_empty_space():
+        #    return False
         return True
 
     def buy_heroes(self, game_state):
@@ -97,13 +99,14 @@ class SimpleWarriorBot:
         for i in range(5):
             hero = game_state.store.heroes[i]
             if hero is not None:
-                if hero.hero_class == 'Warrior':
+                if hero.hero_class == 'Warrior' and  hero.name != '沉沦守卫':
                     actions.append(Action('recruit', i))
-                    return actions
         return actions
 
     def need_reroll(self, game_state):
         if game_state.money > 55:
+            return True
+        if game_state.level == 10:
             return True
         return False
 

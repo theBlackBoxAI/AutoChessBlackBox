@@ -20,7 +20,7 @@ LOCK_STORE_POSITION = (290, 670)
 REROLL_STORE_POSITION = (2250, 670)
 
 START_GAME_POSITION = (2200, 1200)
-LEAVE_GAME_POSITION = [(1280, 1100), (1065, 1266), (1500, 950)]
+LEAVE_GAME_POSITION = [(1280, 1100), (1065, 1266), (1500, 950), (2215, 315)]
 
 
 class Operator:
@@ -120,9 +120,8 @@ class Operator:
 
     @staticmethod
     def leave_game():
-        Operator.click(LEAVE_GAME_POSITION[0])
-        Operator.click(LEAVE_GAME_POSITION[1])
-        Operator.click(LEAVE_GAME_POSITION[2])
+        for position in LEAVE_GAME_POSITION:
+            Operator.click(position)
 
     @staticmethod
     def click_store():

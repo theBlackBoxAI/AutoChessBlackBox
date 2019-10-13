@@ -49,23 +49,23 @@ def run_game_with_buy_one_hero_on_board_bot():
 def run_game_with_warrior_bot():
     game = Game(BlueStackEnv())
     game.install_bot(SimpleWarriorBot())
-    #game.toggle_debug_mode(True)
+    game.toggle_debug_mode(True)
     game.start_game()
 
 
 def run_data_collector():
     #data_collector = DataCollector()
-    data_collector = DataCollector(ScreenshotEnv('D:/AutoChess/1570673118.7648554'))
+    data_collector = DataCollector(ScreenshotEnv('D:/AutoChess/1570985683.5465295'))
     #data_collector.annotate_hero_in_store()
-    data_collector.screenshot_hero_in_store()
+    #data_collector.screenshot_hero_in_store()
     #data_collector.full_screen_screenshot()
     #data_collector.screenshot_battle_state()
-    #data_collector.screenshot_hero_in_hand()
+    data_collector.screenshot_hero_in_hand()
     #data_collector.screenshot_hero_on_board()
 
 
 if __name__ == '__main__':
-    run_game_with_warrior_bot()
-    #run_observation_game_with_bluestack()
+    #run_game_with_warrior_bot()
+    run_observation_game_with_bluestack()
     #run_data_collector()
-    #training.run_training_hero_in_store()
+    #training.run_training_hero()
